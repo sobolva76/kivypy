@@ -1,0 +1,35 @@
+<MyGridLayout>:
+    coll: 3
+    rows: 3
+    spacing: 10
+
+    Label:
+        text: "Лабел GridLayout"
+        color: .2, 1, 1, 1
+
+    Button:
+        text: "Кнопка GL"
+        color: 0, 0, 1, 1
+
+    Button:
+        text: "Кнопка GL2"
+        color: 0, 0, 1, 1
+
+    MyBoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: label
+            text: "Мой виджет"
+            color: .3, .3, .3, 1
+            pos: 100, 500
+            font_size: 24
+
+        Button:
+            text: "Кнопка"
+            pos: 100, 100
+            size: 140, 70
+            color: .5, .7, 0, 1
+            background_color: 0, 1, 1, 1
+            font_size: 24
+            on_press: print("Распечатка из kv")
+            on_press: print(label.text)
