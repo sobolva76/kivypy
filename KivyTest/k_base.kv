@@ -1,0 +1,139 @@
+<MyGridLayout>:
+    cols: 3
+    rows: 3
+
+    MyBoxLayout:
+        id: boxlay
+        orientation: 'vertical'
+
+        Label:
+            id: mylabel
+            text: "Базовый для kivy"
+
+        Button:
+            text: "Жми"
+            color: 0, 1, 1, 1
+            background_color: 0, 1, 0, 1
+            on_press: boxlay.printMe(mylabel.text)
+
+    CanvasWidget:
+        canvas:
+            Color:
+                rgba: 0, 0, 1, 1
+
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: 100, 100, 100, 100
+
+    MyTextInput:
+        title: "ВВод текста"
+        auto_dismiss: False
+        id: textinp
+
+        BoxLayout:
+            orientation: 'vertical'
+            pos: self.pos
+            size: self.size
+            id: rellay
+
+            TextInput:
+                id: input
+                hint_text: "Введите текст"
+                pos_hint: {'center_x': 0.95, 'center_y': 0.95}
+                size_hint: 0.95, 0.95
+                on_text: app.process()
+
+    CheckBoxLayout:   
+        id: chbox
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_x: 0.22
+
+            Label:
+                text: "ХА"
+                size_hint_x: 0.80
+                font_size: 30
+            CheckBox:
+                color: 0.281, 0.768, 0.345
+                on_active: chbox.checkbox_click(self, self.active)
+                size_hint_x: 0.20
+
+            Label:
+                text: "НЕ"
+                size_hint_x: 0.80
+                font_size: 20
+            CheckBox:
+                on_active: chbox.checkbox_click(self, self.active)
+                size_hint_x: 0.20
+
+            Label:
+                text: "ИЛИ"
+                size_hint_x: 0.80
+                font_size: 10
+            CheckBox:
+                on_active: chbox.checkbox_click(self, self.active)
+                size_hint_x: 0.20
+
+    MySwitch:
+        rows: 4
+        id: swit 
+
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+
+            Label:
+                text: "НОрмальный"
+
+            Switch:
+                active: False
+                on_active: swit.switch_callback(self, self.active)
+
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+
+            Label:
+                text: "Включенный"
+
+            Switch:
+                active: True
+                on_active: swit.switch_callback(self, self.active)
+
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+
+            Label:
+                text: "Выключен и скрыт"
+
+            Switch:
+                active: False
+                disabled: True
+
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+
+            Label:
+                text: "Включен и скрыт"
+
+            Switch:
+                active: True
+                disabled: True
+
+    MySpiner:
+        id: mspiner
+
+        Spinner:
+            id: spiner_id
+            on_text: mspiner.spiner_clicked(spiner_id.text)
+            text: "Python"
+            values: ["Python", "Java", "C++", "C", "C#", "PHP"]
+            size_hint: None, None
+            size: 200, 50
+            pos_hint: {'center_x': 0.5, 'top': 1}
+        
+                   
