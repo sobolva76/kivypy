@@ -1,6 +1,7 @@
 from kivy.app import App
 
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
 
 from kivy.config import Config
 Config.set('graphics', 'resizable', True)
@@ -30,8 +31,8 @@ class MainWindow(BoxLayout):
 
 class K_buttonApp(App):
     def build(self):
-        return BaseLayout()
-        #return MainWindow()
+        #return BaseLayout()
+        return MainWindow()
      
 
 if __name__ == '__main__':
