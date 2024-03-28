@@ -1,0 +1,76 @@
+<Background>:
+    id: main_win
+    orientation: 'horizontal'
+    spacing: 10
+    space_x: self.size[0]/3
+
+    canvas.before:
+        Color: 
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            source: 'civy.png'
+            size: root.width, root.height
+            pos: self.pos
+
+    SliderWidget:
+        Slider:
+            orientation: 'vertical'
+            min: 0
+            max: 100
+            value: 0
+            on_value: label1.text = str(int(self.value))
+
+        Label:
+            id: label1
+            font_size: '30sp'
+            text: "0"
+            color: 1, 0, 0, 1
+
+        Slider:
+            orientation: 'horizontal'
+            min: 0
+            max: 100
+            value: 30
+            on_value: label2.text = str(int(self.value))
+
+        Label:
+            id: label2
+            font_size: '30sp'
+            text: "30"
+            color: 1, 0, 0, 1
+        
+    ProgBar:
+        orientation: 'vertical'
+
+        canvas:
+            Color: 
+                rgb: 0.28, 0.45, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Прогрессбар"
+            color: 0.5, 1, 0
+            markup: True
+
+        ProgressBar:
+            value: 0.25
+            min: 0
+            max: 1
+            pos_hint: {'x': 0.1}
+            size_hint_x: 0.8
+
+    ExampleViewer:
+        viewclass: 'Button'
+        orientation: 'vertical'
+        spacing: 40
+        padding: 10, 10
+        space_x: self.size[0]/3
+
+        RecycleBoxLayout:
+            color: (0, 0.7, 0.4, 0.8)
+            default_size: None, dp(56)
+            default_size_hint: 0.4, None
+            height: self.minimum_height
+            orientation: 'vertical'
