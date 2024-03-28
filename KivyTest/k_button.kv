@@ -1,0 +1,90 @@
+<BaseLayout>:
+    id: base
+    canvas.before:
+        Color: 
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            source: 'piks/kivy.png'
+            pos: self.pos
+            size: self.size
+
+    GridLayout:
+        rows: 3
+
+        Button:
+            text: "Color"
+            background_color: 0.1, 0.5, 0.7, 1
+
+        Button:
+            text: "Default"
+            background_color: 1, 1, 1, 1  
+            disabled: True
+
+        Button:
+            text: "pos_hint"
+            size_hint: 0.3, 0.3
+            pos_hint: {'x': 0, 'top': 1}    
+
+        Button:
+            text: "pos"
+            background_color: 0.4, 0.5, 0.6, 0.5
+            size_hint: 0.3, 0.3
+            pos: 100, 100
+
+        ToggleButton:
+            text: "ToggleButton1"
+            group: 'geometri'
+
+        ToggleButton:
+            text: "ToggleButton2"
+            group: 'geometri'
+
+        Button:
+            text: "Button+img"
+            background_normal: 'piks/normal.png'
+            background_down: 'piks/down.png'
+            on_press: base.say_Hello() 
+
+        FloatLayout:    
+            Button:
+                text: "border"
+                background_normal: 'piks/normal.png'
+                background_down: 'piks/down.png'
+                border: 10, 10, 10, 10
+                background_color: 0.1, 0.5, 0.6, 1
+                size_hint: 0.3, 0.3
+                pos_hint: {'x': 0.3, 'y': 0.3}   
+
+    MainWindow:
+        id: mwin
+        FloatButton:
+            id: cta
+            text: "+"
+            markup: True
+            background_color: 1, 0, 1, 0
+
+<FloatButton@FloatLayout>:
+    id: float_root
+    size_hint: (None, None)
+    text: ''
+    btn_size: (70, 70)
+    size: (70, 70)
+    bg_color: (0.4, 0.335, 0.28, 1)
+    pos_hint: {'x': 0.6}
+
+    Button:
+        text: float_root.text
+        markup: True
+        font_size: 40
+        size_hint: (None, None)
+        size: float_root.btn_size
+        pos_hint: {'x': 5.5, 'y': 3.5}
+        background_normal: ''
+        background_color: (0, 0, 0, 0)
+        canvas.before:
+            Color:
+                rgba: (0.404, 0.525, 0.741, 1)
+            Ellipse:
+                size: self.size
+                pos: self.pos
+                        
