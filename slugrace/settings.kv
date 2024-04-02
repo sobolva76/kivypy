@@ -2,39 +2,77 @@
 
 <SettingsScreen>:
     orientation: 'vertical'
+    padding: 10
+    spacing: 10
 
     ### Настройки ###
     Label:
         text: "Настройки"
         font_size: 28
+        size_hint: 1, None
+        height: dp(30)
+        text_size: self.size
+        halign: 'left'
+        valign: 'center'
 
     ### Игрок ###
     BoxLayout:
         orientation: 'vertical'
+        padding: 10
+        spacing: 10
         
         Label:
             text: "Колличество игроков"
+            font_size: 20
+            size_hint: 1, None
+            height: 30
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
 
         BoxLayout:
-            CheckBox:
-                group: 'players'
-            Label:
-                text: "1 Игрок"
-                
-            CheckBox:
-                group: 'players'
-            Label:
-                text: "2 Игрока"
+            size_hint: .4, None
+            height: 50
 
-            CheckBox:
-                group: 'players'
-            Label:
-                text: "3 Игрока"
+            BoxLayout:
+                CheckBox:
+                    group: 'players'
+                    size_hint: .5, 1
+                Label:
+                    text: "1 Игрок"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
 
-            CheckBox:
-                group: 'players'
-            Label:
-                text: "4 Игрока"
+            BoxLayout:
+                CheckBox:
+                    group: 'players'
+                    size_hint: .5, 1
+                Label:
+                    text: "2 Игрока"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+
+            BoxLayout:
+                CheckBox:
+                    group: 'players'
+                    size_hint: .5, 1
+                Label:
+                    text: "3 Игрока"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+
+            BoxLayout:
+                CheckBox:
+                    group: 'players'
+                    size_hint: .5, 1
+                Label:
+                    text: "4 Игрока"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
 
         BoxLayout:
             orientation: 'vertical'
@@ -42,92 +80,231 @@
             BoxLayout:
                 Label:
                     text: ""
+                    size_hint_x: None
+                    width: dp(80)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
                 Label:
                     text: "Имя"
+                    size_hint_x: None
+                    width: dp(700)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
                 Label: 
                     text: "Начальный капитал"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
             # Первый игрок
             BoxLayout:
                 Label:
                     text: "Игрок № 1"
+                    size_hint: None, None
+                    width: dp(80)
+                    height: dp(30)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
                 TextInput:
                     multiline: False
+                    size_hint: None, None
+                    width: dp(400)
+                    height: dp(30)
                 BoxLayout:
                     Label:
                         text: ""
+                        size_hint_x: None
+                        width: dp(280)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     Label:
                         text: "$"
+                        size_hint: None, None
+                        width: dp(20)
+                        height: dp(30)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     TextInput:
                         multiline: False
+                        size_hint: None, None
+                        width: dp(250)
+                        height: dp(30)
             # Второй игрок
             BoxLayout:
                 Label:
                     text: "Игрок № 2"
+                    size_hint: None, None
+                    width: dp(80)
+                    height: dp(30)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
                 TextInput:
                     multiline: False
+                    size_hint: None, None
+                    width: dp(400)
+                    height: dp(30)
                 BoxLayout:
                     Label:
                         text: ""
+                        size_hint_x: None
+                        width: dp(280)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     Label:
                         text: "$"
+                        size_hint: None, None
+                        width: dp(20)
+                        height: dp(30)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     TextInput:
                         multiline: False
+                        size_hint: None, None
+                        width: dp(250)
+                        height: dp(30)
             # Третий игрок
             BoxLayout:
                 Label:
                     text: "Игрок № 3"
+                    size_hint: None, None
+                    width: dp(80)
+                    height: dp(30)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
                 TextInput:
                     multiline: False
+                    size_hint: None, None
+                    width: dp(400)
+                    height: dp(30)
                 BoxLayout:
                     Label:
                         text: ""
+                        size_hint_x: None
+                        width: dp(280)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     Label:
                         text: "$"
+                        size_hint: None, None
+                        width: dp(20)
+                        height: dp(30)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     TextInput:
                         multiline: False
+                        size_hint: None, None
+                        width: dp(250)
+                        height: dp(30)
             # Четвертый игрок
             BoxLayout:
                 Label:
                     text: "Игрок № 4"
+                    size_hint: None, None
+                    width: dp(80)
+                    height: dp(30)
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
                 TextInput:
                     multiline: False
+                    size_hint: None, None
+                    width: dp(400)
+                    height: dp(30)
                 BoxLayout:
                     Label:
                         text: ""
+                        size_hint_x: None
+                        width: dp(280)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     Label:
                         text: "$"
+                        size_hint: None, None
+                        width: dp(20)
+                        height: dp(30)
+                        text_size: self.size
+                        halign: 'left'
+                        valign: 'center'
                     TextInput:
                         multiline: False
+                        size_hint: None, None
+                        width: dp(250)
+                        height: dp(30)
                     
 
     ### Условия окончания игры ###
-    Label:
-        text: "Условия окончания игры"
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, .4
+        padding: 10
+        spacing: 10
 
-    GridLayout:
-        row: 3
-
-        CheckBox:
-            group: 'conditions'
         Label:
-            text: "Игра заканчивается, когда деньги остаются у одного игрока"
+            text: "Условия окончания игры"
+            font_size: 20
+            size_hint: 1, None
+            height: 30
+            text_size: self.size
+            halign: 'left'
+            valign: 'center'
 
-        CheckBox:
-            group: 'conditions'
-        BoxLayout:
-            Label:
-                text: "Игра длиться указанное колличество гонок"
-            TextInput:
-                multiline: False
+        GridLayout:
+            rows: 3
 
-        CheckBox:
-            group: 'conditions'
-        BoxLayout:
+            CheckBox:
+                group: 'conditions'
+                size_hint_x: .05
             Label:
-                text: "Игра длиться указанное время"
-            TextInput:
-                multiline: False
+                text: "Игра заканчивается, когда деньги остаются у одного игрока"
+                text_size: self.size
+                halign: 'left'
+                valign: 'center'
+
+            CheckBox:
+                group: 'conditions'
+                size_hint_x: .05
+
+            BoxLayout:
+                Label:
+                    text: "Игра длиться указанное колличество гонок"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+                TextInput:
+                    multiline: False
+                    size_hint: None, None
+                    width: 250
+                    height: 30
+
+            CheckBox:
+                group: 'conditions'
+                size_hint_x: .05
+            BoxLayout:
+                Label:
+                    text: "Игра длиться указанное время"
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+                TextInput:
+                    multiline: False
+                    size_hint: None, None
+                    width: 250
+                    height: 30
             
     ### Готово (принять) ###
     Button:
         text: "Готово"
+        size_hint: None, None
+        size: 200, 40
+        pos_hint: {'center_x': 0.5}
