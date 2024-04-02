@@ -1,6 +1,6 @@
 # File name: settings.kv
 
-<BoxLayout>:
+<SettingsScreen>:
     orientation: 'vertical'
 
     ### Настройки ###
@@ -9,13 +9,125 @@
         font_size: 28
 
     ### Игрок ###
-    Label:
-        text: "Игроки"
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: "Колличество игроков"
+
+        BoxLayout:
+            CheckBox:
+                group: 'players'
+            Label:
+                text: "1 Игрок"
+                
+            CheckBox:
+                group: 'players'
+            Label:
+                text: "2 Игрока"
+
+            CheckBox:
+                group: 'players'
+            Label:
+                text: "3 Игрока"
+
+            CheckBox:
+                group: 'players'
+            Label:
+                text: "4 Игрока"
+
+        BoxLayout:
+            orientation: 'vertical'
+
+            BoxLayout:
+                Label:
+                    text: ""
+                Label:
+                    text: "Имя"
+                Label: 
+                    text: "Начальный капитал"
+            # Первый игрок
+            BoxLayout:
+                Label:
+                    text: "Игрок № 1"
+                TextInput:
+                    multiline: False
+                BoxLayout:
+                    Label:
+                        text: ""
+                    Label:
+                        text: "$"
+                    TextInput:
+                        multiline: False
+            # Второй игрок
+            BoxLayout:
+                Label:
+                    text: "Игрок № 2"
+                TextInput:
+                    multiline: False
+                BoxLayout:
+                    Label:
+                        text: ""
+                    Label:
+                        text: "$"
+                    TextInput:
+                        multiline: False
+            # Третий игрок
+            BoxLayout:
+                Label:
+                    text: "Игрок № 3"
+                TextInput:
+                    multiline: False
+                BoxLayout:
+                    Label:
+                        text: ""
+                    Label:
+                        text: "$"
+                    TextInput:
+                        multiline: False
+            # Четвертый игрок
+            BoxLayout:
+                Label:
+                    text: "Игрок № 4"
+                TextInput:
+                    multiline: False
+                BoxLayout:
+                    Label:
+                        text: ""
+                    Label:
+                        text: "$"
+                    TextInput:
+                        multiline: False
+                    
 
     ### Условия окончания игры ###
     Label:
         text: "Условия окончания игры"
 
+    GridLayout:
+        row: 3
+
+        CheckBox:
+            group: 'conditions'
+        Label:
+            text: "Игра заканчивается, когда деньги остаются у одного игрока"
+
+        CheckBox:
+            group: 'conditions'
+        BoxLayout:
+            Label:
+                text: "Игра длиться указанное колличество гонок"
+            TextInput:
+                multiline: False
+
+        CheckBox:
+            group: 'conditions'
+        BoxLayout:
+            Label:
+                text: "Игра длиться указанное время"
+            TextInput:
+                multiline: False
+            
     ### Готово (принять) ###
     Button:
         text: "Готово"

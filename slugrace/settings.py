@@ -5,9 +5,13 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 
 
+class SettingsScreen(BoxLayout):
+    pass
+
+
 class SettingsApp(App):
     def build(self):
-        return BoxLayout()
+        return SettingsScreen()
     
 
 if __name__ == '__main__':
