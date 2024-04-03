@@ -1,4 +1,43 @@
-# File name: settings.kv
+### File name: settings.kv
+
+<RegularLabel@Label>:
+    text_size: self.size
+    halign: 'left'
+    valign: 'center'
+
+<Regular80x30Label@RegularLabel>:
+    size_hint: None, None
+    width: 80
+    height: 30
+
+<DollarLabel@Regular80x30Label>:
+    text: "$"
+    width: 20
+
+<TitleLabel@RegularLabel>:
+    font_size: 20
+    size_hint: (1, None)
+    height: 30
+
+<NameInput@TextInput>:
+    multiline: False
+    size_hint: None, None
+    height: 30
+    width: 400
+
+<NumInput@TextInput>:
+    multiline: False
+    size_hint: None, None
+    height: 30
+    width: 250
+
+<PlayerRadioButton@CheckBox>:
+    group: 'players'
+    size_hint: (.5, 1)
+
+<ConditionRadioButton@CheckBox>
+    group: 'conditions'
+    size_hint_x: .05
 
 <SettingsScreen>:
     orientation: 'vertical'
@@ -6,14 +45,9 @@
     spacing: 10
 
     ### Настройки ###
-    Label:
+    TitleLabel:
         text: "Настройки"
         font_size: 28
-        size_hint: 1, None
-        height: dp(30)
-        text_size: self.size
-        halign: 'left'
-        valign: 'center'
 
     ### Игрок ###
     BoxLayout:
@@ -21,227 +55,118 @@
         padding: 10
         spacing: 10
         
-        Label:
+        TitleLabel:
             text: "Колличество игроков"
             font_size: 20
-            size_hint: 1, None
-            height: 30
-            text_size: self.size
-            halign: 'left'
-            valign: 'center'
 
         BoxLayout:
             size_hint: .4, None
             height: 50
 
             BoxLayout:
-                CheckBox:
-                    group: 'players'
-                    size_hint: .5, 1
-                Label:
+                PlayerRadioButton:
+                RegularLabel:
                     text: "1 Игрок"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
 
             BoxLayout:
-                CheckBox:
-                    group: 'players'
-                    size_hint: .5, 1
-                Label:
+                PlayerRadioButton:
+                RegularLabel:
                     text: "2 Игрока"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
 
             BoxLayout:
-                CheckBox:
-                    group: 'players'
-                    size_hint: .5, 1
-                Label:
+                PlayerRadioButton:
+                RegularLabel:
                     text: "3 Игрока"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
 
             BoxLayout:
-                CheckBox:
-                    group: 'players'
-                    size_hint: .5, 1
-                Label:
+                PlayerRadioButton:
+                RegularLabel:
                     text: "4 Игрока"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
 
         BoxLayout:
             orientation: 'vertical'
 
             BoxLayout:
-                Label:
+                RegularLabel:
                     text: ""
                     size_hint_x: None
                     width: dp(80)
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                Label:
+                
+                RegularLabel:
                     text: "Имя"
                     size_hint_x: None
                     width: dp(700)
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                Label: 
+                    
+                RegularLabel: 
                     text: "Начальный капитал"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
+                    
             # Первый игрок
             BoxLayout:
-                Label:
+                Regular80x30Label:
                     text: "Игрок № 1"
-                    size_hint: None, None
-                    width: dp(80)
-                    height: dp(30)
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                TextInput:
-                    multiline: False
-                    size_hint: None, None
-                    width: dp(400)
-                    height: dp(30)
+
+                NameInput:
+
                 BoxLayout:
-                    Label:
+                    RegularLabel:
                         text: ""
                         size_hint_x: None
                         width: dp(280)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    Label:
-                        text: "$"
-                        size_hint: None, None
-                        width: dp(20)
-                        height: dp(30)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    TextInput:
-                        multiline: False
-                        size_hint: None, None
-                        width: dp(250)
-                        height: dp(30)
+
+                    DollarLabel:
+                        
+                    NumInput:
+                        
             # Второй игрок
             BoxLayout:
-                Label:
+                Regular80x30Label:
                     text: "Игрок № 2"
-                    size_hint: None, None
-                    width: dp(80)
-                    height: dp(30)
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                TextInput:
-                    multiline: False
-                    size_hint: None, None
-                    width: dp(400)
-                    height: dp(30)
+                    
+                NameInput:
+
                 BoxLayout:
-                    Label:
+                    RegularLabel:
                         text: ""
                         size_hint_x: None
                         width: dp(280)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    Label:
-                        text: "$"
-                        size_hint: None, None
-                        width: dp(20)
-                        height: dp(30)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    TextInput:
-                        multiline: False
-                        size_hint: None, None
-                        width: dp(250)
-                        height: dp(30)
+                        
+                    DollarLabel:
+                        
+                    NumInput:
+                        
             # Третий игрок
             BoxLayout:
-                Label:
+                Regular80x30Label:
                     text: "Игрок № 3"
-                    size_hint: None, None
-                    width: dp(80)
-                    height: dp(30)
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                TextInput:
-                    multiline: False
-                    size_hint: None, None
-                    width: dp(400)
-                    height: dp(30)
+                    
+                NameInput:
+
                 BoxLayout:
-                    Label:
+                    RegularLabel:
                         text: ""
                         size_hint_x: None
                         width: dp(280)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    Label:
-                        text: "$"
-                        size_hint: None, None
-                        width: dp(20)
-                        height: dp(30)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    TextInput:
-                        multiline: False
-                        size_hint: None, None
-                        width: dp(250)
-                        height: dp(30)
+                        
+                    DollarLabel:
+                        
+                    NumInput:
+                        
             # Четвертый игрок
             BoxLayout:
-                Label:
+                Regular80x30Label:
                     text: "Игрок № 4"
-                    size_hint: None, None
-                    width: dp(80)
-                    height: dp(30)
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                TextInput:
-                    multiline: False
-                    size_hint: None, None
-                    width: dp(400)
-                    height: dp(30)
+                    
+                NameInput:
+
                 BoxLayout:
-                    Label:
+                    RegularLabel:
                         text: ""
                         size_hint_x: None
                         width: dp(280)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    Label:
-                        text: "$"
-                        size_hint: None, None
-                        width: dp(20)
-                        height: dp(30)
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'center'
-                    TextInput:
-                        multiline: False
-                        size_hint: None, None
-                        width: dp(250)
-                        height: dp(30)
-                    
+                        
+                    DollarLabel:
+                        
+                    NumInput:               
 
     ### Условия окончания игры ###
     BoxLayout:
@@ -250,57 +175,27 @@
         padding: 10
         spacing: 10
 
-        Label:
+        TitleLabel:
             text: "Условия окончания игры"
-            font_size: 20
-            size_hint: 1, None
-            height: 30
-            text_size: self.size
-            halign: 'left'
-            valign: 'center'
 
         GridLayout:
             rows: 3
 
-            CheckBox:
-                group: 'conditions'
-                size_hint_x: .05
-            Label:
+            ConditionRadioButton:
+            RegularLabel:
                 text: "Игра заканчивается, когда деньги остаются у одного игрока"
-                text_size: self.size
-                halign: 'left'
-                valign: 'center'
 
-            CheckBox:
-                group: 'conditions'
-                size_hint_x: .05
-
+            ConditionRadioButton:
             BoxLayout:
-                Label:
-                    text: "Игра длиться указанное колличество гонок"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                TextInput:
-                    multiline: False
-                    size_hint: None, None
-                    width: 250
-                    height: 30
+                RegularLabel:
+                    text: "Игра длиться указанное колличество гонок"              
+                NumInput:
 
-            CheckBox:
-                group: 'conditions'
-                size_hint_x: .05
+            ConditionRadioButton:
             BoxLayout:
-                Label:
-                    text: "Игра длиться указанное время"
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'center'
-                TextInput:
-                    multiline: False
-                    size_hint: None, None
-                    width: 250
-                    height: 30
+                RegularLabel:
+                    text: "Игра длиться указанное время"                   
+                NumInput:
             
     ### Готово (принять) ###
     Button:

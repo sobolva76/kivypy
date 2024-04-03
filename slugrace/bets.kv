@@ -1,0 +1,31 @@
+# File name: bets.kv
+
+<RegularLabel@Label>:
+    text_size: self.size
+    halign: 'left'
+    valign: 'center'
+
+<BoldLabel@RegularLabel>:
+    bold: True
+
+<BetsScreen>:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 10
+
+    ### Title ###
+    BoldLabel:
+        text: "Bets"
+        size_hint: (1, None)
+        height: 30
+
+    ### Player Bets ###
+    Label:
+        text: "PLAYER BETS"
+
+    ### GO Button ###
+    Button:
+        text: "GO"
+        size_hint: (None, None)
+        size: 200, 40
+        pos_hint: {'center_x': 0.5}
