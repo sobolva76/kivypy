@@ -1,6 +1,7 @@
 ### File name: settings.kv
 
 <RegularLabel@Label>:
+    color: .2, .1, 0, 1
     text_size: self.size
     halign: 'left'
     valign: 'center'
@@ -39,7 +40,14 @@
     group: 'conditions'
     size_hint_x: .05
 
+### Начало окна
 <SettingsScreen>:
+    canvas:
+        Color:
+            rgba: 1, 1, .8, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
     orientation: 'vertical'
     padding: 10
     spacing: 10
@@ -51,6 +59,12 @@
 
     ### Игрок ###
     BoxLayout:
+        canvas:
+            Color:
+                rgba: .2, .1, 0, 1
+            Line:
+                rounded_rectangle: self.x, self.y, self.width, self.height, 10
+                width: 2
         orientation: 'vertical'
         padding: 10
         spacing: 10
@@ -111,7 +125,7 @@
                     RegularLabel:
                         text: ""
                         size_hint_x: None
-                        width: dp(280)
+                        width: 280
 
                     DollarLabel:
                         
@@ -170,6 +184,12 @@
 
     ### Условия окончания игры ###
     BoxLayout:
+        canvas:
+            Color:
+                rgba: .2, .1, 0, 1
+            Line:
+                rounded_rectangle: self.x, self.y, self.width, self.height, 10
+                width: 2
         orientation: 'vertical'
         size_hint: 1, .4
         padding: 10

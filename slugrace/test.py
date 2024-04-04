@@ -1,18 +1,18 @@
-# File name: gameover.py
+# File name: test.py
 
 import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 
 
-class GameoverScreen(BoxLayout):
+class TestScreen(BoxLayout):
     pass
 
 
-class GameoverApp(App):
+class TestApp(App):
     def build(self):
-        return GameoverScreen()
+        return TestScreen()
     
 
 if __name__ == '__main__':
-    GameoverApp().run()
+    TestApp().run()

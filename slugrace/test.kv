@@ -1,0 +1,36 @@
+# File name: test.kv
+
+<TestScreen>:
+    orientation: 'vertical'
+
+    GridLayout:
+        cols: 2
+        spacing: 4
+        padding: 10
+
+        BoxLayout:
+            canvas:
+                Rectangle:
+                    pos: self.x, self.y
+                    size: self.width, self.height
+
+        Button:
+            canvas:
+                Ellipse:
+                    pos: self.center_x - 50, self.center_y - 25
+                    size: 100, 60
+
+        Button:
+            canvas:
+                Line:
+                    points: self.x + 20, self.y + 20, self.x + 120, self.y + 100
+                    width: 4
+                Line:
+                    points: 200, 200, 200, 260, 260, 260, 360, 360
+
+        Button:
+            canvas:
+                Line:
+                    rounded_rectangle: self.x + 100, self.y + 10, 30, 90, 10
+                    width: 3
+                 
