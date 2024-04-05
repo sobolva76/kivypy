@@ -9,6 +9,27 @@
 <BoldLabel@RegularLabel>:
     bold: True
 
+<WhiteOddsLabel@BoldLabel>:
+    font_size: 32
+    color: 1, 1, 1, 1
+
+<WhiteNameLabel@BoldLabel>:
+    font_size: 18
+    color: 1, 1, 1, 1
+
+<WhiteWinsLabel@BoldLabel>
+    font_size: 14
+    color: 1, 1, 1, 1
+
+<RedButton@Button>:
+    background_color: .8, 0, 0, 1
+    color: 1, .8, .1, 1
+    bold: True
+    font_size: 18
+    size_hint: (.9, .3)
+    #size: 200, 40
+    pos_hint: {'center_x': .5}
+
  ### Основные блоки разметки ###
 <RaceScreen>:
     canvas:
@@ -160,26 +181,14 @@
             padding: 10
             size_hint: .7, .7
 
-            Button:
+            RedButton:
                 text: "End Game"
-                font_size: 18
-                size_hint: None, None
-                size: 200, 40
-                pos_hint: {'right': 1}
 
-            Button:
+            RedButton:
                 text: "Instructions"
-                font_size: 18
-                size_hint: None, None
-                size: 200, 40
-                pos_hint: {'right': 1}
 
-            Button:
+            RedButton:
                 text: "Sound"
-                font_size: 18
-                size_hint: None, None
-                size: 200, 40
-                pos_hint: {'right': 1}
     
     ### The track ###
     BoxLayout:
@@ -191,9 +200,202 @@
                 width: 2
         padding: 10
 
-        Label:
-            color: .2, .1, 0, 1
-            text: "TRACK"
+        RelativeLayout:
+            size_hint: (None, None)
+            size: 1000, 200
+            pos_hint: {'center_y': .5}
+            
+            Image:
+                source: 'assets/racetrack.png'
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: (None, None)
+                size: 100, 50
+                pos_hint: {'x': .004, 'center_y': .875}
+
+                WhiteNameLabel:
+                    text: "Speedster"
+
+                RelativeLayout:
+                    pos_hint: {'x': .9, 'center_y': .875}
+                    size_hint: (None, None)
+                    size: 143, 30
+                    Image:
+                        source: 'assets/slugs/speedster.png'
+                    Image:
+                        canvas.before:
+                            PushMatrix
+                            Rotate:
+                                angle: 30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/speedsterEye.png'
+                        pos_hint: {'x': .95, 'y': .45}
+                        size_hint: .25, .25
+                    Image:
+                        canvas.before:
+                            PushMatrix:
+                            Rotate:
+                                angle: -30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/speedsterEye.png'
+                        pos_hint: {'x': .95, 'y': .3}
+                        size_hint: .25, .25
+
+                WhiteWinsLabel:
+                    text: "0 wins"
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: (None, None)
+                size: 100, 50
+                pos_hint: {'x': .004, 'center_y': .625}
+
+                WhiteNameLabel:
+                    text: "Trusty"
+
+                RelativeLayout:
+                    pos_hint: {'x': .9, 'center_y': .625}
+                    size_hint: (None, None)
+                    size: 143, 30
+                    Image:
+                        source: 'assets/slugs/trusty.png'
+                    Image:
+                        canvas.before:
+                            PushMatrix
+                            Rotate:
+                                angle: 30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/trustyEye.png'
+                        pos_hint: {'x': .95, 'y': .45}
+                        size_hint: .25, .25
+                    Image:
+                        canvas.before:
+                            PushMatrix:
+                            Rotate:
+                                angle: -30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/trustyEye.png'
+                        pos_hint: {'x': .95, 'y': .3}
+                        size_hint: .25, .25
+
+                WhiteWinsLabel:
+                    text: "0 wins"
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: (None, None)
+                size: 100, 50
+                pos_hint: {'x': .004, 'center_y': .375}
+
+                WhiteNameLabel:
+                    text: "Iffy"
+
+                RelativeLayout:
+                    pos_hint: {'x': .9, 'center_y': .375}
+                    size_hint: (None, None)
+                    size: 143, 30
+                    Image:
+                        source: 'assets/slugs/iffy.png'
+                    Image:
+                        canvas.before:
+                            PushMatrix
+                            Rotate:
+                                angle: 30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/iffyEye.png'
+                        pos_hint: {'x': .95, 'y': .45}
+                        size_hint: .25, .25
+                    Image:
+                        canvas.before:
+                            PushMatrix:
+                            Rotate:
+                                angle: -30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/iffyEye.png'
+                        pos_hint: {'x': .95, 'y': .3}
+                        size_hint: .25, .25
+
+                WhiteWinsLabel:
+                    text: "0 wins"
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: (None, None)
+                size: 100, 50
+                pos_hint: {'x': .004, 'center_y': .125}
+
+                WhiteNameLabel:
+                    text: "Slowpoke"
+
+                RelativeLayout:
+                    pos_hint: {'x': .9, 'center_y': .125}
+                    size_hint: (None, None)
+                    size: 143, 30
+                    Image:
+                        source: 'assets/slugs/slowpoke.png'
+                    Image:
+                        canvas.before:
+                            PushMatrix
+                            Rotate:
+                                angle: 30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/slowpokeEye.png'
+                        pos_hint: {'x': .95, 'y': .45}
+                        size_hint: .25, .25
+                    Image:
+                        canvas.before:
+                            PushMatrix:
+                            Rotate:
+                                angle: -30
+                                axis: 0, 0, 1
+                                origin: self.x, self.center_y
+                        canvas.after:
+                            PopMatrix
+                        source: 'assets/slugs/slowpokeEye.png'
+                        pos_hint: {'x': .95, 'y': .3}
+                        size_hint: .25, .25
+
+                WhiteWinsLabel:
+                    text: "0 wins"
+
+            # the odds labels
+            WhiteOddsLabel:
+                text: '1.42'                
+                pos_hint: {'x': .77, 'center_y': .875}
+
+            WhiteOddsLabel:
+                text: '1.61'                
+                pos_hint: {'x': .77, 'center_y': .625}
+
+            WhiteOddsLabel:
+                text: '2.53'                
+                pos_hint: {'x': .77, 'center_y': .375}
+
+            WhiteOddsLabel:
+                text: '2.89'                
+                pos_hint: {'x': .77, 'center_y': .125} 
 
         BoxLayout:
             orientation: 'vertical'
@@ -213,9 +415,8 @@
                 size_hint: 1, .2
                 bold: True
 
-            Label:
-                color: .2, .1, 0, 1
-                text: "WINNER"
+            Image:
+                source: 'assets/silhouettes/Trusty.png'
 
     ### The best ###
     Label:

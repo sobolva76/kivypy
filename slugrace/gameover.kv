@@ -9,6 +9,14 @@
 <BoldLabel@RegularLabel>:
     bold: True
 
+<RedButton@Button>:
+    background_color: .8, 0, 0, 1
+    color: 1, .8, .1, 1
+    bold: True
+    font_size: 18
+    size_hint: (None, None)
+    size: 200, 40
+    pos_hint: {'center_x': .5}
 
 <GameoverScreen>:
     canvas:
@@ -41,14 +49,10 @@
         size_hint: (None, None)
         size: 450, 200
 
-        Button:
+        RedButton:
             text: "Play Again"
             pos_hint: {'x': 0, 'center_y': .5}
-            size_hint: (None, None)
-            size: 200, 40
 
-        Button:
+        RedButton:
             text: "Quit"
             pos_hint: {'right': 1, 'center_y': .5}
-            size_hint: (None, None)
-            size: 200, 40

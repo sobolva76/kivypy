@@ -33,12 +33,33 @@
     width: 250
 
 <PlayerRadioButton@CheckBox>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Ellipse:
+            pos: self.center_x - 10, self.center_y - 10
+            size: [20, 20]
     group: 'players'
     size_hint: (.5, 1)
 
 <ConditionRadioButton@CheckBox>
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Ellipse:
+            pos: self.center_x - 10, self.center_y - 10
+            size: [20, 20]
     group: 'conditions'
     size_hint_x: .05
+
+<RedButton@Button>:
+    background_color: .8, 0, 0, 1
+    color: 1, .8, .1, 1
+    bold: True
+    font_size: 18
+    size_hint: (None, None)
+    size: 200, 40
+    pos_hint: {'center_x': .5}
 
 ### Начало окна
 <SettingsScreen>:
@@ -60,6 +81,12 @@
     ### Игрок ###
     BoxLayout:
         canvas:
+            Color:
+                rgba: 1, 1, 1, .4
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/all slugs.png'
             Color:
                 rgba: .2, .1, 0, 1
             Line:
@@ -218,8 +245,5 @@
                 NumInput:
             
     ### Готово (принять) ###
-    Button:
+    RedButton:
         text: "Готово"
-        size_hint: None, None
-        size: 200, 40
-        pos_hint: {'center_x': 0.5}

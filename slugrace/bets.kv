@@ -20,7 +20,22 @@
     pos_hint: {'center_y': .5}
 
 <PlayerSlugButton@CheckBox>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Ellipse:
+            pos: self.center_x - 10, self.center_y - 10
+            size: [20, 20]
     size_hint: (.5, 1)
+
+<RedButton@Button>:
+    background_color: .8, 0, 0, 1
+    color: 1, .8, .1, 1
+    bold: True
+    font_size: 18
+    size_hint: (None, None)
+    size: 200, 40
+    pos_hint: {'center_x': .5}
 
 <BetsScreen>:
     canvas:
@@ -252,8 +267,5 @@
                     text: "Slowpoke" 
 
     ### GO Button ###
-    Button:
+    RedButton:
         text: "GO"
-        size_hint: (None, None)
-        size: 200, 40
-        pos_hint: {'center_x': 0.5}
