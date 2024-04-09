@@ -61,6 +61,23 @@
     size: 200, 40
     pos_hint: {'center_x': .5}
 
+<PlayerCount>
+    PlayerRadioButton:
+    RegularLabel:
+        text: root.count_text
+
+<PlayerSettings>:
+    Regular80x30Label:
+        text: root.label_text
+    NameInput:
+    BoxLayout:
+        RegularLabel:
+            text: ""
+            size_hint_x: None
+            width: 280
+        DollarLabel:     
+        NumInput:
+
 ### Начало окна
 <SettingsScreen>:
     canvas:
@@ -104,25 +121,17 @@
             size_hint: .4, None
             height: 50
 
-            BoxLayout:
-                PlayerRadioButton:
-                RegularLabel:
-                    text: "1 Игрок"
+            PlayerCount:
+                count_text: "1 Игрок"
 
-            BoxLayout:
-                PlayerRadioButton:
-                RegularLabel:
-                    text: "2 Игрока"
+            PlayerCount:
+                count_text: "2 Игрока"
 
-            BoxLayout:
-                PlayerRadioButton:
-                RegularLabel:
-                    text: "3 Игрока"
+            PlayerCount:
+                count_text: "3 Игрока"
 
-            BoxLayout:
-                PlayerRadioButton:
-                RegularLabel:
-                    text: "4 Игрока"
+            PlayerCount:
+                count_text: "4 Игрока"
 
         BoxLayout:
             orientation: 'vertical'
@@ -142,72 +151,20 @@
                     text: "Начальный капитал"
                     
             # Первый игрок
-            BoxLayout:
-                Regular80x30Label:
-                    text: "Игрок № 1"
+            PlayerSettings:
+                label_text: "Игрок № 1"
 
-                NameInput:
-
-                BoxLayout:
-                    RegularLabel:
-                        text: ""
-                        size_hint_x: None
-                        width: 280
-
-                    DollarLabel:
-                        
-                    NumInput:
-                        
             # Второй игрок
-            BoxLayout:
-                Regular80x30Label:
-                    text: "Игрок № 2"
-                    
-                NameInput:
-
-                BoxLayout:
-                    RegularLabel:
-                        text: ""
-                        size_hint_x: None
-                        width: dp(280)
-                        
-                    DollarLabel:
-                        
-                    NumInput:
+            PlayerSettings:
+                label_text: "Игрок № 2"
                         
             # Третий игрок
-            BoxLayout:
-                Regular80x30Label:
-                    text: "Игрок № 3"
-                    
-                NameInput:
-
-                BoxLayout:
-                    RegularLabel:
-                        text: ""
-                        size_hint_x: None
-                        width: dp(280)
-                        
-                    DollarLabel:
-                        
-                    NumInput:
+            PlayerSettings:
+                label_text: "Игрок № 3"
                         
             # Четвертый игрок
-            BoxLayout:
-                Regular80x30Label:
-                    text: "Игрок № 4"
-                    
-                NameInput:
-
-                BoxLayout:
-                    RegularLabel:
-                        text: ""
-                        size_hint_x: None
-                        width: dp(280)
-                        
-                    DollarLabel:
-                        
-                    NumInput:               
+            PlayerSettings:
+                label_text: "Игрок № 1"          
 
     ### Условия окончания игры ###
     BoxLayout:
