@@ -3,6 +3,7 @@
 import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.properties import NumericProperty, StringProperty
 
 from kivy.config import Config
@@ -26,6 +27,12 @@ class SlugsInfo(BoxLayout):
     y_position = NumericProperty(0)
     name = StringProperty("")
     wins = NumericProperty(0)
+
+
+class SlugImage(RelativeLayout):
+    body_image = StringProperty('')
+    eye_image = StringProperty('')
+    y_position = NumericProperty(0)
 
 
 class RaceScreen(BoxLayout):
