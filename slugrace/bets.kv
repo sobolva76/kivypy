@@ -37,6 +37,58 @@
     size: 200, 40
     pos_hint: {'center_x': .5}
 
+<Bet>:
+    spacing: 10
+
+    RegularLabel:
+        text: root.player_name
+
+    RegularLabel:
+        text: 'bets'
+        size_hint: .4, 1 
+
+    BoxLayout:
+        spacing: 5
+        RegularLabel:
+            text: '$'
+            halign: 'right'
+        BetInput:
+            text: str(root.bet_amount)
+
+    Slider:
+        min: 1
+        max: root.max_bet_amount
+        value: root.bet_amount
+        step: 1
+
+    RegularLabel:
+        text: 'on'
+        size_hint: .3, 1
+
+    BoxLayout:
+        PlayerSlugButton:
+            group: root.player_group
+        RegularLabel:
+            text: 'Speedster'
+
+    BoxLayout:
+        PlayerSlugButton:
+            group: root.player_group
+        RegularLabel:
+            text: 'Trusty'
+
+    BoxLayout:
+        PlayerSlugButton:
+            group: root.player_group
+        RegularLabel:
+            text: 'Iffy'
+
+    BoxLayout:
+        PlayerSlugButton:
+            group: root.player_group
+        RegularLabel:
+            text: 'Slowpoke'
+
 <BetsScreen>:
     canvas:
         Color:
@@ -59,212 +111,32 @@
         orientation: 'vertical'
 
         # player 1
-        BoxLayout:
-            spacing: 10
-
-            RegularLabel:
-                text: "Player 1"
-            
-            RegularLabel:
-                text: "bets"
-                size_hint: (.4, 1)
-
-            BoxLayout:
-                spacing: 5
-                RegularLabel:
-                    text: "$"
-                    halign: 'right'
-                BetInput:
-                    text: "1000"
-            Slider:
-                min: 1
-                max: 1000
-                value: 1000
-                step: 1
-            
-            RegularLabel:
-                text: "on"
-                size_hint: (.3, 1)
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player1'
-                RegularLabel:
-                    text: "Speedster"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player1'
-                RegularLabel:
-                    text: "Trusty"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player1'
-                RegularLabel:
-                    text: "Iffy"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player1'
-                RegularLabel:
-                    text: "Slowpoke" 
+        Bet:
+            player_name: 'Player 1'
+            bet_amount: 1000
+            max_bet_amount: 1000
+            player_group: 'player1'
 
         # player 2
-        BoxLayout:
-            spacing: 10
-
-            RegularLabel:
-                text: "Player 2"
-            
-            RegularLabel:
-                text: "bets"
-                size_hint: (.4, 1)
-
-            BoxLayout:
-                spacing: 5
-                RegularLabel:
-                    text: "$"
-                    halign: 'right'
-                BetInput:
-                    text: "1000"
-            Slider:
-                min: 1
-                max: 1000
-                value: 1000
-                step: 1
-            
-            RegularLabel:
-                text: "on"
-                size_hint: (.3, 1)
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player2'
-                RegularLabel:
-                    text: "Speedster"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player2'
-                RegularLabel:
-                    text: "Trusty"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player2'
-                RegularLabel:
-                    text: "Iffy"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player2'
-                RegularLabel:
-                    text: "Slowpoke"  
+        Bet:
+            player_name: 'Player 2'
+            bet_amount: 1000
+            max_bet_amount: 1000
+            player_group: 'player2'  
 
         # player 3
-        BoxLayout:
-            spacing: 10
-
-            RegularLabel:
-                text: "Player 3"
-            
-            RegularLabel:
-                text: "bets"
-                size_hint: (.4, 1)
-
-            BoxLayout:
-                spacing: 5
-                RegularLabel:
-                    text: "$"
-                    halign: 'right'
-                BetInput:
-                    text: "1000"
-            Slider:
-                min: 1
-                max: 1000
-                value: 1000
-                step: 1
-            
-            RegularLabel:
-                text: "on"
-                size_hint: (.3, 1)
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player3'
-                RegularLabel:
-                    text: "Speedster"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player3'
-                RegularLabel:
-                    text: "Trusty"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player3'
-                RegularLabel:
-                    text: "Iffy"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player3'
-                RegularLabel:
-                    text: "Slowpoke" 
+        Bet:
+            player_name: 'Player 3'
+            bet_amount: 1000
+            max_bet_amount: 1000
+            player_group: 'player3'
 
         # player 4
-        BoxLayout:
-            spacing: 10
-
-            RegularLabel:
-                text: "Player 4"
-            
-            RegularLabel:
-                text: "bets"
-                size_hint: (.4, 1)
-
-            BoxLayout:
-                spacing: 5
-                RegularLabel:
-                    text: "$"
-                    halign: 'right'
-                BetInput:
-                    text: "1000"
-            Slider:
-                min: 1
-                max: 1000
-                value: 1000
-                step: 1
-            
-            RegularLabel:
-                text: "on"
-                size_hint: (.3, 1)
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player4'
-                RegularLabel:
-                    text: "Speedster"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player4'
-                RegularLabel:
-                    text: "Trusty"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player4'
-                RegularLabel:
-                    text: "Iffy"
-
-            BoxLayout:
-                PlayerSlugButton:
-                    group: 'player4'
-                RegularLabel:
-                    text: "Slowpoke" 
+        Bet:
+            player_name: 'Player 4'
+            bet_amount: 1000
+            max_bet_amount: 1000
+            player_group: 'player4'
 
     ### GO Button ###
     RedButton:

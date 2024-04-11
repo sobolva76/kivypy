@@ -4,10 +4,19 @@ import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 
+from kivy.properties import NumericProperty, StringProperty
+
 from kivy.config import Config
 
 Config.set('graphics', 'width', '1200')
 Config.set('graphics', 'height', '675')
+
+
+class Bet(BoxLayout):
+    player_name = StringProperty('')
+    bet_amount = NumericProperty(0)
+    max_bet_amount = NumericProperty(0)
+    player_group = StringProperty('')
 
 
 class BetsScreen(BoxLayout):

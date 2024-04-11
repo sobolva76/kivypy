@@ -86,7 +86,7 @@
                 angle: -30
                 axis: 0, 0, 1
                 origin: self.x, self.center_y
-        canvas.after
+        canvas.after:
             PopMatrix
         source: 'assets/slugs/' + root.eye_image + '.png'
         pos_hint: {'x': .95, 'y': .3}
@@ -252,145 +252,41 @@
                 wins: 7
 
 
-                RelativeLayout:
-                    pos_hint: {'x': .9, 'center_y': .875}
-                    size_hint: (None, None)
-                    size: 143, 30
-                    Image:
-                        source: 'assets/slugs/speedster.png'
-                    Image:
-                        canvas.before:
-                            PushMatrix
-                            Rotate:
-                                angle: 30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/speedsterEye.png'
-                        pos_hint: {'x': .95, 'y': .45}
-                        size_hint: .25, .25
-                    Image:
-                        canvas.before:
-                            PushMatrix:
-                            Rotate:
-                                angle: -30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/speedsterEye.png'
-                        pos_hint: {'x': .95, 'y': .3}
-                        size_hint: .25, .25
-
+                SlugImage:
+                    body_image: 'speedster'
+                    eye_image: 'speedsterEye'
+                    y_position: .875
+                    
             SlugsInfo:
                 y_position: .625
                 name: "Trusty"
                 wins: 1
 
-                RelativeLayout:
-                    pos_hint: {'x': .9, 'center_y': .625}
-                    size_hint: (None, None)
-                    size: 143, 30
-                    Image:
-                        source: 'assets/slugs/trusty.png'
-                    Image:
-                        canvas.before:
-                            PushMatrix
-                            Rotate:
-                                angle: 30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/trustyEye.png'
-                        pos_hint: {'x': .95, 'y': .45}
-                        size_hint: .25, .25
-                    Image:
-                        canvas.before:
-                            PushMatrix:
-                            Rotate:
-                                angle: -30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/trustyEye.png'
-                        pos_hint: {'x': .95, 'y': .3}
-                        size_hint: .25, .25
-
+                SlugImage:
+                    body_image: 'trusty'
+                    eye_image: 'trustyEye'
+                    y_position: .625
+                    
             SlugsInfo:
                 y_position: .375
                 name: "Iffy"
                 wins: 0
 
-                RelativeLayout:
-                    pos_hint: {'x': .9, 'center_y': .375}
-                    size_hint: (None, None)
-                    size: 143, 30
-                    Image:
-                        source: 'assets/slugs/iffy.png'
-                    Image:
-                        canvas.before:
-                            PushMatrix
-                            Rotate:
-                                angle: 30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/iffyEye.png'
-                        pos_hint: {'x': .95, 'y': .45}
-                        size_hint: .25, .25
-                    Image:
-                        canvas.before:
-                            PushMatrix:
-                            Rotate:
-                                angle: -30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/iffyEye.png'
-                        pos_hint: {'x': .95, 'y': .3}
-                        size_hint: .25, .25
-
+                SlugImage:
+                    body_image: 'iffy'
+                    eye_image: 'iffyEye'
+                    y_position: .375
+                    
             SlugsInfo:
                 y_position: .125
                 name: "Slowpoke"
                 wins: 2
 
-                RelativeLayout:
-                    pos_hint: {'x': .9, 'center_y': .125}
-                    size_hint: (None, None)
-                    size: 143, 30
-                    Image:
-                        source: 'assets/slugs/slowpoke.png'
-                    Image:
-                        canvas.before:
-                            PushMatrix
-                            Rotate:
-                                angle: 30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/slowpokeEye.png'
-                        pos_hint: {'x': .95, 'y': .45}
-                        size_hint: .25, .25
-                    Image:
-                        canvas.before:
-                            PushMatrix:
-                            Rotate:
-                                angle: -30
-                                axis: 0, 0, 1
-                                origin: self.x, self.center_y
-                        canvas.after:
-                            PopMatrix
-                        source: 'assets/slugs/slowpokeEye.png'
-                        pos_hint: {'x': .95, 'y': .3}
-                        size_hint: .25, .25
-
+                SlugImage:
+                    body_image: 'slowpoke'
+                    eye_image: 'slowpokeEye'
+                    y_position: .125
+                    
             # the odds labels
             WhiteOddsLabel:
                 text: '1.42'                
@@ -427,7 +323,7 @@
                 bold: True
 
             Image:
-                source: 'assets/silhouettes/Trusty.png'
+                source: 'atlas://assets/silhouettes/silhouettes/Trusty'
 
     ### The best ###
     Label:
