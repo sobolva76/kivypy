@@ -1,65 +1,5 @@
 ### File name: settings.kv
-
-<RegularLabel@Label>:
-    color: .2, .1, 0, 1
-    text_size: self.size
-    halign: 'left'
-    valign: 'center'
-
-<Regular80x30Label@RegularLabel>:
-    size_hint: None, None
-    width: 80
-    height: 30
-
-<DollarLabel@Regular80x30Label>:
-    text: "$"
-    width: 20
-
-<TitleLabel@RegularLabel>:
-    font_size: 20
-    size_hint: (1, None)
-    height: 30
-
-<NameInput@TextInput>:
-    multiline: False
-    size_hint: None, None
-    height: 30
-    width: 400
-
-<NumInput@TextInput>:
-    multiline: False
-    size_hint: None, None
-    height: 30
-    width: 250
-
-<PlayerRadioButton@CheckBox>:
-    canvas.before:
-        Color:
-            rgba: 0, 0, 0, 1
-        Ellipse:
-            pos: self.center_x - 10, self.center_y - 10
-            size: [20, 20]
-    group: 'players'
-    size_hint: (.5, 1)
-
-<ConditionRadioButton@CheckBox>
-    canvas.before:
-        Color:
-            rgba: 0, 0, 0, 1
-        Ellipse:
-            pos: self.center_x - 10, self.center_y - 10
-            size: [20, 20]
-    group: 'conditions'
-    size_hint_x: .05
-
-<RedButton@Button>:
-    background_color: .8, 0, 0, 1
-    color: 1, .8, .1, 1
-    bold: True
-    font_size: 18
-    size_hint: (None, None)
-    size: 200, 40
-    pos_hint: {'center_x': .5}
+#:import settings settings
 
 <PlayerCount>
     PlayerRadioButton:
@@ -86,121 +26,123 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    orientation: 'vertical'
-    padding: 10
-    spacing: 10
-
-    ### Настройки ###
-    TitleLabel:
-        text: "Настройки"
-        font_size: 28
-
-    ### Игрок ###
     BoxLayout:
-        canvas:
-            Color:
-                rgba: 1, 1, 1, .4
-            Rectangle:
-                pos: self.pos
-                size: self.size
-                source: 'assets/all slugs.png'
-            Color:
-                rgba: .2, .1, 0, 1
-            Line:
-                rounded_rectangle: self.x, self.y, self.width, self.height, 10
-                width: 2
         orientation: 'vertical'
         padding: 10
         spacing: 10
-        
+
+        ### Настройки ###
         TitleLabel:
-            text: "Колличество игроков"
-            font_size: 20
+            text: "Настройки"
+            font_size: 28
 
+        ### Игрок ###
         BoxLayout:
-            size_hint: .4, None
-            height: 50
-
-            PlayerCount:
-                count_text: "1 Игрок"
-
-            PlayerCount:
-                count_text: "2 Игрока"
-
-            PlayerCount:
-                count_text: "3 Игрока"
-
-            PlayerCount:
-                count_text: "4 Игрока"
-
-        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, .4
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: 'assets/all slugs.png'
+                Color:
+                    rgba: .2, .1, 0, 1
+                Line:
+                    rounded_rectangle: self.x, self.y, self.width, self.height, 10
+                    width: 2
             orientation: 'vertical'
-
-            BoxLayout:
-                RegularLabel:
-                    text: ""
-                    size_hint_x: None
-                    width: dp(80)
-                
-                RegularLabel:
-                    text: "Имя"
-                    size_hint_x: None
-                    width: dp(700)
-                    
-                RegularLabel: 
-                    text: "Начальный капитал"
-                    
-            # Первый игрок
-            PlayerSettings:
-                label_text: "Игрок № 1"
-
-            # Второй игрок
-            PlayerSettings:
-                label_text: "Игрок № 2"
-                        
-            # Третий игрок
-            PlayerSettings:
-                label_text: "Игрок № 3"
-                        
-            # Четвертый игрок
-            PlayerSettings:
-                label_text: "Игрок № 1"          
-
-    ### Условия окончания игры ###
-    BoxLayout:
-        canvas:
-            Color:
-                rgba: .2, .1, 0, 1
-            Line:
-                rounded_rectangle: self.x, self.y, self.width, self.height, 10
-                width: 2
-        orientation: 'vertical'
-        size_hint: 1, .4
-        padding: 10
-        spacing: 10
-
-        TitleLabel:
-            text: "Условия окончания игры"
-
-        GridLayout:
-            rows: 3
-
-            ConditionRadioButton:
-            RegularLabel:
-                text: "Игра заканчивается, когда деньги остаются у одного игрока"
-
-            ConditionRadioButton:
-            BoxLayout:
-                RegularLabel:
-                    text: "Игра длиться указанное колличество гонок"              
-                NumInput:
-
-            ConditionRadioButton:
-            BoxLayout:
-                RegularLabel:
-                    text: "Игра длиться указанное время"                   
-                NumInput:
+            padding: 10
+            spacing: 10
             
-    ### Готово (принять) ###
-    RedButton:
-        text: "Готово"
+            TitleLabel:
+                text: "Колличество игроков"
+                font_size: 20
+
+            BoxLayout:
+                size_hint: .4, None
+                height: 50
+
+                PlayerCount:
+                    count_text: "1 Игрок"
+
+                PlayerCount:
+                    count_text: "2 Игрока"
+
+                PlayerCount:
+                    count_text: "3 Игрока"
+
+                PlayerCount:
+                    count_text: "4 Игрока"
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                BoxLayout:
+                    RegularLabel:
+                        text: ""
+                        size_hint_x: None
+                        width: dp(80)
+                    
+                    RegularLabel:
+                        text: "Имя"
+                        size_hint_x: None
+                        width: dp(700)
+                        
+                    RegularLabel: 
+                        text: "Начальный капитал"
+                        
+                # Первый игрок
+                PlayerSettings:
+                    label_text: "Игрок № 1"
+
+                # Второй игрок
+                PlayerSettings:
+                    label_text: "Игрок № 2"
+                            
+                # Третий игрок
+                PlayerSettings:
+                    label_text: "Игрок № 3"
+                            
+                # Четвертый игрок
+                PlayerSettings:
+                    label_text: "Игрок № 1"          
+
+        ### Условия окончания игры ###
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: .2, .1, 0, 1
+                Line:
+                    rounded_rectangle: self.x, self.y, self.width, self.height, 10
+                    width: 2
+            orientation: 'vertical'
+            size_hint: 1, .4
+            padding: 10
+            spacing: 10
+
+            TitleLabel:
+                text: "Условия окончания игры"
+
+            GridLayout:
+                rows: 3
+
+                ConditionRadioButton:
+                RegularLabel:
+                    text: "Игра заканчивается, когда деньги остаются у одного игрока"
+
+                ConditionRadioButton:
+                BoxLayout:
+                    RegularLabel:
+                        text: "Игра длиться указанное колличество гонок"              
+                    NumInput:
+
+                ConditionRadioButton:
+                BoxLayout:
+                    RegularLabel:
+                        text: "Игра длиться указанное время"                   
+                    NumInput:
+                
+        ### Готово (принять) ###
+        RedButton:
+            text: "Готово"
+            on_press: root.manager.current = 'racescreen'

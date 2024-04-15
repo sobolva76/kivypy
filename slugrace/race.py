@@ -3,13 +3,18 @@
 import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import Screen
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.properties import NumericProperty, StringProperty
+
+from kivy.lang import Builder
 
 from kivy.config import Config
 
 Config.set('graphics', 'width', '1200')
 Config.set('graphics', 'height', '675')
+
+Builder.load_file('widgets.kv')
 
 
 class SlugsStats(BoxLayout):
@@ -35,7 +40,7 @@ class SlugImage(RelativeLayout):
     y_position = NumericProperty(0)
 
 
-class RaceScreen(BoxLayout):
+class RaceScreen(Screen):
     pass
 
 class RaceApp(App):

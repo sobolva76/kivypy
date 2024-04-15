@@ -2,24 +2,6 @@
 
 ### CLASS RULES ###
 
-<RegularLabel@Label>:
-    color: .2, .1, 0, 1
-    text_size: self.size
-    halign: 'left'
-    valign: 'center'
-
-<BoldLabel@RegularLabel>:    
-    bold: True
-
-<RedButton@Button>:
-    background_color: .8, 0, 0, 1
-    color: 1, .8, .1, 1
-    bold: True
-    font_size: 18
-    size_hint: (None, None)
-    size: 200, 40
-    pos_hint: {'center_x': .5}
-
 <Result>:
     RegularLabel:
         text: root.player_name
@@ -57,68 +39,69 @@
             rgba: 1, 1, .8, 1
         Rectangle:
             pos: self.pos
-            size: self.size              
-    orientation: 'vertical'
-    padding: 10    
-
-    ### TITLE LABEL ###
-    BoldLabel:  
-        text: 'Race 1 Results' # temporarily race number set to 1
-        size_hint: (1, None)
-        height: 30
-
-    ### PLAYER RESULTS ###   
-    BoxLayout:
+            size: self.size 
+    BoxLayout:             
         orientation: 'vertical'
+        padding: 10    
 
-        # player 1            
-        Result:
-            player_name: 'Player 1'
-            money_before: 1000
-            bet_amount: 300
-            slug_name: 'Speedster'
-            result_info: '- won'
-            gain_or_loss: 400
-            current_money: 1400
-            odds: 2.54
-                
+        ### TITLE LABEL ###
+        BoldLabel:  
+            text: 'Race 1 Results' # temporarily race number set to 1
+            size_hint: (1, None)
+            height: 30
 
-        # player 2            
-        Result:
-            player_name: 'Player 2'
-            money_before: 1000
-            bet_amount: 300
-            slug_name: 'Speedster'
-            result_info: '- lost'
-            gain_or_loss: 400
-            current_money: 600
-            odds: 1.59
-                
+        ### PLAYER RESULTS ###   
+        BoxLayout:
+            orientation: 'vertical'
 
-        # player 3            
-        Result:
-            player_name: 'Player 3'
-            money_before: 1000
-            bet_amount: 300
-            slug_name: 'Trusty'
-            result_info: '- won'
-            gain_or_loss: 400
-            current_money: 1400
-            odds: 2.24
-                
+            # player 1            
+            Result:
+                player_name: 'Player 1'
+                money_before: 1000
+                bet_amount: 300
+                slug_name: 'Speedster'
+                result_info: '- won'
+                gain_or_loss: 400
+                current_money: 1400
+                odds: 2.54
+                    
 
-        # player 4            
-        Result:
-            player_name: 'Player 4'
-            money_before: 1000
-            bet_amount: 300
-            slug_name: 'Speedster'
-            result_info: '- lost'
-            gain_or_loss: 400
-            current_money: 600
-            odds: 1.85
-                
+            # player 2            
+            Result:
+                player_name: 'Player 2'
+                money_before: 1000
+                bet_amount: 300
+                slug_name: 'Speedster'
+                result_info: '- lost'
+                gain_or_loss: 400
+                current_money: 600
+                odds: 1.59
+                    
 
-    ### NEXT RACE BUTTON ###    
-    RedButton:
-        text: 'Next Race'
+            # player 3            
+            Result:
+                player_name: 'Player 3'
+                money_before: 1000
+                bet_amount: 300
+                slug_name: 'Trusty'
+                result_info: '- won'
+                gain_or_loss: 400
+                current_money: 1400
+                odds: 2.24
+                    
+
+            # player 4            
+            Result:
+                player_name: 'Player 4'
+                money_before: 1000
+                bet_amount: 300
+                slug_name: 'Speedster'
+                result_info: '- lost'
+                gain_or_loss: 400
+                current_money: 600
+                odds: 1.85
+                    
+
+        ### NEXT RACE BUTTON ###    
+        RedButton:
+            text: 'Next Race'

@@ -3,13 +3,18 @@
 import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import Screen
 
 from kivy.properties import NumericProperty, StringProperty
 
 from kivy.config import Config
 
+from kivy.lang import Builder
+
 Config.set('graphics', 'width', '1200')
 Config.set('graphics', 'height', '675')
+
+Builder.load_file('widgets.kv')
 
 
 class Bet(BoxLayout):
@@ -19,7 +24,7 @@ class Bet(BoxLayout):
     player_group = StringProperty('')
 
 
-class BetsScreen(BoxLayout):
+class BetsScreen(Screen):
     pass
 
 

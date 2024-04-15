@@ -1,22 +1,5 @@
 # File name: gameover.kv
-
-<RegularLabel@Label>:
-    color: .2, .1, 0, 1
-    text_size: self.size
-    halign: 'left'
-    valign: 'center'
-
-<BoldLabel@RegularLabel>:
-    bold: True
-
-<RedButton@Button>:
-    background_color: .8, 0, 0, 1
-    color: 1, .8, .1, 1
-    bold: True
-    font_size: 18
-    size_hint: (None, None)
-    size: 200, 40
-    pos_hint: {'center_x': .5}
+#:import gameover gameover
 
 <GameoverScreen>:
     canvas:
@@ -25,34 +8,36 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    orientation: 'vertical'
-
-    BoldLabel:
-        text: "Game Over"
-        font_size: 100
-        halign: 'center'
-
-    BoldLabel:
-        text: "There's only one player with any money left."
-        font_size: 40
-        halign: 'center'
-
-    BoldLabel:
-        text: "The winner is Player 2, having started at $1000, winning at $999"
-        font_size: 30
-        halign: 'center'
-
-    ### Buttons
     BoxLayout:
-        spacing: 50
-        pos_hint: {'center_x': .5, 'center_y': .5}
-        size_hint: (None, None)
-        size: 450, 200
+        orientation: 'vertical'
 
-        RedButton:
-            text: "Play Again"
-            pos_hint: {'x': 0, 'center_y': .5}
+        BoldLabel:
+            text: "Game Over"
+            font_size: 100
+            halign: 'center'
 
-        RedButton:
-            text: "Quit"
-            pos_hint: {'right': 1, 'center_y': .5}
+        BoldLabel:
+            text: "There's only one player with any money left."
+            font_size: 40
+            halign: 'center'
+
+        BoldLabel:
+            text: "The winner is Player 2, having started at $1000, winning at $999"
+            font_size: 30
+            halign: 'center'
+
+        ### Buttons
+        BoxLayout:
+            spacing: 50
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            size_hint: (None, None)
+            size: 450, 200
+
+            RedButton:
+                text: "Play Again"
+                pos_hint: {'x': 0, 'center_y': .5}
+                on_press: root.manager.current = 'settingsscreen'
+
+            RedButton:
+                text: "Quit"
+                pos_hint: {'right': 1, 'center_y': .5}

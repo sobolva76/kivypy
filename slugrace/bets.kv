@@ -1,42 +1,5 @@
 # File name: bets.kv
 
-<RegularLabel@Label>:
-    color: .2, .1, 0, 1
-    text_size: self.size
-    halign: 'left'
-    valign: 'center'
-
-<BoldLabel@RegularLabel>:
-    bold: True
-
-<NumInput@TextInput>:
-    multiline: False
-    size_hint: None, None
-    height: 30
-    width: 250
-
-<BetInput@NumInput>:
-    width: 120
-    pos_hint: {'center_y': .5}
-
-<PlayerSlugButton@CheckBox>:
-    canvas.before:
-        Color:
-            rgba: 0, 0, 0, 1
-        Ellipse:
-            pos: self.center_x - 10, self.center_y - 10
-            size: [20, 20]
-    size_hint: (.5, 1)
-
-<RedButton@Button>:
-    background_color: .8, 0, 0, 1
-    color: 1, .8, .1, 1
-    bold: True
-    font_size: 18
-    size_hint: (None, None)
-    size: 200, 40
-    pos_hint: {'center_x': .5}
-
 <Bet>:
     spacing: 10
 
@@ -96,48 +59,49 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    orientation: 'vertical'
-    padding: 10
-    spacing: 10
-
-    ### Title ###
-    BoldLabel:
-        text: "Bets"
-        size_hint: (1, None)
-        height: 30
-
-    ### Player Bets ###
     BoxLayout:
         orientation: 'vertical'
+        padding: 10
+        spacing: 10
 
-        # player 1
-        Bet:
-            player_name: 'Player 1'
-            bet_amount: 1000
-            max_bet_amount: 1000
-            player_group: 'player1'
+        ### Title ###
+        BoldLabel:
+            text: "Bets"
+            size_hint: (1, None)
+            height: 30
 
-        # player 2
-        Bet:
-            player_name: 'Player 2'
-            bet_amount: 1000
-            max_bet_amount: 1000
-            player_group: 'player2'  
+        ### Player Bets ###
+        BoxLayout:
+            orientation: 'vertical'
 
-        # player 3
-        Bet:
-            player_name: 'Player 3'
-            bet_amount: 1000
-            max_bet_amount: 1000
-            player_group: 'player3'
+            # player 1
+            Bet:
+                player_name: 'Player 1'
+                bet_amount: 1000
+                max_bet_amount: 1000
+                player_group: 'player1'
 
-        # player 4
-        Bet:
-            player_name: 'Player 4'
-            bet_amount: 1000
-            max_bet_amount: 1000
-            player_group: 'player4'
+            # player 2
+            Bet:
+                player_name: 'Player 2'
+                bet_amount: 1000
+                max_bet_amount: 1000
+                player_group: 'player2'  
 
-    ### GO Button ###
-    RedButton:
-        text: "GO"
+            # player 3
+            Bet:
+                player_name: 'Player 3'
+                bet_amount: 1000
+                max_bet_amount: 1000
+                player_group: 'player3'
+
+            # player 4
+            Bet:
+                player_name: 'Player 4'
+                bet_amount: 1000
+                max_bet_amount: 1000
+                player_group: 'player4'
+
+        ### GO Button ###
+        RedButton:
+            text: "GO"
