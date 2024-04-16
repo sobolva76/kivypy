@@ -1,4 +1,5 @@
 # File name: bets.kv
+#:import bets bets
 
 <Bet>:
     spacing: 10
@@ -105,3 +106,4 @@
         ### GO Button ###
         RedButton:
             text: "GO"
+            on_press: root.manager.current = 'resultsscreen'

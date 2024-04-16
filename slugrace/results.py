@@ -1,19 +1,9 @@
 # File name: results.py
 
 import kivy
-from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
-
-from kivy.config import Config
 from kivy.properties import NumericProperty, StringProperty
-
-from kivy.lang import Builder
-
-Config.set('graphics', 'width', '1200')
-Config.set('graphics', 'height', '675')
-
-Builder.load_file('widgets.kv')
 
 
 class Result(BoxLayout):
@@ -29,10 +19,3 @@ class Result(BoxLayout):
 
 class ResultsScreen(Screen):
     pass
-
-class ResultsApp(App):
-    def build(self):
-        return ResultsScreen()
-
-if __name__ == '__main__':
-    ResultsApp().run()

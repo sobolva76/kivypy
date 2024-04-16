@@ -1,20 +1,19 @@
 # File name: race.py
 
 import kivy
-from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.screenmanager import Screen
+from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.properties import NumericProperty, StringProperty
 
 from kivy.lang import Builder
 
-from kivy.config import Config
+Builder.load_file('bets.kv')
+Builder.load_file('results.kv')
 
-Config.set('graphics', 'width', '1200')
-Config.set('graphics', 'height', '675')
 
-Builder.load_file('widgets.kv')
+class RaceScreenManager(ScreenManager):
+    pass
 
 
 class SlugsStats(BoxLayout):
@@ -34,19 +33,5 @@ class SlugsInfo(BoxLayout):
     wins = NumericProperty(0)
 
 
-class SlugImage(RelativeLayout):
-    body_image = StringProperty('')
-    eye_image = StringProperty('')
-    y_position = NumericProperty(0)
-
-
 class RaceScreen(Screen):
     pass
-
-class RaceApp(App):
-    def build(self):
-        return RaceScreen()
-
-
-if __name__ == '__main__':
-    RaceApp().run()

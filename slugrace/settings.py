@@ -1,19 +1,9 @@
 # File name: settings.py
 
 import kivy
-from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
-
-from kivy.lang import Builder
-
-from kivy.config import Config
-
-Config.set('graphics', 'width', '1200')
-Config.set('graphics', 'height', '675')
-
-Builder.load_file('widgets.kv')
 
 
 class PlayerCount(BoxLayout):
@@ -26,12 +16,3 @@ class PlayerSettings(BoxLayout):
 
 class SettingsScreen(Screen):
     pass
-
-
-class SettingsApp(App):
-    def build(self):
-        return SettingsScreen()
-    
-
-if __name__ == '__main__':
-    SettingsApp().run()

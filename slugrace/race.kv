@@ -1,6 +1,12 @@
 # File name: race.kv
 #:import race race
 
+<RaceScreenManager>
+    BetsScreen:
+        name: 'betsscreen'
+    ResultsScreen:
+        name: 'resultsscreen'
+
 <SlugsStats>:
     spacing: 10
     RegularLabel:
@@ -27,41 +33,6 @@
 
     WhiteWinsLabel: 
         text: str(root.wins) + (' win' if root.wins == 1 else ' wins')
-
-<SlugImage>:
-    pos_hint: {'x': 0.9, 'center_y': root.y_position}
-    size_hint: (None, None)
-    size: 143, 30
-
-    # body image
-    Image:
-        source: 'assets/slugs/' + root.body_image + '.png'
-    # left eye image
-    Image:
-        canvas.before:
-            PushMatrix
-            Rotate:
-                angle: 30
-                axis: 0, 0, 1
-                origin: self.x, self.center_y
-        canvas.after:
-            PopMatrix
-        source: 'assets/slugs/' + root.eye_image + '.png'
-        pos_hint: {'x': .95, 'y': .45}
-        size_hint: 0.25, 0.25
-    # right eye image
-    Image:
-        canvas.before:
-            PushMatrix
-            Rotate:
-                angle: -30
-                axis: 0, 0, 1
-                origin: self.x, self.center_y
-        canvas.after:
-            PopMatrix
-        source: 'assets/slugs/' + root.eye_image + '.png'
-        pos_hint: {'x': .95, 'y': .3}
-        size_hint: 0.25, 0.25
 
  ### Основные блоки разметки ###
 <RaceScreen>:
@@ -225,7 +196,7 @@
                     wins: 7
 
 
-                    SlugImage:
+                    Slug:
                         body_image: 'speedster'
                         eye_image: 'speedsterEye'
                         y_position: .875
@@ -235,7 +206,7 @@
                     name: "Trusty"
                     wins: 1
 
-                    SlugImage:
+                    Slug:
                         body_image: 'trusty'
                         eye_image: 'trustyEye'
                         y_position: .625
@@ -245,7 +216,7 @@
                     name: "Iffy"
                     wins: 0
 
-                    SlugImage:
+                    Slug:
                         body_image: 'iffy'
                         eye_image: 'iffyEye'
                         y_position: .375
@@ -255,7 +226,7 @@
                     name: "Slowpoke"
                     wins: 2
 
-                    SlugImage:
+                    Slug:
                         body_image: 'slowpoke'
                         eye_image: 'slowpokeEye'
                         y_position: .125
@@ -299,7 +270,7 @@
                     source: 'atlas://assets/silhouettes/silhouettes/Trusty'
 
         ### The best ###
-        Label:
+        BoxLayout:
             canvas:
                 Color:
                     rgba: .2, .1, 0, 1
@@ -307,5 +278,6 @@
                     rounded_rectangle: self.x, self.y, self.width, self.height, 10
                     width: 2
             color: .2, .1, 0, 1
-            text: "The best"
+            padding: 5
+            RaceScreenManager:
     
