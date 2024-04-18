@@ -3,6 +3,7 @@
 import kivy
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
+from kivy.properties import NumericProperty
 from kivy.config import Config
 from kivy.lang import Builder
 
@@ -19,16 +20,19 @@ Builder.load_file('widgets.kv')
 Builder.load_file('slug.kv')
 
 
-class SlugraceScreenManager(ScreenManager):
+class Game(ScreenManager):
     player1 = Player()
     player2 = Player()
     player3 = Player()
     player4 = Player()
 
+    number_of_players = NumericProperty(2)
+    players = [player1, player2]
+
 
 class SlugraceApp(App):
     def build(self):
-        return SlugraceScreenManager()
+        return Game()
 
 
 if __name__ == '__main__':

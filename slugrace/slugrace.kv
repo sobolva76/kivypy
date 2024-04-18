@@ -1,9 +1,16 @@
 # File name: slugrace.kv - относится к main.py
 
-<SlugraceScreenManager>
+<Game>
+
+    speedster: _racescreen.speedster
+    trusty: _racescreen.trusty
+    iffy: _racescreen.iffy
+    slowpoke: _racescreen.slowpoke
+
     SettingsScreen:
         name: 'settingsscreen'
     RaceScreen:
+        id: _racescreen
         name: 'racescreen'
     GameoverScreen:
         name: 'gameoverscreen'

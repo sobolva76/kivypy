@@ -42,6 +42,14 @@
         Rectangle:
             pos: self.pos
             size: self.size
+
+    game: root.manager
+
+    speedster: _speedster
+    trusty: _trusty
+    iffy: _iffy
+    slowpoke: _slowpoke
+
     BoxLayout:
         orientation: 'vertical'
         spacing: 10
@@ -197,6 +205,7 @@
 
 
                     Slug:
+                        id: _speedster
                         body_image: 'speedster'
                         eye_image: 'speedsterEye'
                         y_position: .875
@@ -207,6 +216,7 @@
                     wins: 1
 
                     Slug:
+                        id: _trusty
                         body_image: 'trusty'
                         eye_image: 'trustyEye'
                         y_position: .625
@@ -217,6 +227,7 @@
                     wins: 0
 
                     Slug:
+                        id: _iffy
                         body_image: 'iffy'
                         eye_image: 'iffyEye'
                         y_position: .375
@@ -227,6 +238,7 @@
                     wins: 2
 
                     Slug:
+                        id: _slowpoke
                         body_image: 'slowpoke'
                         eye_image: 'slowpokeEye'
                         y_position: .125
