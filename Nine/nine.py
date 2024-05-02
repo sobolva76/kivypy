@@ -6,7 +6,7 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 
 
-# базовый класс для динамических объектов игры (игрок, противник, бонус)
+# базовый класс для динамических объектов игры (игрок, противник, бонус) 
 class Players:
 
     names = 'player' # имя игрока, противника, бонуса
