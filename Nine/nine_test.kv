@@ -1,0 +1,40 @@
+# File name: nine_test.kv
+
+<Player>:
+    size: 24, 24
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size 
+
+<Blok>:
+    size: 10, 100
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<NineTest>:
+    player: player_apponent
+    blok: _blok
+
+    Label:
+        text: "_"
+        pos: 50, 50
+        font_size: 24
+
+    Label:
+        text: "|"
+        pos: 500, 150
+        font_size: 24
+
+    Player:
+        id: player_apponent
+        pos: 10, 190
+
+    Blok:
+        id: _blok
+        pos: 500, 150
+    
