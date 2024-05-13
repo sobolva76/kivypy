@@ -24,8 +24,18 @@ class Player(Widget):
     velocity = ReferenceListProperty(velocity_x, velocity_y)
 
     def move(self):
+        """ функция движения персонажа """
         #self.velocity = (2, 0)
         self.pos = Vector(*self.velocity) + self.pos
+
+    
+    def player_collide(self, blok):
+        """ функция определения столкновений персонажа с предметами
+        blok - любой виджет
+        """
+        if self.collide_widget(blok):
+            self.pos = (10, 100)
+            print("BAX-player", self.velocity)
 
 
 class NineTest(Widget):
@@ -40,7 +50,8 @@ class NineTest(Widget):
     def update(self, dt):
         self.player.move()
 
-        self.blok.blok_collide(self.player)
+        #self.blok.blok_collide(self.player) 
+        self.player.player_collide(self.blok)
 
 
 class Nine_testApp(App):
