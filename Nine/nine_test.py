@@ -7,15 +7,14 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
 from kivy.vector import Vector
 from kivy.clock import Clock
 
-from kivy.uix.label import Label
-
 
 class Blok(Widget):
     
     def blok_collide(self, player):
         if self.collide_widget(player):
-            player.velocity[0] = 0
-            print("BAX")
+            #player.velocity = (0, 0)
+            player.pos = (10, 100)
+            print("BAX", player.velocity)
         #print(player.pos)
 
 
@@ -25,7 +24,7 @@ class Player(Widget):
     velocity = ReferenceListProperty(velocity_x, velocity_y)
 
     def move(self):
-        self.velocity = (2, 0)
+        #self.velocity = (2, 0)
         self.pos = Vector(*self.velocity) + self.pos
 
 
@@ -33,9 +32,9 @@ class NineTest(Widget):
     player = ObjectProperty(None)
     blok = ObjectProperty(None)
 
-    #def serve_player(self, vel=(2, 0)):
-     #   self.player.center = self.center
-      #  self.player.velocity = (3, 0)
+    def serve_player(self, vel=(2, 0)):
+        self.player.center = self.center
+        self.player.velocity = vel
 
 
     def update(self, dt):
@@ -47,7 +46,7 @@ class NineTest(Widget):
 class Nine_testApp(App):
     def build(self):
         game = NineTest()
-        #game.serve_player()
+        game.serve_player()
         Clock.schedule_interval(game.update, 1.0 / 60.0)
         return game
     
