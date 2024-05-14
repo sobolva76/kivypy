@@ -13,7 +13,7 @@ class Blok(Widget):
     def blok_collide(self, player):
         if self.collide_widget(player):
             #player.velocity = (0, 0)
-            player.pos = (10, 100)
+            player.pos = (200, 200)
             print("BAX", player.velocity)
         #print(player.pos)
 
@@ -29,21 +29,31 @@ class Player(Widget):
         self.pos = Vector(*self.velocity) + self.pos
 
     
-    def player_collide(self, blok):
+    def player_collide(self, blok, names):
         """ функция определения столкновений персонажа с предметами
-        blok - любой виджет
+        blok - любой виджет 
         """
+        #print("Collide")
         if self.collide_widget(blok):
-            self.pos = (10, 100)
-            print("BAX-player", self.velocity)
+            if names == 'blok_right':
+                self.pos = (200, 200)
+                print("BAX-player", "blok_right")
+            if names == 'blok_left':
+                self.pos = (200, 200)
+                print("BAX-player", "blok_left")
 
 
 class NineTest(Widget):
     player = ObjectProperty(None)
     blok = ObjectProperty(None)
+    #blok_height = ObjectProperty(None)
+    blok_base = ObjectProperty(None)
+
+    blok_right = 'blok_right'
+    blok_left = 'blok_left'
 
     def serve_player(self, vel=(2, 0)):
-        self.player.center = self.center
+        #self.player.center = self.center
         self.player.velocity = vel
 
 
@@ -51,7 +61,9 @@ class NineTest(Widget):
         self.player.move()
 
         #self.blok.blok_collide(self.player) 
-        self.player.player_collide(self.blok)
+        #self.blok_height.blok_collide(self.player) 
+        self.player.player_collide(self.blok, self.blok_right)
+        self.player.player_collide(self.blok_base, self.blok_left)
 
 
 class Nine_testApp(App):

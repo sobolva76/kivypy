@@ -10,6 +10,7 @@
             size: self.size 
 
 <Blok>:
+   
     size: 10, 100
     canvas:
         Rectangle:
@@ -18,13 +19,32 @@
 
 <NineTest>:
     player: _player_apponent
-    blok: _blok
+    blok: _blok_width
+    #blok_height: _blok_height
+    blok_base: _blok_base
 
     Player:
-        id: _player_apponent
-        pos: 10, 190
+        id: _player_apponent 
+        pos: 200, 200
 
     Blok:
-        id: _blok
-        pos: 500, 50
+        id: _blok_width
+        pos: root.width - 10, 0
+        size: 10, root.height
+
+    Blok:
+        #id: _blok_height
+        id: _blok_base
+        pos: 0, 0
+        size: 10, root.height
+
+    Blok:
+        #id: _blok_width
+        pos: 0, 0
+        size: root.width, 10
+
+    Blok:
+        #id: _blok_width
+        pos: 10, root.height - 10
+        size: root.width, 10
     
