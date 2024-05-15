@@ -20,12 +20,12 @@
 <NineTest>:
     player: _player_apponent
     blok: _blok_width
-    #blok_height: _blok_height
     blok_base: _blok_base
+    blok_down: _blok_down
 
     Player:
         id: _player_apponent 
-        pos: 200, 200
+        pos: 200, 400
 
     Blok:
         id: _blok_width
@@ -33,18 +33,29 @@
         size: 10, root.height
 
     Blok:
-        #id: _blok_height
         id: _blok_base
         pos: 0, 0
         size: 10, root.height
 
     Blok:
-        #id: _blok_width
-        pos: 0, 0
-        size: root.width, 10
+        id: _blok_down
+        group: a
+        pos: 250, 50
+        size: 200, 10
 
     Blok:
-        #id: _blok_width
+        id: _blok_down
+        group: a
+        pos: 100, 150
+        size: 200, 10
+
+    Blok:
+        id: _blok_down
+        group: a
+        pos: 0, 0
+        size: root.width, 10
+        
+    Blok:
         pos: 10, root.height - 10
         size: root.width, 10
     
