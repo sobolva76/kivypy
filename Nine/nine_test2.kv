@@ -1,7 +1,7 @@
 # File name: nine_test.kv
 
 <Player>:
-    size: 12, 12
+    size: 24, 24
     canvas:
         Color:
             rgba: 0, 1, 1, 1
@@ -17,20 +17,11 @@
             pos: self.pos
             size: self.size
 
-<Blok2>:
-   
-    size: 10, 100
-    canvas:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
 <NineTest>:
     player: _player_apponent
     blok: _blok_width
     blok_base: _blok_base
     blok_down: _blok_down
-    blok_pol: _blok_pol
 
     Player:
         id: _player_apponent 
@@ -48,16 +39,16 @@
 
     Blok:
         #id: _blok_down
-        pos: 250, 50
+        pos: 200, 50
         size: 200, 10
 
     Blok:
-        id: _blok_down
-        pos: 20, 300
+        #id: _blok_down
+        pos: 100, 150
         size: 400, 10
 
-    Blok2:
-        id: _blok_pol
+    Blok:
+        id: _blok_down
         pos: 0, 0
         size: root.width, 10
         

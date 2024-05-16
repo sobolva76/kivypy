@@ -17,6 +17,8 @@ class Blok(Widget):
             print("BAX", player.velocity)
         #print(player.pos)
 
+class Blok2(Widget):
+    pass
 
 class Player(Widget):
     velocity_x = NumericProperty(0)
@@ -50,9 +52,17 @@ class Player(Widget):
                 self.velocity = (2, 0)
                 print("BAX-player", "blok_bottom", self.velocity)
 
-        else:
-            self.velocity = (0, -2)
-            print("нет коллизий")
+            if names == 'blok_poll' and self.velocity_y != 0:
+                #self.pos = (200, 200)
+                self.velocity = (2, 0)
+                print("BAX-player", "blok_poll", self.velocity)
+
+            if names != 'blok_bottom' or names != 'blok_poll':
+
+                self.velocity_x *= -1
+            
+                #self.velocity = (0, -2)
+                #print("нет коллизий")
 
 
 class NineTest(Widget):
@@ -60,11 +70,13 @@ class NineTest(Widget):
     blok = ObjectProperty(None)
     blok_base = ObjectProperty(None)
     blok_down = ObjectProperty(None)
+    blok_pol = ObjectProperty(None)
     
 
     blok_right = 'blok_right'
     blok_left = 'blok_left'
     blok_bottom = 'blok_bottom'
+    blok_poll = 'blok_poll'
     
 
     def serve_player(self, vel=(0, -2)):
@@ -75,11 +87,10 @@ class NineTest(Widget):
     def update(self, dt):
         self.player.move()
 
-        #self.blok.blok_collide(self.player) 
-        #self.blok_height.blok_collide(self.player) 
         self.player.player_collide(self.blok, self.blok_right)
         self.player.player_collide(self.blok_base, self.blok_left)
         self.player.player_collide(self.blok_down, self.blok_bottom)
+        self.player.player_collide(self.blok_pol, self.blok_poll)
 
 
 class Nine_testApp(App):
