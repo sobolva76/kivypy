@@ -6,6 +6,7 @@ from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, DictProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
+from kivy.uix.label import Label
 
 
 class Blok(Widget):
@@ -35,17 +36,20 @@ class NineTest(Widget):
     blok_pol = ObjectProperty(None)
 
     blok_down2 = ObjectProperty(None)
+
     stop_label = ObjectProperty(None)
 
     blok_test = ObjectProperty(None)
     blok_test2 = ObjectProperty(None)
-    blok_list = []
+    blok_list = DictProperty({})
 
     collision_list = DictProperty({})
 
     players_list = []
 
     rig_test = 1
+
+    k = 0
     
 
     def serve_player(self, vel=(0, -2)):
@@ -56,32 +60,37 @@ class NineTest(Widget):
 
         blok = Blok(size = (10, 900), pos = (700, 0))
         #self.blok_list = [blok_test]
-        self.blok_list.append(blok) 
+        self.blok_list.update({blok: 'blok'}) 
         self.add_widget(blok)
 
         blok_base = Blok(size = (10, self.height), pos = (0, 0))
         #self.blok_list = [blok_test]
-        self.blok_list.append(blok_base) 
+        self.blok_list.update({blok_base: 'blok_base'})
         self.add_widget(blok_base)
 
         blok_down = Blok(size = (950, 10), pos = (100, 300))
         #self.blok_list = [blok_test]
-        self.blok_list.append(blok_down) 
+        self.blok_list.update({blok_down: 'blok_down'}) 
         self.add_widget(blok_down)
 
         blok_test = Blok(size = (200, 10), pos = (10, 150))
         #self.blok_list = [blok_test]
-        self.blok_list.append(blok_test) 
+        self.blok_list.update({blok_test: 'blok_test'}) 
         self.add_widget(blok_test)
 
         blok_test2 = Blok(size = (200, 10), pos = (100, 80))
-        self.blok_list.append(blok_test2)
+        self.blok_list.update({blok_test2: 'blok_test2'})
         self.add_widget(blok_test2)
         #print("blok_list - ", self.blok_list)
 
-        blok_pol = Blok(size = (self.width, 10), pos = (0, 0))
-        self.blok_list.append(blok_pol)
+        blok_pol = Blok(size = (700, 10), pos = (0, 0))
+        self.blok_list.update({blok_pol: 'blok_pol'})
         self.add_widget(blok_pol)
+
+        stop_label = Label(text = "|", pos = (-30, 265))
+        self.blok_list.update({stop_label: 'stop_label'})
+        self.add_widget(stop_label)
+
         #print("blok_list - ", self.blok_list)
 
 
@@ -91,11 +100,51 @@ class NineTest(Widget):
 
             i.move()
 
-            for blok_l in self.blok_list:# проходим по списку блоков
+            for blok_l in self.blok_list.keys():# проходим по списку блоков
 
             #print(self.players_list)
+                #print("blok_list - ", self.blok_list)
 
                 if i.collide_widget(blok_l):
+
+                    self.k = 0
+                    print(self.k)
+
+                    #print(self.blok_list.get(blok_l))
+
+                    if self.blok_list.get(blok_l) == 'blok' or self.blok_list.get(blok_l) == 'blok_base':
+                            i.velocity_x *= -1
+                            #print("Collide blok, blok_base")
+
+                    elif self.collision_list.get(i) != blok_l:
+                    
+                        self.collision_list[i] = blok_l
+
+                        i.velocity = (2, 0)
+        
+                        #print("COLLISIA", self.collision_list)
+
+                #else:
+                    #if self.collision_list.get(i):
+                        #self.collision_list.pop(i)
+                        #i.velocity = (0, -2)
+                        #print("Collide NO")
+
+                    #if self.blok_list.get(blok_l) == 'stop_label' and i.velocity_y == 0:
+                        #print("stop_label")
+                        #if self.collision_list.get(i):
+                            #self.collision_list.pop(i)
+                            #i.velocity = (0, -2)
+                            #print("Collide NO", self.collision_list)
+                else:
+                    self.k += 1
+                    print(self.k)
+                    if self.k > 6:
+                        if self.collision_list.get(i):
+                            self.collision_list.pop(i)
+                            i.velocity = (0, -2)
+                            #print("Collide NO", self.collision_list)
+
                     #if blok_l == self.blok or blok_l == self.blok_base:
                         #i.velocity_x *= -1
                         #print("Collide blok, blok_base")
@@ -130,28 +179,27 @@ class NineTest(Widget):
                         #i.velocity = (2, 0)
                         #print("Collide blok_test", self.collision_list)
 
-                    if self.collision_list.get(i) != blok_l:
                     
-                        self.collision_list[i] = blok_l
 
-                        if self.rig_test == 1:
-                            i.velocity_x *= -1
-                            print("Collide blok, blok_base")
+                        #elif self.blok_list.get(blok_l) == 'bok_pol' and i.velocity_y != 0:
+                            #i.velocity = (2, 0)
+                            #print("Collide blok_pol")
 
-                        elif blok_l == self.blok_pol and i.velocity_y != 0:
-                            i.velocity = (2, 0)
-                            print("Collide blok_pol")
+                        #elif self.blok_pol == False:
+                            #if self.collision_list.get(i):
+                                #self.collision_list.pop(i)
+                                #i.velocity = (0, -2)
+                                #print("Collide NO")
 
-                        elif self.blok_pol == False:
-                            if self.collision_list.get(i):
-                                self.collision_list.pop(i)
-                                i.velocity = (0, -2)
-                                print("Collide NO")
-
-                        else:
-                            i.velocity = (2, 0)
+                        #else:
+                            #i.velocity = (2, 0)
                             #print("Collide blok_test", self.collision_list)
-                            print(self.blok_base)
+                            #print("COLLISIA")
+
+                    #elif self.collision_list.get(i):
+                            #self.collision_list.pop(i)
+                            #i.velocity = (0, -2)
+                            #print("Collide NO", self.collision_list)
 
                 #elif i.collide_widget(self.blok_pol) == False:
                     #if self.collision_list.get(i):
@@ -170,7 +218,7 @@ class Nine_test3App(App):
     def build(self):
         game = NineTest()
         game.serve_player()
-        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        Clock.schedule_interval(game.update, 1 / 60.0)
         return game
     
 
