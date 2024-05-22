@@ -25,6 +25,7 @@ class Player(Widget):
         #self.velocity = (2, 0)
         self.pos = Vector(*self.velocity) + self.pos
         
+        
 
 class NineTest(Widget):
     player = ObjectProperty(None)
@@ -87,9 +88,18 @@ class NineTest(Widget):
         self.blok_list.update({blok_pol: 'blok_pol'})
         self.add_widget(blok_pol)
 
-        stop_label = Label(text = "|", pos = (-30, 265))
+        #stop_label = Label(text = "|", pos = (-30, 265), text_size = (5, 12))
+        stop_label = Blok(size = (10, 10), pos = (70, 300))
         self.blok_list.update({stop_label: 'stop_label'})
         self.add_widget(stop_label)
+
+        stop_label2 = Blok(size = (10, 10), pos = (320, 90))
+        self.blok_list.update({stop_label2: 'stop_label'})
+        self.add_widget(stop_label2)
+
+        stop_label3 = Blok(size = (10, 10), pos = (220, 160))
+        self.blok_list.update({stop_label3: 'stop_label'})
+        self.add_widget(stop_label3)
 
         #print("blok_list - ", self.blok_list)
 
@@ -107,14 +117,14 @@ class NineTest(Widget):
 
                 if i.collide_widget(blok_l):
 
-                    self.k = 0
-                    print(self.k)
+                    #self.k = 0
+                    #print("+collide+")
 
                     #print(self.blok_list.get(blok_l))
 
                     if self.blok_list.get(blok_l) == 'blok' or self.blok_list.get(blok_l) == 'blok_base':
                             i.velocity_x *= -1
-                            #print("Collide blok, blok_base")
+                            print("Collide blok, blok_base")
 
                     elif self.collision_list.get(i) != blok_l:
                     
@@ -122,7 +132,7 @@ class NineTest(Widget):
 
                         i.velocity = (2, 0)
         
-                        #print("COLLISIA", self.collision_list)
+                        print("COLLISIA", self.collision_list)
 
                 #else:
                     #if self.collision_list.get(i):
@@ -130,19 +140,19 @@ class NineTest(Widget):
                         #i.velocity = (0, -2)
                         #print("Collide NO")
 
-                    #if self.blok_list.get(blok_l) == 'stop_label' and i.velocity_y == 0:
+                    if self.blok_list.get(blok_l) == 'stop_label' and i.velocity_y == 0:
                         #print("stop_label")
-                        #if self.collision_list.get(i):
-                            #self.collision_list.pop(i)
-                            #i.velocity = (0, -2)
-                            #print("Collide NO", self.collision_list)
-                else:
-                    self.k += 1
-                    print(self.k)
-                    if self.k > 6:
                         if self.collision_list.get(i):
                             self.collision_list.pop(i)
                             i.velocity = (0, -2)
+                            print("Collide NO", self.collision_list)
+                #else:
+                    #self.k += 1
+                    #print(self.k)
+                    #if self.k > 6:
+                    #if self.collision_list.get(i):
+                        #self.collision_list.pop(i)
+                        #i.velocity = (0, -2)
                             #print("Collide NO", self.collision_list)
 
                     #if blok_l == self.blok or blok_l == self.blok_base:

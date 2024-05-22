@@ -5,7 +5,7 @@
     canvas:
         Color:
             rgba: 0, 1, 1, 1
-        Rectangle:
+        Ellipse:
             pos: self.pos
             size: self.size 
 
@@ -66,9 +66,10 @@
         #size: 950, 10
 
     Label:
-        #id: _stop_label
-        text: "|"
-        size: 12, 12
+        text: 'Some'
+        markup: True
+        shorten: True
+        ellipsis_options: {'color':(1,0.5,0.5,1),'underline':True}
         pos: 400, 300
         
     #Blok:
