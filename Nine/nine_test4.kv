@@ -1,0 +1,19 @@
+<Pers>:
+    size: 14, 14
+    canvas:
+        Color:
+            rgba: 1, 0, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+
+<NineTest>:
+
+    player: _player
+    Pers:
+        id: _player
+        pos: 100, 100
+
+    Button:
+        text: "test_move"
+        on_press: _player.move_test()

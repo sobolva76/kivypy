@@ -9,6 +9,25 @@ from kivy.clock import Clock
 from kivy.uix.label import Label
 
 
+class Pers(Widget):
+    
+    boolpers = 0
+
+    def move_left(self):
+        #self.pos[0] -= 1
+        self.boolpers = 1
+
+    def move_right(self):
+        self.pos[0] += 1
+
+    def move_pers(self):
+        #if self.boolpers == 1:
+        #self.pos += 1
+        print("OK")
+        self.move_right()
+    
+
+
 class Blok(Widget):
     pass
 
@@ -30,6 +49,10 @@ class Player(Widget):
 class NineTest(Widget):
     player = ObjectProperty(None)
     player2 = ObjectProperty(None)
+
+    pers = ObjectProperty(None)
+
+    mov_rig = ObjectProperty(None)
 
     blok = ObjectProperty(None)
     blok_base = ObjectProperty(None)
@@ -105,6 +128,7 @@ class NineTest(Widget):
 
 
     def update(self, dt):
+
 
         for i in self.players_list:
 
@@ -229,6 +253,7 @@ class Nine_test3App(App):
         game = NineTest()
         game.serve_player()
         Clock.schedule_interval(game.update, 1 / 60.0)
+        Clock.schedule_interval(Pers.move_pers, 1 / 60.0)
         return game
     
 

@@ -1,5 +1,14 @@
 # File name: nine_test.kv
 
+<Pers>:
+    size: 14, 14
+    canvas:
+        Color:
+            rgba: 1, 0, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+
 <Player>:
     size: 12, 12
     canvas:
@@ -13,6 +22,8 @@
    
     size: 10, 100
     canvas:
+        Color:
+            rgba: 0, 1, 1, 1
         Rectangle:
             pos: self.pos
             size: self.size
@@ -20,6 +31,8 @@
 <Blok2>:
    
     size: 10, 100
+    Color:
+        rgba: 0, 1, 1, 1
     canvas:
         Rectangle:
             pos: self.pos
@@ -28,6 +41,10 @@
 <NineTest>:
     player: _player_apponent
     player2: _player_apponent2
+
+    pers: _pers
+
+    mov_rig: _mov_rig
 
     #blok: _blok_width
     #blok_base: _blok_base
@@ -80,4 +97,21 @@
     Blok:
         pos: 10, root.height - 10
         size: root.width, 10
+
+    Pers:
+        id: _pers
+        pos: 30, 30
+
+    Button:
+        id: _mov_rig
+        text: "x+"
+        pos: 20, root.height - 30
+        size: 30, 20
+        #on_press: _pers.move_right()
+
+    Button:
+        text: "x-"
+        pos: 120, root.height - 30
+        size: 30, 20
+        
     
