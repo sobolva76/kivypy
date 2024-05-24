@@ -8,26 +8,44 @@ from kivy.clock import Clock
 
 class Pers(Widget):
 
-    speed = 1
+    velocity_x = NumericProperty(0)
+    velocity_y = NumericProperty(0)
+    velocity = ReferenceListProperty(velocity_x, velocity_y)
+
+    velocity = (2, 0)
     
     def move_test(self):
-        self.pos[0] += self.speed
-
-    def speed_pers(self):
-        self.speed = 10
+        #self.velocity = (5, 0)
+        self.pos = Vector(*self.velocity) + self.pos
 
 
 class NineTest(Widget):
     player = ObjectProperty(None)
 
+    btn = ObjectProperty(None)
+
+    #def on_touch_down(self, touch):
+        #return super().on_touch_down(touch)
+        #self.player.velocity = (2, 0)
+        #print("касание", touch)
+
+    if btn.on_touch_down:
+        player.velocity = (-2, 0)
+
+
+    def serve_player(self, vel=(0, 2)):
+        self.player.velocity = vel
+
+    
+    def update(self, dt):
+        self.player.move_test()
+
 
 class Nine_test4App(App):
     def build(self):
         game = NineTest()
-        #game.serve_player()
-        #Clock.schedule_interval(game.update, 1 / 60.0)
-        #Clock.schedule_interval(Pers.move_test, 1 / 60.0)
-        Pers.speed_pers(self)
+        game.serve_player()
+        Clock.schedule_interval(game.update, 1 / 60.0)
         return game
     
 
