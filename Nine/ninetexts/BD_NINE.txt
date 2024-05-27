@@ -1,3 +1,23 @@
+on_touch_down - работает совместно с collide_point(*touch.pos)
+так можно определять к какому виджету прикаснулся:
+    - нашел 2 варианта:
+        -1 - писать on_touch_down в самом виджите (при создании класса виджета)
+        пример - class Test_button(Button):
+                     def on_touch_down(self, touch):
+                         if self.collide_point(*touch.pos):
+                             print("касание Test_button", touch)
+        -2 - создавать через объект в главном окне
+        пример - class NineTest(Widget): главный виджет
+                     player = ObjectProperty(None) объекты из kv
+                     btn = ObjectProperty(None)
+
+                    def on_touch_down(self, touch):
+                        if self.btn.collide_point(*touch.pos):
+                            print("касание NineTest", touch)
+
+        !!!Второй вариант перекрывает первый!!!
+
+
 Вариант 2:
     - сделать весь экран из кубиков - и двигатся по ним?!!!
 

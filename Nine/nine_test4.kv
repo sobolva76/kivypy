@@ -7,15 +7,25 @@
             pos: self.pos
             size: self.size 
 
+<Test_button>:
+    text: "test_move"
+
+<Test_label>:
+    text: "LABEL"
+    pos: 300, 300
+
 <NineTest>:
 
     player: _player
     btn: _btn
+    label1: _label1
 
     Pers:
         id: _player
         pos: 100, 100
 
-    Button:
+    Test_button:
         id: _btn
-        text: "test_move"
+
+    Test_label
+        id: _label1
