@@ -8,17 +8,24 @@
             size: self.size 
 
 <Test_button>:
-    text: "test_move"
+    size: 100, 30
 
-<Test_label>:
-    text: "LABEL"
-    pos: 300, 300
+<Blok>:
+   
+    size: 10, 100
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
 <NineTest>:
 
     player: _player
     btn: _btn
-    label1: _label1
+    btn2: _btn2
+    btn3: _btn3
 
     Pers:
         id: _player
@@ -26,6 +33,19 @@
 
     Test_button:
         id: _btn
+        text: "move -> "
+        pos: 10, 10
 
-    Test_label
-        id: _label1
+    Test_button:
+        id: _btn2
+        text: "<- move"
+        pos: 200, 10
+
+    Test_button:
+        id: _btn3
+        text: "^"
+        pos: 500, 10
+
+    Blok:
+        pos: 10, root.height - 10
+        size: root.width, 10

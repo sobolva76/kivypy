@@ -9,13 +9,9 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 
 
-class Test_label(Label):
-    def on_touch_down(self, touch):
-        #return super().on_touch_down(touch)
-        #NineTest.player.velocity = (2, 0)
-        if self.collide_point(*touch.pos):
-            #self.ids.player.velocity = (2, 0)
-            print("касание Test_label", touch)
+class Blok(Widget):
+    pass
+
 
 class Test_button(Button):
     def on_touch_down(self, touch):
@@ -41,15 +37,26 @@ class NineTest(Widget):
     player = ObjectProperty(None)
 
     btn = ObjectProperty(None)
-    label1 = ObjectProperty(None)
+    btn2 = ObjectProperty(None)
+    btn3 = ObjectProperty(None)
+
+    blok = ObjectProperty(None)
+
+    blok_list = DictProperty({})
+
+    
 
     def on_touch_down(self, touch):
         if self.btn.collide_point(*touch.pos):
             self.player.velocity = (2, 0)
             print("касание player движется", touch)
 
-        if self.label1.collide_point(*touch.pos):
+        if self.btn2.collide_point(*touch.pos):
             self.player.velocity = (-2, 0)
+            print("касание player движется", touch)
+
+        if self.btn3.collide_point(*touch.pos):
+            self.player.velocity_y = 28
             print("касание player движется", touch)
 
     def on_touch_up(self, touch):
@@ -58,20 +65,36 @@ class NineTest(Widget):
             self.player.velocity = (0, 0)
             print("убираем player стоп", touch)
 
-        if self.label1.collide_point(*touch.pos):
+        if self.btn2.collide_point(*touch.pos):
             self.player.velocity = (0, 0)
             print("убираем player стоп", touch)
 
-    #if btn.on_touch_down:
-        #player.velocity = (-2, 0)
+        if self.btn3.collide_point(*touch.pos):
+            self.player.velocity = (0, 0)
+            print("убираем player стоп", touch)
 
 
     def serve_player(self, vel=(0, 0)):
         self.player.velocity = vel
 
+        blok = Blok(size = (900, 10), pos = (0, 50))
+        #self.blok_list = [blok_test]
+        self.blok_list.update({blok: 'blok'}) 
+        self.add_widget(blok)
+        print(self.blok_list)
+
     
     def update(self, dt):
         self.player.move_test()
+        
+        for blok_l in self.blok_list.keys():
+            if self.player.collide_widget(blok_l):
+                self.player.velocity_y = 0
+                print("COLLIDE")
+            else:
+                self.player.velocity = (0, -2)
+
+            #print(self.blok)
 
 
 class Nine_test4App(App):
