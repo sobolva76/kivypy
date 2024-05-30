@@ -1,0 +1,14 @@
+# File name: nineGame.kv
+
+# создаем видимый образ аппонента
+<Apponent>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+
+# главный виджет приложения
+<NineGameBase>:
