@@ -10,5 +10,43 @@
             pos: self.pos
             size: self.size 
 
+# визуальное представление блоков
+<Blok>:   
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 # главный виджет приложения
 <NineGameBase>:
+
+# id постоянных блоков (левого, правого, и пола)
+    blok_right: _blok_right
+    blok_left: _blok_left
+    blok_down: _blok_down
+
+# правая стена  
+    Blok:
+        id: _blok_right
+        pos: root.width - 10, 0
+        size: 10, root.height
+# левыя стена
+    Blok:
+        id: _blok_left
+        pos: 0, 0
+        size: 10, root.height
+# два блока нижняя кайма, первый пол, второй каяма
+    Blok:
+        id: _blok_down
+        pos: 0, 50
+        size: root.width, 10
+    Blok:
+        pos: 0, 0
+        size: root.width, 10
+# верх
+    Blok:
+        pos: 10, root.height - 10
+        size: root.width, 10
