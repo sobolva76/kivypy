@@ -47,7 +47,7 @@ class NineGameBase(Widget):
         # создаем противника и добавляем его на экран, и придаем ускорение
         apponent = Apponent(pos = (50, 300))
         self.add_widget(apponent)
-        apponent.vel_apponent = (2, 0)
+        apponent.vel_apponent = (0, -2)
 
         self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
 
@@ -75,11 +75,11 @@ class NineGameBase(Widget):
                 if apponents.collide_widget(bloks):
                     # проверка на столкновение со стенами
                     if self.blok_list.get(bloks) == 'blok_right' or self.blok_list.get(bloks) == 'blok_left':
-                        #apponents.velocity_x *= -1
+                        apponents.vel_apponent_x *= -1
                         print(apponents)
 
                     if self.blok_list.get(bloks) == 'blok_down':
-                        apponents.velocity_x = 2
+                        apponents.vel_apponent = (2, 0)
                         print("collide down")
 
 
