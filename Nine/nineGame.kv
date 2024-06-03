@@ -20,6 +20,15 @@
             pos: self.pos
             size: self.size
 
+<Blok_end_stop>:
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 # главный виджет приложения
 <NineGameBase>:
 
@@ -27,6 +36,7 @@
     blok_right: _blok_right
     blok_left: _blok_left
     blok_down: _blok_down
+    blok_stop: _blok_stop
 
 # правая стена  
     Blok:
@@ -50,3 +60,7 @@
     Blok:
         pos: 10, root.height - 10
         size: root.width, 10
+
+    Blok_end_stop:
+        id: _blok_stop
+        pos: 30, 65
