@@ -56,18 +56,10 @@ class NineGameBase(Widget):
         if self.koll_apponents < 3:
             apponent = ObjectProperty(None)# создаем пустой объект противника
 
-<<<<<<< HEAD
             # создаем противника и добавляем его на экран, и придаем ускорение
             apponent = Apponent(pos = (100, 300))
             self.add_widget(apponent)
             apponent.vel_apponent = (0, -2)
-=======
-        # создаем противника и добавляем его на экран, и придаем ускорение
-        apponent = Apponent(pos = (50, 300))
-        self.add_widget(apponent)
-        apponent.vel_apponent = (0, -2)
->>>>>>> 2e1a44aece76d9191a93bf45398d1b4bef1651b2
-
             self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
             self.koll_apponents += 1# - увеличиваем счетчик на 1
             print(self.koll_apponents)
@@ -98,7 +90,6 @@ class NineGameBase(Widget):
                 if apponents.collide_widget(bloks):
                     # проверка на столкновение со стенами
                     if self.blok_list.get(bloks) == 'blok_right' or self.blok_list.get(bloks) == 'blok_left':
-<<<<<<< HEAD
                         # меняем скорость на противоположную
                         apponents.vel_apponent_x *= -1
 
@@ -111,21 +102,13 @@ class NineGameBase(Widget):
 
                     if self.blok_list.get(bloks) == 'blok_stop':
                         # если небыло коллизий - записываем в список и меняем скорость
-                        apponents.vel_apponent_x *= -1
+                        #apponents.vel_apponent_x *= -1
                         self.remove_widget(apponents)
                         self.collision_list.pop(apponents)
                         #self.collision_list[apponents] = bloks
                         #if self.koll_apponents < 3:
                         self.koll_apponents = self.koll_apponents - 1
                         print(self.collision_list)
-=======
-                        apponents.vel_apponent_x *= -1
-                        print(apponents)
-
-                    if self.blok_list.get(bloks) == 'blok_down':
-                        apponents.vel_apponent = (2, 0)
-                        print("collide down")
->>>>>>> 2e1a44aece76d9191a93bf45398d1b4bef1651b2
 
 
 # класс запуска приложения
