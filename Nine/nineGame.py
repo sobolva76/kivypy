@@ -48,12 +48,11 @@ class NineGameBase(Widget):
     blok_list = DictProperty({})# список блоков
     collision_list = DictProperty({})# список заполняется при первой коллизии аппонента с блоком
 
-    koll_apponents = 0 # колличество аппанентов, что-бы исключить бесконечное число
-
+    
     def spawn_apponent(self, *args):
         """ функция спавна противников - создает и записывает в спивок"""
         # определяем колличество аппонентов на уровне
-        if self.koll_apponents < 3:
+        if len(self.apponent_list) < 3:
             apponent = ObjectProperty(None)# создаем пустой объект противника
 
             # создаем противника и добавляем его на экран, и придаем ускорение
@@ -61,8 +60,6 @@ class NineGameBase(Widget):
             self.add_widget(apponent)
             apponent.vel_apponent = (0, -2)
             self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
-            self.koll_apponents += 1# - увеличиваем счетчик на 1
-            print(self.koll_apponents)
 
 
     def serve_objects(self):
@@ -100,15 +97,23 @@ class NineGameBase(Widget):
                         self.collision_list[apponents] = bloks
                         apponents.vel_apponent = (2, 0)
 
-                    if self.blok_list.get(bloks) == 'blok_stop':
-                        # если небыло коллизий - записываем в список и меняем скорость
-                        #apponents.vel_apponent_x *= -1
-                        self.remove_widget(apponents)
-                        self.collision_list.pop(apponents)
-                        #self.collision_list[apponents] = bloks
-                        #if self.koll_apponents < 3:
-                        self.koll_apponents = self.koll_apponents - 1
-                        print(self.collision_list)
+                    # проверяем на столкновение аппонента с конечным блоком
+                    # (блок конца его пути, после виджет(аппонента) удаляем)
+                    if self.blok_list.get(bloks) == 'blok_stop' and self.apponent_list.get(apponents):
+                        # записываем в список коллизий
+                        self.collision_list[apponents] = bloks
+                        
+        # создаем копию списка коллизий, проверяем кто из аппонентов столкнулся с конечным блоком
+        # и затем удаляем этого аппанента из всех списков, 
+        # затем удаляем и его 
+        cort_copy = self.collision_list.copy()
+        collide_corte = cort_copy.items()
+        for corts in collide_corte:
+            if corts[1] == self.blok_stop:
+                self.collision_list.pop(corts[0])
+                self.apponent_list.pop(corts[0])
+                self.remove_widget(corts[0])
+        
 
 
 # класс запуска приложения
