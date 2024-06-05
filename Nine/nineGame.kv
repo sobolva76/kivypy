@@ -19,12 +19,30 @@
         Rectangle:
             pos: self.pos
             size: self.size
-
-<Blok_end_stop>:
+# визуализация блока удаления аппонентов (необходимо сделать прозрачным)
+<Blok_stop>:
     size: 1, 1
     canvas:
         Color:
             rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+# визуальное представление блока конца горизонта
+<Blok_end>:
+    size: 1, 1
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Blok_base>:
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
         Rectangle:
             pos: self.pos
             size: self.size
@@ -51,7 +69,7 @@
 # два блока нижняя кайма, первый пол, второй каяма
     Blok:
         id: _blok_down
-        pos: 0, 50
+        pos: 0, 100
         size: root.width, 10
     Blok:
         pos: 0, 0
@@ -60,7 +78,7 @@
     Blok:
         pos: 10, root.height - 10
         size: root.width, 10
-
-    Blok_end_stop:
+# блок - стоп для аппонента
+    Blok_stop:
         id: _blok_stop
-        pos: 30, 65
+        pos: 50, 115

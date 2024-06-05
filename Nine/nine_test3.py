@@ -24,7 +24,7 @@ class Pers(Widget):
         #if self.boolpers == 1:
         #self.pos += 1
         print("OK")
-        self.move_right()
+        #self.move_right()
     
 
 
