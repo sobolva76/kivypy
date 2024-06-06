@@ -185,7 +185,7 @@ class NineGameBase(Widget):
         self.player.move_player()
         for blok_l in self.blok_list.keys():
             
-            if self.player.collide_widget(blok_l):
+            if blok_l.collide_widget(self.player):
                 
                 #self.collision_list[self.player] = blok_l
                 self.player.vel_player = (0, 0)
