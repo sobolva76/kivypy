@@ -1,5 +1,14 @@
 # File name: nineGame.kv
 
+# визуализация игрока
+<Player>:
+    size: 14, 14
+    canvas:
+        Color:
+            rgba: 1, 0, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
 # создаем видимый образ аппонента
 <Apponent>:
     size: 12, 12
@@ -47,6 +56,9 @@
             pos: self.pos
             size: self.size
 
+<Move_button>:
+    size: 100, 30
+
 # главный виджет приложения
 <NineGameBase>:
 
@@ -55,6 +67,12 @@
     blok_left: _blok_left
     blok_down: _blok_down
     blok_stop: _blok_stop
+
+# id персонажа и кнопок движения
+    player: _player
+    btn_right: _btn_right
+    btn_left: _btn_left
+    btn_up: _btn_up
 
 # правая стена  
     Blok:
@@ -82,3 +100,22 @@
     Blok_stop:
         id: _blok_stop
         pos: 50, 115
+
+    Player:
+        id: _player
+        pos: 100, 500
+
+    Move_button:
+        id: _btn_right
+        text: "move -> "
+        pos: 10, 10
+
+    Move_button:
+        id: _btn_left
+        text: "<- move"
+        pos: 200, 10
+
+    Move_button:
+        id: _btn_up
+        text: "^"
+        pos: 500, 10
