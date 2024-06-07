@@ -52,6 +52,10 @@ class Apponent(Widget):
 
 class Player(Widget):
     """ класс персонажа имеет скорость движения по осям, имя и функцию движения """
+
+    def __init__(self, **kwargs):
+        super(Player, self).__init__(**kwargs)
+
     vel_player_x = NumericProperty(0)
     vel_player_y = NumericProperty(0)
     vel_player = ReferenceListProperty(vel_player_x, vel_player_y)
@@ -143,7 +147,7 @@ class NineGameBase(Widget):
             self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
 
 
-    def serve_objects(self, vel=(0, 0)):
+    def serve_objects(self, vel=(0, -2)):
         """ функция инициализации объектов"""
 
         self.player.vel_player = vel
@@ -183,18 +187,54 @@ class NineGameBase(Widget):
     def move_player(self, dt):
 
         self.player.move_player()
-        for blok_l in self.blok_list.keys():
+        #for blok_l in self.blok_list.keys():
             
-            if blok_l.collide_widget(self.player):
+            #if self.player.collide_widget(blok_l):
                 
                 #self.collision_list[self.player] = blok_l
-                self.player.vel_player = (0, 0)
-                print("COLLIDE", self.player.vel_player)
-                return
+                #self.player.vel_player = (0, 0)
+                #print("COLLIDE", self.player.vel_player)
+                #return
     
-            else:
-                self.player.vel_player = (0, -2)
-                print("NO-COLLIDE", self.player.vel_player)
+            #else:
+                #self.player.vel_player = (0, -2)
+                #print("NO-COLLIDE", self.player.vel_player)
+        
+
+# ********************************************
+# далее (между ***) идет попытка определения коллизий по углам прямоугольника
+        # левый нижний угол
+        player_x = self.player.pos[0]
+        player_y = self.player.pos[1]
+
+        #левый верхний угол
+        player_top_left_x = self.player.pos[0]
+        player_top_left_y = self.player.pos[1] + self.player.size[1]
+
+        # правый верхний угол
+        player_top_right_x = self.player.pos[0] + self.player.size[0]
+        player_top_right_y = self.player.pos[1] + self.player.size[1]
+
+        # нижний правый угол
+        player_buttom_right_x = self.player.pos[0] + self.player.size[0]
+        player_buttom_right_y = self.player.pos[1]
+
+        #print(player_x, "*", player_y, "/", player_top_left_x, "*", player_top_left_y, "/", player_top_right_x, "*", player_top_right_y, "/", player_buttom_right_x, "*", player_buttom_right_y)
+
+        #for blok_l in self.blok_list.keys():
+            #x_blok, y_blok = blok_l.pos
+            #blok_width, blok_height = blok_l.size
+
+            #print(x_blok, player_y, "*", y_blok, player_y)
+
+            #if x_blok > player_x and y_blok > player_y and x_blok + blok_width > player_buttom_right_x:
+                #self.player.vel_player_y = 0
+                #print("collide", x_blok, player_x, "*", y_blok, player_y)
+                #return
+            #else:
+                #self.player.vel_player_y = -2
+                #print("not-collide")
+# ******************************************************
 
 
     def update(self, dt):
