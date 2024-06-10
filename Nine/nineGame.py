@@ -185,27 +185,30 @@ class NineGameBase(Widget):
         #print(self.blok_list)
 
     def mov_player(self, dt):
-        pass
+        """ функция движения персонажа, при падении проверяем столкновение в цикле"""
 
+        # движение персонажа
         self.player.move_player()
-
+        # если падаем то проверяем в цикле коллизии
         if self.player.vel_player_y != 0:
 
             for blok_l in self.blok_list.keys():
             
                 if self.player.collide_widget(blok_l):
-                    
+                    # если есть коллизия - записываем в ссписок коллизий и делаем скорость по y=0
                     self.collision_list[self.player] = blok_l
                     self.player.vel_player_y = 0
-
+        
+        # проверяем запись в списке коллизий - если есть то проверяем на столкновение только этот блок
         elif self.collision_list.get(self.player):
-        #self.collision_list.get(self.player)
+        
             if self.player.collide_widget(self.collision_list[self.player]): 
-                print(self.collision_list[self.player])
+                pass
+
+            # если коллизий больше нет - очищаем список коллизий и делаем скорость по x=0, y=-2
             else:
                 self.collision_list.pop(self.player)
                 self.player.vel_player = (0, -2)
-                print(self.collision_list)
 
         else:
             self.player.vel_player_y = -2
