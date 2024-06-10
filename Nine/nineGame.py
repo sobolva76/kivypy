@@ -187,18 +187,29 @@ class NineGameBase(Widget):
     def move_player(self, dt):
 
         self.player.move_player()
-        #for blok_l in self.blok_list.keys():
+
+        if self.player.vel_player_y != 0:
+
+            for blok_l in self.blok_list.keys():
             
-            #if self.player.collide_widget(blok_l):
-                
-                #self.collision_list[self.player] = blok_l
-                #self.player.vel_player = (0, 0)
-                #print("COLLIDE", self.player.vel_player)
-                #return
-    
-            #else:
-                #self.player.vel_player = (0, -2)
-                #print("NO-COLLIDE", self.player.vel_player)
+                if self.player.collide_widget(blok_l):
+                    
+                    self.collision_list[self.player] = blok_l
+                    self.player.vel_player_y = 0
+
+        elif self.collision_list.get(self.player):
+        #self.collision_list.get(self.player)
+            if self.player.collide_widget(self.collision_list[self.player]): 
+                print(self.collision_list[self.player])
+            else:
+                self.collision_list.pop(self.player)
+                self.player.vel_player = (0, -2)
+                print(self.collision_list)
+
+        else:
+            self.player.vel_player_y = -2
+
+        
         
 
 # ********************************************
