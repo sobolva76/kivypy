@@ -184,7 +184,8 @@ class NineGameBase(Widget):
 
         #print(self.blok_list)
 
-    def move_player(self, dt):
+    def mov_player(self, dt):
+        pass
 
         self.player.move_player()
 
@@ -212,44 +213,10 @@ class NineGameBase(Widget):
         
         
 
-# ********************************************
-# далее (между ***) идет попытка определения коллизий по углам прямоугольника
-        # левый нижний угол
-        player_x = self.player.pos[0]
-        player_y = self.player.pos[1]
-
-        #левый верхний угол
-        player_top_left_x = self.player.pos[0]
-        player_top_left_y = self.player.pos[1] + self.player.size[1]
-
-        # правый верхний угол
-        player_top_right_x = self.player.pos[0] + self.player.size[0]
-        player_top_right_y = self.player.pos[1] + self.player.size[1]
-
-        # нижний правый угол
-        player_buttom_right_x = self.player.pos[0] + self.player.size[0]
-        player_buttom_right_y = self.player.pos[1]
-
-        #print(player_x, "*", player_y, "/", player_top_left_x, "*", player_top_left_y, "/", player_top_right_x, "*", player_top_right_y, "/", player_buttom_right_x, "*", player_buttom_right_y)
-
-        #for blok_l in self.blok_list.keys():
-            #x_blok, y_blok = blok_l.pos
-            #blok_width, blok_height = blok_l.size
-
-            #print(x_blok, player_y, "*", y_blok, player_y)
-
-            #if x_blok > player_x and y_blok > player_y and x_blok + blok_width > player_buttom_right_x:
-                #self.player.vel_player_y = 0
-                #print("collide", x_blok, player_x, "*", y_blok, player_y)
-                #return
-            #else:
-                #self.player.vel_player_y = -2
-                #print("not-collide")
-# ******************************************************
-
-
     def update(self, dt):
         """ функция обновления - основной цикл приложения"""
+
+        self.player.move_player()
 
         for apponents in self.apponent_list.keys():# проходим по списку противников
             # запускаем функцию движения для каждого противника
@@ -332,7 +299,7 @@ class NineGame(App):
         game.serve_objects()
         # запуск основного цикла - обновляется каждую секунду
         Clock.schedule_interval(game.update, 1 / 60.0)
-        Clock.schedule_interval(game.move_player, 1 / 60.0)
+        Clock.schedule_interval(game.mov_player, 1 / 60.0)
         return game
     
 
