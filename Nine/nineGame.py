@@ -10,30 +10,26 @@ from kivy.uix.button import Button
 
 
 class Move_button(Button):
-    def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
-            print("касание Test_button", touch)
+    """ класс кнопок движения персонажа по x, и прыжок(y)"""
+    pass
+    #def on_touch_down(self, touch):
+        #if self.collide_point(*touch.pos):
+            #print("касание Test_button", touch)
 
 
 class Blok(Widget):
-    """ Класс блоков """ 
+    """ Класс постоянных блоков блоков - стены, пол, потолок, и нижняя кайма """ 
     pass
 
 
 class Blok_stop(Widget):
-    """ Класс блоков определяющих конец планки и конечного блока(при столкновении с ним - удаляется аппонент)"""
+    """ Класс конечного блока(при столкновении с ним - удаляется аппонент)"""
     pass
 
 
 class Blok_base(Widget):
     """ класс блоков расположенных на уровне (не включая пол и стены) """
     blok_base_name = "blok_base"
-
-
-class Blok_end(Widget):
-    """ блок указывающий окончание горизонта 
-    (определяет когда включать скорость по оси Y и делать скорость по оси X = 0 )"""
-    blok_end_name = "blok_end"
 
 
 # класс противника в нем - скорость по осям, функция движения и имя
@@ -86,9 +82,8 @@ class NineGameBase(Widget):
     blok_stop = ObjectProperty(None)
     blok_stop_name = "blok_stop"
     
-    # горизонтальные блоки с блоком окончания
+    # горизонтальные блоки
     blok_base = ObjectProperty(None)
-    blok_end = ObjectProperty(None)
 
     apponent_list = DictProperty({})# список противников (пустой)
     blok_list = DictProperty({})# список блоков
@@ -99,30 +94,36 @@ class NineGameBase(Widget):
 
     def on_touch_down(self, touch):
         if self.btn_right.collide_point(*touch.pos):
-            self.player.vel_player = (2, 0)
-            print("касание player движется", touch)
+            if self.player.collide_widget(self.blok_right):
+                 self.player.vel_player_x = 0
+            else:
+                self.player.vel_player_x = 2
 
         if self.btn_left.collide_point(*touch.pos):
-            self.player.vel_player = (-2, 0)
-            print("касание player движется", touch)
+            if self.player.collide_widget(self.blok_left):
+                 self.player.vel_player_x = 0
+                 print("удар о стену")
+            else:
+                self.player.vel_player_x = -2
 
         if self.btn_up.collide_point(*touch.pos):
-            self.player.vel_player_y = 28
-            print("касание player движется", touch)
+            #if self.collision_list.get(self.player):
+                #self.collision_list.pop(self.player)
+            self.player.vel_player_y = 14
 
     def on_touch_up(self, touch):
-        #return super().on_touch_up(touch)
+        
         if self.btn_right.collide_point(*touch.pos):
             self.player.vel_player = (0, 0)
-            print("убираем player стоп", touch)
 
         if self.btn_left.collide_point(*touch.pos):
             self.player.vel_player = (0, 0)
-            print("убираем player стоп", touch)
 
         if self.btn_up.collide_point(*touch.pos):
-            self.player.vel_player = (0, 0)
-            print("убираем player стоп", touch)
+            if self.collision_list.get(self.player):
+                self.collision_list.pop(self.player)
+            self.player.vel_player_y = -2
+            print("отпустил прыжок", self.collision_list)
 
     
     def spawn_apponent(self, *args):
@@ -145,13 +146,14 @@ class NineGameBase(Widget):
             self.add_widget(apponent)
             apponent.vel_apponent = (0, -2)
             self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
+            print(apponent.name_apponent)
 
 
     def serve_objects(self, vel=(0, -2)):
         """ функция инициализации объектов"""
 
+        # определение скорости персонажа
         self.player.vel_player = vel
-        print(self.player.vel_player)
 
         # инициализация блоков
         # инициализируем пол и стены
@@ -164,32 +166,21 @@ class NineGameBase(Widget):
         blok_base = Blok_base(size = (500, 10), pos = (10, 150))
         self.blok_list.update({blok_base: blok_base.blok_base_name})
         self.add_widget(blok_base)
-        blok_end = Blok_end(size = (10, 10), pos = (525, 165))
-        self.blok_list.update({blok_end: blok_end.blok_end_name})
-        self.add_widget(blok_end)
 
         blok_base = Blok_base(size = (700, 10), pos = (200, 220))
         self.blok_list.update({blok_base: blok_base.blok_base_name})
         self.add_widget(blok_base)
-        blok_end = Blok_end(size = (10, 10), pos = (175, 235))
-        self.blok_list.update({blok_end: blok_end.blok_end_name})
-        self.add_widget(blok_end)
 
         blok_base = Blok_base(size = (300, 10), pos = (10, 300))
         self.blok_list.update({blok_base: blok_base.blok_base_name})
         self.add_widget(blok_base)
-        blok_end = Blok_end(size = (10, 10), pos = (325, 310))
-        self.blok_list.update({blok_end: blok_end.blok_end_name})
-        self.add_widget(blok_end)
-
-        #print(self.blok_list)
 
     def mov_player(self, dt):
         """ функция движения персонажа, при падении проверяем столкновение в цикле"""
 
         # движение персонажа
         self.player.move_player()
-        # если падаем то проверяем в цикле коллизии
+        # если падаем то проверяем в цикле коллизии с блоками
         if self.player.vel_player_y != 0:
 
             for blok_l in self.blok_list.keys():
@@ -213,71 +204,80 @@ class NineGameBase(Widget):
         else:
             self.player.vel_player_y = -2
 
-        
-        
+        # проверка на столкновение со стенами
+        if self.player.collide_widget(self.blok_left):
+            #self.player.vel_player_x = 0
+            self.player.pos[0] = self.player.pos[0] + 1
+            print("удар о стену left")
+        elif self.player.collide_widget(self.blok_right):
+            self.player.pos[0] = self.player.pos[0] - 1
+
 
     def update(self, dt):
         """ функция обновления - основной цикл приложения"""
 
-        self.player.move_player()
-
         for apponents in self.apponent_list.keys():# проходим по списку противников
             # запускаем функцию движения для каждого противника
             apponents.move()
+            # если скорость по y=-2(то мы падаем)
+            if  apponents.vel_apponent_y != 0:
 
-            for bloks in self.blok_list.keys():# проходим по списку блоков
-                # проверяем столкновения с блоками
-                if apponents.collide_widget(bloks):
+                for bloks in self.blok_list.keys():# проходим по списку блоков
+                    # проверяем столкновения с блоками
+                    if apponents.collide_widget(bloks):
 
-                    # проверка на столкновение со стенами
-                    if self.blok_list.get(bloks) == 'blok_right' or self.blok_list.get(bloks) == 'blok_left':
-                        # меняем скорость на противоположную
-                        # ПОКА - направление движения не меняется у аппонента
-                        # если он начал с лева то и движется всегда в лево(при смене горизонтальных блоков)
-                        # возможно потом необходимо это изменить на - если он изменид направление после
-                        # удара о стенку, то должен и дальше двигаться в новом направлении
-                        apponents.vel_apponent_x *= -1
+                        # проверка на столкновение с горизонтальной балкой
+                        # и проверяем записано ли столкновение в список
+                        if self.blok_list.get(bloks) == 'blok_base' and self.collision_list.get(apponents) != bloks:
 
-                    
-                    # проверка на столкновение с горизонтальной(или) балкой
-                    if self.blok_list.get(bloks) == 'blok_base' and self.collision_list.get(apponents) != bloks:
+                            # если небыло коллизий - записываем в список и меняем скорость
+                            # но перед этим проверяем какая префикс l=+x, r=-x
+                            if (apponents.name_apponent == "apponent_l"):
+                                apponents.vel_apponent = (2, 0)
+                            elif (apponents.name_apponent == "apponent_r"):
+                                apponents.vel_apponent = (-2, 0)
+                            self.collision_list[apponents] = bloks
 
-                        # если небыло коллизий - записываем в список и меняем скорость
-                        # но перед этим проверяем какая префикс l=+x, r=-x
-                        if (apponents.name_apponent == "apponent_l"):
-                            apponents.vel_apponent = (2, 0)
-                        elif (apponents.name_apponent == "apponent_r"):
-                            apponents.vel_apponent = (-2, 0)
-                        self.collision_list[apponents] = bloks
+                        # проверяем на столкновение с полом и записываем в список коллизий
+                        # что-бы исключить повторные столкновения
+                        if self.blok_list.get(bloks) == 'blok_down' and self.collision_list.get(apponents) != bloks:
+                            # если небыло коллизий - записываем в список и меняем скорость
+                            if (apponents.name_apponent == "apponent_r"):
+                                apponents.vel_apponent = (-2, 0)
+                            else:
+                                apponents.vel_apponent = (2, 0)
 
-                    # блок окончания горизонта - коллизии происходят каждые несколько кадров
-                    # и из-за этого появились проблемы(когда нет коллизии аппонент должен изменить скорость
-                    # по x=0 по y=-2, тоесть падать, но планка еще не закончилась),
-                    # что-бы решить их был введен список коллизий
-                    # куда записывалась первая коллизия, а блок blok_end определяет 
-                    # где кончается горизонтальная планка и меняет скорость на x=0, y=-2
-                    if self.blok_list.get(bloks) == 'blok_end':
-                        # если небыло коллизий - записываем в список и меняем скорость
-                        if self.collision_list.get(apponents):
-                            self.collision_list.pop(apponents)
-                            apponents.vel_apponent = (0, -2)
+                            self.collision_list[apponents] = bloks
 
-                    # проверяем на столкновение с полом и записываем в список коллизий
-                    # что-бы исключить повторные столкновения
-                    if self.blok_list.get(bloks) == 'blok_down' and self.collision_list.get(apponents) != bloks:
-                        # если небыло коллизий - записываем в список и меняем скорость
-                        if (apponents.name_apponent == "apponent_r"):
-                            apponents.vel_apponent = (-2, 0)
-                        else:
-                            apponents.vel_apponent = (2, 0)
+            # проверяем на столкновение аппонента с конечным блоком
+            # (блок конца его пути, после виджет(аппонента) удаляем)
+            elif apponents.collide_widget(self.blok_stop) and self.apponent_list.get(apponents):
+                # записываем в список коллизий
+                self.collision_list[apponents] = self.blok_stop
 
-                        self.collision_list[apponents] = bloks
+            # проверка на столкновение со стенами
+            elif apponents.collide_widget(self.blok_right) or apponents.collide_widget(self.blok_left):
+                # меняем скорость на противоположную
+                # ПОКА - направление движения не меняется у аппонента
+                # если он начал с лева то и движется всегда в лево(при смене горизонтальных блоков)
+                # возможно потом необходимо это изменить на - если он изменид направление после
+                # удара о стенку, то должен и дальше двигаться в новом направлении
+                apponents.vel_apponent_x *= -1
+                if (apponents.name_apponent == "apponent_r"):
+                    self.apponent_list[apponents] = "apponent_l" 
+                else:
+                    self.apponent_list[apponents] = "apponent_r"
+                print(self.apponent_list[apponents])
 
-                    # проверяем на столкновение аппонента с конечным блоком
-                    # (блок конца его пути, после виджет(аппонента) удаляем)
-                    if self.blok_list.get(bloks) == 'blok_stop' and self.apponent_list.get(apponents):
-                        # записываем в список коллизий
-                        self.collision_list[apponents] = bloks
+            # проверяем на столкновение с блоком внесенным в список аоллизий
+            elif self.collision_list.get(apponents):
+                if apponents.collide_widget(self.collision_list[apponents]): 
+                    pass
+
+                # если коллизий больше нет - очищаем список коллизий и делаем скорость по x=0, y=-2
+                else:
+                    self.collision_list.pop(apponents)
+                    apponents.vel_apponent = (0, -2)
                         
         # создаем копию списка коллизий, проверяем кто из аппонентов столкнулся с конечным блоком
         # и затем удаляем этого аппанента из всех списков, 

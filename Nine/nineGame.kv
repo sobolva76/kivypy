@@ -1,6 +1,6 @@
 # File name: nineGame.kv
 
-# визуализация игрока
+# визуализация игрока 
 <Player>:
     size: 30, 12
     canvas:
@@ -19,7 +19,7 @@
             pos: self.pos
             size: self.size 
 
-# визуальное представление блоков
+# визуальное представление постоянных блоков(стен, пола, потолка)
 <Blok>:   
     size: 10, 10
     canvas:
@@ -37,16 +37,7 @@
         Rectangle:
             pos: self.pos
             size: self.size
-# визуальное представление блока конца горизонта
-<Blok_end>:
-    size: 1, 1
-    canvas:
-        Color:
-            rgba: 0, 0.3, 0.5, 1
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
+# основные горизонтальные блоки
 <Blok_base>:
     size: 10, 10
     canvas:
@@ -55,14 +46,14 @@
         Rectangle:
             pos: self.pos
             size: self.size
-
+# кнопка управление персонажем
 <Move_button>:
     size: 100, 30
 
 # главный виджет приложения
 <NineGameBase>:
 
-# id постоянных блоков (левого, правого, и пола)
+# id постоянных блоков (левого, правого, пола и блока удаления противника)
     blok_right: _blok_right
     blok_left: _blok_left
     blok_down: _blok_down
@@ -100,21 +91,22 @@
     Blok_stop:
         id: _blok_stop
         pos: 50, 115
-
+# персонаж
     Player:
         id: _player
         pos: 100, 500
-
+# далее идут кнопки движения персонажа
+# на право x=2
     Move_button:
         id: _btn_right
         text: "move -> "
         pos: 10, 10
-
+# на лево x=-2
     Move_button:
         id: _btn_left
         text: "<- move" 
         pos: 200, 10
-
+# прыжек
     Move_button:
         id: _btn_up
         text: "^"
