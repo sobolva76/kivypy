@@ -7,6 +7,7 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
 from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.uix.button import Button
+from kivy.core.window import Window
 
 
 class Move_button(Button):
@@ -66,6 +67,32 @@ class Player(Widget):
 # основной класс приложения
 class NineGameBase(Widget):
 
+    def __init__(self, **kwargs):
+        super(NineGameBase, self).__init__(**kwargs)
+        Window.bind(on_key_up=self._keyup)
+        Window.bind(on_key_down=self._keydown)
+
+
+    def _keydown(self,*args):
+        if args[3] == "a":
+            self.player.vel_player_x = -2
+            print(args[3], "++")
+        if args[3] == "d":
+            self.player.vel_player_x = 2
+            print(args[3], "++")
+        if args[3] == " ":
+            self.player.vel_player_y = 10
+            print(args[3], "++")
+
+
+    def _keyup(self,*args):
+
+        if args[1] == 97 or args[1] == 100:
+            self.player.vel_player_x = 0
+        if args[1] == 32:
+            self.player.vel_player_y = 0
+        print(args[1], " -- ")
+
     # инициализация игрока и кнопок
     player = ObjectProperty(None)
     btn_right = ObjectProperty(None)
@@ -109,7 +136,7 @@ class NineGameBase(Widget):
         if self.btn_up.collide_point(*touch.pos):
             #if self.collision_list.get(self.player):
                 #self.collision_list.pop(self.player)
-            self.player.vel_player_y = 14
+            self.player.vel_player_y = 10
 
     def on_touch_up(self, touch):
         
@@ -129,7 +156,7 @@ class NineGameBase(Widget):
     def spawn_apponent(self, *args):
         """ функция спавна противников - создает и записывает в спивок"""
         # определяем колличество аппонентов на уровне
-        if len(self.apponent_list) < 1:
+        if len(self.apponent_list) < 10:
             apponent = ObjectProperty(None)# создаем пустой объект противника
 
             # создаем противника и добавляем его на экран, и придаем ускорение
@@ -146,7 +173,6 @@ class NineGameBase(Widget):
             self.add_widget(apponent)
             apponent.vel_apponent = (0, -2)
             self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
-            print(apponent.name_apponent)
 
 
     def serve_objects(self, vel=(0, -2)):
@@ -205,12 +231,12 @@ class NineGameBase(Widget):
             self.player.vel_player_y = -2
 
         # проверка на столкновение со стенами
+        # ПРОБЛЕМА - если стоит у стены то при прыжке не падает вниз
+        # - пока решил ее добовлением 5 пикселей при столкновении о стену
         if self.player.collide_widget(self.blok_left):
-            #self.player.vel_player_x = 0
-            self.player.pos[0] = self.player.pos[0] + 1
-            print("удар о стену left")
+            self.player.pos[0] = self.player.pos[0] + 5 
         elif self.player.collide_widget(self.blok_right):
-            self.player.pos[0] = self.player.pos[0] - 1
+            self.player.pos[0] = self.player.pos[0] - 5
 
 
     def update(self, dt):
@@ -232,9 +258,9 @@ class NineGameBase(Widget):
 
                             # если небыло коллизий - записываем в список и меняем скорость
                             # но перед этим проверяем какая префикс l=+x, r=-x
-                            if (apponents.name_apponent == "apponent_l"):
+                            if (self.apponent_list[apponents] == "apponent_l"):
                                 apponents.vel_apponent = (2, 0)
-                            elif (apponents.name_apponent == "apponent_r"):
+                            else:
                                 apponents.vel_apponent = (-2, 0)
                             self.collision_list[apponents] = bloks
 
@@ -242,11 +268,10 @@ class NineGameBase(Widget):
                         # что-бы исключить повторные столкновения
                         if self.blok_list.get(bloks) == 'blok_down' and self.collision_list.get(apponents) != bloks:
                             # если небыло коллизий - записываем в список и меняем скорость
-                            if (apponents.name_apponent == "apponent_r"):
-                                apponents.vel_apponent = (-2, 0)
-                            else:
+                            if (self.apponent_list[apponents] == "apponent_l"):
                                 apponents.vel_apponent = (2, 0)
-
+                            else:
+                                apponents.vel_apponent = (-2, 0)
                             self.collision_list[apponents] = bloks
 
             # проверяем на столкновение аппонента с конечным блоком
@@ -257,17 +282,12 @@ class NineGameBase(Widget):
 
             # проверка на столкновение со стенами
             elif apponents.collide_widget(self.blok_right) or apponents.collide_widget(self.blok_left):
-                # меняем скорость на противоположную
-                # ПОКА - направление движения не меняется у аппонента
-                # если он начал с лева то и движется всегда в лево(при смене горизонтальных блоков)
-                # возможно потом необходимо это изменить на - если он изменид направление после
-                # удара о стенку, то должен и дальше двигаться в новом направлении
+                # меняем скорость на противоположную при столкновении с стеной - и меняем префикс
                 apponents.vel_apponent_x *= -1
-                if (apponents.name_apponent == "apponent_r"):
+                if (self.apponent_list[apponents] == "apponent_r"):
                     self.apponent_list[apponents] = "apponent_l" 
                 else:
                     self.apponent_list[apponents] = "apponent_r"
-                print(self.apponent_list[apponents])
 
             # проверяем на столкновение с блоком внесенным в список аоллизий
             elif self.collision_list.get(apponents):
