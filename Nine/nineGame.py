@@ -67,6 +67,10 @@ class Player(Widget):
 # основной класс приложения
 class NineGameBase(Widget):
 
+    # переменная ограничивающая колличество прыжков
+    # False - прыгать нельзя - меняется при коллизии с нижним блоком
+    bjump = False
+
     def __init__(self, **kwargs):
         super(NineGameBase, self).__init__(**kwargs)
         Window.bind(on_key_up=self._keyup)
@@ -76,13 +80,11 @@ class NineGameBase(Widget):
     def _keydown(self,*args):
         if args[3] == "a":
             self.player.vel_player_x = -2
-            print(args[3], "++")
         if args[3] == "d":
             self.player.vel_player_x = 2
-            print(args[3], "++")
         if args[3] == " ":
             self.player.vel_player_y = 10
-            print(args[3], "++")
+            self.bjump = False
 
 
     def _keyup(self,*args):
@@ -91,7 +93,6 @@ class NineGameBase(Widget):
             self.player.vel_player_x = 0
         if args[1] == 32:
             self.player.vel_player_y = 0
-        print(args[1], " -- ")
 
     # инициализация игрока и кнопок
     player = ObjectProperty(None)
@@ -129,14 +130,31 @@ class NineGameBase(Widget):
         if self.btn_left.collide_point(*touch.pos):
             if self.player.collide_widget(self.blok_left):
                  self.player.vel_player_x = 0
-                 print("удар о стену")
             else:
                 self.player.vel_player_x = -2
 
+        #if self.player.vel_player_y == 0:
+        #if touch.is_double_tap:# двойной щелчек
+            #print('Touch is a double tap !')
+            #print(' - interval is', touch.double_tap_time)
+            #print(' - distance between previous is', touch.double_tap_distance)
+        i = 0
         if self.btn_up.collide_point(*touch.pos):
             #if self.collision_list.get(self.player):
                 #self.collision_list.pop(self.player)
-            self.player.vel_player_y = 10
+            if self.player.vel_player_y == 0 and self.bjump:
+                
+                self.bjump = False 
+                self.player.vel_player_y = 10
+                #self.btn_up.disabled = True
+                i += 1
+                print(self.player.pos)
+        else:
+            self.player.vel_player_y = 0
+        print("notjump")
+                   
+                
+
 
     def on_touch_up(self, touch):
         
@@ -150,7 +168,6 @@ class NineGameBase(Widget):
             if self.collision_list.get(self.player):
                 self.collision_list.pop(self.player)
             self.player.vel_player_y = -2
-            print("отпустил прыжок", self.collision_list)
 
     
     def spawn_apponent(self, *args):
@@ -212,23 +229,32 @@ class NineGameBase(Widget):
             for blok_l in self.blok_list.keys():
             
                 if self.player.collide_widget(blok_l):
-                    # если есть коллизия - записываем в ссписок коллизий и делаем скорость по y=0
-                    self.collision_list[self.player] = blok_l
-                    self.player.vel_player_y = 0
+                    # попытка проверить коллизия была сверху или снизу
+                    # если коллизия была снизу то от pos по y отнимаем 5
+                    if blok_l.pos[1] > self.player.pos[1]:
+                        self.player.pos[1] -= 12
+                        self.bjump = False
+                    else:
+                        # если есть коллизия - записываем в ссписок коллизий и делаем скорость по y=0
+                        self.collision_list[self.player] = blok_l
+                        self.player.vel_player_y = 0
+                        self.bjump = True
         
         # проверяем запись в списке коллизий - если есть то проверяем на столкновение только этот блок
         elif self.collision_list.get(self.player):
         
             if self.player.collide_widget(self.collision_list[self.player]): 
-                pass
+                self.bjump = True
 
             # если коллизий больше нет - очищаем список коллизий и делаем скорость по x=0, y=-2
             else:
                 self.collision_list.pop(self.player)
                 self.player.vel_player = (0, -2)
+                self.bjump = False
 
         else:
             self.player.vel_player_y = -2
+            self.bjump = False
 
         # проверка на столкновение со стенами
         # ПРОБЛЕМА - если стоит у стены то при прыжке не падает вниз
