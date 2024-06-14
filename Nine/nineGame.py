@@ -67,6 +67,9 @@ class Player(Widget):
 # основной класс приложения
 class NineGameBase(Widget):
 
+    # переменная в которую записываем текущую коллизию (последний блок на котором был персонаж)
+    # она нужна при проверки на удержание клавиши прыжка
+    vr = None
     # переменная ограничивающая колличество прыжков
     # False - прыгать нельзя - меняется при коллизии с нижним блоком
     bjump = False
@@ -121,59 +124,36 @@ class NineGameBase(Widget):
 
 
     def on_touch_down(self, touch):
+        # движение направо
         if self.btn_right.collide_point(*touch.pos):
-            if self.player.collide_widget(self.blok_right):
-                 self.player.vel_player_x = 0
-            else:
-                self.player.vel_player_x = 2
-
+            self.player.vel_player_x = 2
+        # движение на лево
         if self.btn_left.collide_point(*touch.pos):
-            if self.player.collide_widget(self.blok_left):
-                 self.player.vel_player_x = 0
-            else:
-                self.player.vel_player_x = -2
-
-        #if self.player.vel_player_y == 0:
-        #if touch.is_double_tap:# двойной щелчек
-            #print('Touch is a double tap !')
-            #print(' - interval is', touch.double_tap_time)
-            #print(' - distance between previous is', touch.double_tap_distance)
-        i = 0
+            self.player.vel_player_x = -2
+        # прыжок - высота 10, 
+        # проверяем можно-ли прыгать self.bjump, и не летим ли
         if self.btn_up.collide_point(*touch.pos):
-            #if self.collision_list.get(self.player):
-                #self.collision_list.pop(self.player)
             if self.player.vel_player_y == 0 and self.bjump:
-                
                 self.bjump = False 
                 self.player.vel_player_y = 10
-                #self.btn_up.disabled = True
-                i += 1
-                print(self.player.pos)
-        else:
-            self.player.vel_player_y = 0
-        print("notjump")
-                   
-                
-
+            
 
     def on_touch_up(self, touch):
-        
+        # при отпускании клавиши скорость =0
         if self.btn_right.collide_point(*touch.pos):
             self.player.vel_player = (0, 0)
 
         if self.btn_left.collide_point(*touch.pos):
             self.player.vel_player = (0, 0)
-
+        # скорость по y после прыжка
         if self.btn_up.collide_point(*touch.pos):
-            if self.collision_list.get(self.player):
-                self.collision_list.pop(self.player)
             self.player.vel_player_y = -2
 
     
     def spawn_apponent(self, *args):
         """ функция спавна противников - создает и записывает в спивок"""
         # определяем колличество аппонентов на уровне
-        if len(self.apponent_list) < 10:
+        if len(self.apponent_list) < 3:
             apponent = ObjectProperty(None)# создаем пустой объект противника
 
             # создаем противника и добавляем его на экран, и придаем ускорение
@@ -221,6 +201,7 @@ class NineGameBase(Widget):
     def mov_player(self, dt):
         """ функция движения персонажа, при падении проверяем столкновение в цикле"""
 
+
         # движение персонажа
         self.player.move_player()
         # если падаем то проверяем в цикле коллизии с блоками
@@ -229,16 +210,27 @@ class NineGameBase(Widget):
             for blok_l in self.blok_list.keys():
             
                 if self.player.collide_widget(blok_l):
+                    
                     # попытка проверить коллизия была сверху или снизу
-                    # если коллизия была снизу то от pos по y отнимаем 5
+                    # если коллизия была снизу то сразу y=-2
                     if blok_l.pos[1] > self.player.pos[1]:
-                        self.player.pos[1] -= 12
+                        self.player.vel_player_y = -2
                         self.bjump = False
+                
                     else:
                         # если есть коллизия - записываем в ссписок коллизий и делаем скорость по y=0
                         self.collision_list[self.player] = blok_l
                         self.player.vel_player_y = 0
                         self.bjump = True
+                        # записываем текущий блок во временную переменную
+                        self.vr = self.collision_list.get(self.player)
+                # если еще небыло коллизий то падаем вниз, если коллизия есть проверяем высоту прыжка
+                # это защита от удержания клавиши прыжка
+                elif self.vr != None:
+                    # если клавиша прыжка удерживается, то мы проверяем высоту прыжка и 
+                    # если она выше допустимого делаем y=0
+                    if self.player.pos[1] > self.vr.pos[1] + 70:
+                        self.player.vel_player_y = -2
         
         # проверяем запись в списке коллизий - если есть то проверяем на столкновение только этот блок
         elif self.collision_list.get(self.player):
@@ -252,17 +244,13 @@ class NineGameBase(Widget):
                 self.player.vel_player = (0, -2)
                 self.bjump = False
 
-        else:
-            self.player.vel_player_y = -2
-            self.bjump = False
-
         # проверка на столкновение со стенами
         # ПРОБЛЕМА - если стоит у стены то при прыжке не падает вниз
         # - пока решил ее добовлением 5 пикселей при столкновении о стену
         if self.player.collide_widget(self.blok_left):
-            self.player.pos[0] = self.player.pos[0] + 5 
+            self.player.pos[0] = self.player.pos[0] + 4 
         elif self.player.collide_widget(self.blok_right):
-            self.player.pos[0] = self.player.pos[0] - 5
+            self.player.pos[0] = self.player.pos[0] - 4
 
 
     def update(self, dt):
@@ -331,10 +319,11 @@ class NineGameBase(Widget):
         cort_copy = self.collision_list.copy()
         collide_corte = cort_copy.items()
         for corts in collide_corte:
-            if corts[1] == self.blok_stop:
+            if corts[1] == self.blok_stop and corts[0] != self.player:
                 self.collision_list.pop(corts[0])
                 self.apponent_list.pop(corts[0])
                 self.remove_widget(corts[0])
+                print(corts[0])
         
 
 
