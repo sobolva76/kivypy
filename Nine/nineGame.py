@@ -13,9 +13,6 @@ from kivy.core.window import Window
 class Move_button(Button):
     """ класс кнопок движения персонажа по x, и прыжок(y)"""
     pass
-    #def on_touch_down(self, touch):
-        #if self.collide_point(*touch.pos):
-            #print("касание Test_button", touch)
 
 
 class Blok(Widget):
@@ -25,6 +22,11 @@ class Blok(Widget):
 
 class Blok_stop(Widget):
     """ Класс конечного блока(при столкновении с ним - удаляется аппонент)"""
+    pass
+
+
+class Blok_end(Widget):
+    """ Класс перехода между этажами """
     pass
 
 
@@ -58,6 +60,7 @@ class Player(Widget):
     vel_player = ReferenceListProperty(vel_player_x, vel_player_y)
 
     name_apponent = "apponent" # имя противника (по имени будем определять что делать с игроком)
+    coll_life = 9# колличество жизни (при первом варианте колличество попыток на этаж)
 
     def move_player(self):
         """ функция движения противника """
@@ -73,6 +76,35 @@ class NineGameBase(Widget):
     # переменная ограничивающая колличество прыжков
     # False - прыгать нельзя - меняется при коллизии с нижним блоком
     bjump = False
+
+    apponent = ObjectProperty(None)# создаем пустой объект противника
+
+    # инициализация игрока и кнопок
+    player = ObjectProperty(None)
+    btn_right = ObjectProperty(None)
+    btn_left = ObjectProperty(None)
+    btn_up = ObjectProperty(None)
+
+    # создание постоянных неизменяемых блоков
+    blok_right = ObjectProperty(None)# стена
+    blok_right_name = "blok_right"
+    blok_left = ObjectProperty(None)# стена
+    blok_left_name = "blok_left"
+    blok_down = ObjectProperty(None)# пол (последний горизонтальный блок)
+    blok_down_name = "blok_down"
+    blok_stop = ObjectProperty(None)# блок уничтожения аппонентов, устанавливается слево на полу
+    blok_stop_name = "blok_stop"
+    blok_end = ObjectProperty(None)# блок перехода между этажами
+    blok_end_name = "blok_end"
+    
+    # горизонтальные блоки
+    blok_base = ObjectProperty(None)
+
+    apponent_list = DictProperty({})# список противников (пустой)
+    blok_list = DictProperty({})# список блоков
+    collision_list = DictProperty({})# список заполняется при первой коллизии аппонента с блоком
+
+    spawn_l_r = True# переменная определяющая где спавнить аппонента, с лева=True, с права=False
 
     def __init__(self, **kwargs):
         super(NineGameBase, self).__init__(**kwargs)
@@ -95,32 +127,7 @@ class NineGameBase(Widget):
         if args[1] == 97 or args[1] == 100:
             self.player.vel_player_x = 0
         if args[1] == 32:
-            self.player.vel_player_y = 0
-
-    # инициализация игрока и кнопок
-    player = ObjectProperty(None)
-    btn_right = ObjectProperty(None)
-    btn_left = ObjectProperty(None)
-    btn_up = ObjectProperty(None)
-
-    # создание постоянных неизменяемых блоков
-    blok_right = ObjectProperty(None)
-    blok_right_name = "blok_right"
-    blok_left = ObjectProperty(None)
-    blok_left_name = "blok_left"
-    blok_down = ObjectProperty(None)
-    blok_down_name = "blok_down"
-    blok_stop = ObjectProperty(None)
-    blok_stop_name = "blok_stop"
-    
-    # горизонтальные блоки
-    blok_base = ObjectProperty(None)
-
-    apponent_list = DictProperty({})# список противников (пустой)
-    blok_list = DictProperty({})# список блоков
-    collision_list = DictProperty({})# список заполняется при первой коллизии аппонента с блоком
-
-    spawn_l_r = True# переменная определяющая где спавнить аппонента, с лева=True, с права=False
+            self.player.vel_player_y = -2
 
 
     def on_touch_down(self, touch):
@@ -141,10 +148,10 @@ class NineGameBase(Widget):
     def on_touch_up(self, touch):
         # при отпускании клавиши скорость =0
         if self.btn_right.collide_point(*touch.pos):
-            self.player.vel_player = (0, 0)
+            self.player.vel_player_x = 0
 
         if self.btn_left.collide_point(*touch.pos):
-            self.player.vel_player = (0, 0)
+            self.player.vel_player_y = 0
         # скорость по y после прыжка
         if self.btn_up.collide_point(*touch.pos):
             self.player.vel_player_y = -2
@@ -154,7 +161,6 @@ class NineGameBase(Widget):
         """ функция спавна противников - создает и записывает в спивок"""
         # определяем колличество аппонентов на уровне
         if len(self.apponent_list) < 3:
-            apponent = ObjectProperty(None)# создаем пустой объект противника
 
             # создаем противника и добавляем его на экран, и придаем ускорение
             # плюс - проверяем где его спавнить
@@ -166,24 +172,26 @@ class NineGameBase(Widget):
                 apponent = Apponent(pos = (500, 500))
                 self.spawn_l_r = True
                 apponent.name_apponent = "apponent_r"
-
+            
+            # создаем аппонента, даем скоростьБ и записываем в список аппанантов
             self.add_widget(apponent)
             apponent.vel_apponent = (0, -2)
             self.apponent_list.update({apponent: apponent.name_apponent})# записываем аппонента в список
 
 
     def serve_objects(self, vel=(0, -2)):
-        """ функция инициализации объектов"""
+        """ функция инициализации объектов """
 
         # определение скорости персонажа
         self.player.vel_player = vel
 
         # инициализация блоков
-        # инициализируем пол и стены
+        # инициализируем постоянные блоки - пол и стены
         self.blok_list.update({self.blok_right: self.blok_right_name})
         self.blok_list.update({self.blok_left: self.blok_left_name})
         self.blok_list.update({self.blok_down: self.blok_down_name})
         self.blok_list.update({self.blok_stop: self.blok_stop_name})
+        self.blok_list.update({self.blok_end: self.blok_end_name})
 
         # инициализация горизонтальных блоков
         blok_base = Blok_base(size = (500, 10), pos = (10, 150))
@@ -240,7 +248,7 @@ class NineGameBase(Widget):
             # если коллизий больше нет - очищаем список коллизий и делаем скорость по x=0, y=-2
             else:
                 self.collision_list.pop(self.player)
-                self.player.vel_player = (0, -2)
+                self.player.vel_player_y = -2
                 self.bjump = False
 
         # проверка на столкновение со стенами
@@ -252,8 +260,44 @@ class NineGameBase(Widget):
             self.player.pos[0] = self.player.pos[0] - 4
 
 
+    def collide_player(self, dt):
+        """ функция коллизий персонажа с противником и бонусами"""
+
+        apponet_collide = None# переменная в которую записываем противника с которым столкнулись
+        # идем по списку аппонентов и проверяем на столкновение с ними
+        for apponents in self.apponent_list.keys():
+            
+            # если столкнулись
+            if apponents.collide_widget(self.player):
+                # проверяем если жизнь не нулевая
+                # то отнимаем 1 и присваиваем аппонента временной переменной по которой ниже его удоляем
+                if self.player.coll_life != 0:
+                    apponet_collide = apponents
+                    self.player.coll_life -= 1
+                # если жизнь 0 то всегда возвращаем персонажа на начало этажа
+                else:
+                    self.player.pos = (25, 115)
+                    apponet_collide = apponents
+        # создаем копию списка коллизий, проверяем кто из аппонентов столкнулся с персонажем
+        # и затем удаляем этого аппанента из всех списков, 
+        # затем удаляем и его 
+        cort_copy = self.collision_list.copy()
+        collide_corte = cort_copy.items()
+        for corts in collide_corte:
+            if corts[0] == apponet_collide:
+                self.collision_list.pop(corts[0])
+                self.apponent_list.pop(corts[0])
+                self.remove_widget(corts[0])
+                print(corts[0])
+                print(" -- ", self.player.coll_life)
+        # проверяем на столкновение с блоком перехода между уровнями
+        if self.player.collide_widget(self.blok_end):
+            # далее код перехода на следующий уровень
+            print("END")
+
+ 
     def update(self, dt):
-        """ функция обновления - основной цикл приложения"""
+        """ функция обновления - проверка коллизий аппонента с блоками """
 
         for apponents in self.apponent_list.keys():# проходим по списку противников
             # запускаем функцию движения для каждого противника
@@ -337,6 +381,7 @@ class NineGame(App):
         # запуск основного цикла - обновляется каждую секунду
         Clock.schedule_interval(game.update, 1 / 60.0)
         Clock.schedule_interval(game.mov_player, 1 / 60.0)
+        Clock.schedule_interval(game.collide_player, 1 / 60.0)
         return game
     
 

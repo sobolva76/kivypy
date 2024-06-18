@@ -37,6 +37,15 @@
         Rectangle:
             pos: self.pos
             size: self.size
+# блок перехода между этажами
+<Blok_end>
+    size: 10, 15
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
 # основные горизонтальные блоки
 <Blok_base>:
     size: 10, 10
@@ -58,6 +67,7 @@
     blok_left: _blok_left
     blok_down: _blok_down
     blok_stop: _blok_stop
+    blok_end: _blok_end
 
 # id персонажа и кнопок движения
     player: _player
@@ -91,10 +101,14 @@
     Blok_stop:
         id: _blok_stop
         pos: 50, 115
+# блок перехода между этажами
+    Blok_end:
+        id: _blok_end
+        pos: 15, 184
 # персонаж
     Player:
         id: _player
-        pos: 100, 500
+        pos: 25, 115
 # далее идут кнопки движения персонажа
 # на право x=2
     Move_button:
