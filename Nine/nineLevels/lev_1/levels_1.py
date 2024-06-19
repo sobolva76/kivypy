@@ -25,8 +25,8 @@ def spawn_blok(self):
     blok_list_levels = {blok_base: blok_base.blok_base_name}
     self.add_widget(blok_base)
     
-    blok_end = Blok_end(pos = (650, 155))
-    blok_list_levels = {blok_end: blok_end.blok_end_name}
-    self.add_widget(blok_end)
+    #blok_end = Blok_end(pos = (650, 155))
+    #blok_list_levels = {blok_end: blok_end.blok_end_name}
+    #self.add_widget(blok_end)
 
     return blok_list_levels
