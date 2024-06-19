@@ -1,0 +1,127 @@
+# File name: nineGameV2.kv
+
+# визуализация игрока 
+<Player>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 1, 0, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+# создаем видимый образ аппонента
+<Apponent>:
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+
+# визуальное представление постоянных блоков(стен, пола, потолка)
+<Blok>:   
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+# визуализация блока удаления аппонентов (необходимо сделать прозрачным)
+<Blok_stop>:
+    size: 1, 1
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+# блок перехода между этажами
+<Blok_end>
+    size: 10, 15
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+# основные горизонтальные блоки
+<Blok_base>:
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 1, 1, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+# кнопка управление персонажем
+<Move_button>:
+    size: 100, 30
+
+# главный виджет приложения
+<NineGameBaseV2>:
+
+# id постоянных блоков (левого, правого, пола и блока удаления противника)
+    blok_right: _blok_right
+    blok_left: _blok_left
+    blok_down: _blok_down
+    blok_stop: _blok_stop
+    blok_end: _blok_end
+
+# id персонажа и кнопок движения
+    player: _player
+    btn_right: _btn_right
+    btn_left: _btn_left
+    btn_up: _btn_up
+
+# правая стена  
+    Blok:
+        id: _blok_right
+        pos: root.width - 10, 0
+        size: 10, root.height
+# левыя стена
+    Blok:
+        id: _blok_left
+        pos: 0, 0
+        size: 10, root.height
+# два блока нижняя кайма, первый пол, второй каяма
+    Blok:
+        id: _blok_down
+        pos: 0, 100
+        size: root.width, 10
+    Blok:
+        pos: 0, 0
+        size: root.width, 10
+# верх
+    Blok:
+        pos: 10, root.height - 10
+        size: root.width, 10
+# блок - стоп для аппонента
+    Blok_stop:
+        id: _blok_stop
+        pos: 50, 115
+# блок перехода между этажами
+    Blok_end:
+        id: _blok_end
+        pos: 15, 184
+# персонаж
+    Player:
+        id: _player
+        pos: 25, 115
+# далее идут кнопки движения персонажа
+# на право x=2
+    Move_button:
+        id: _btn_right
+        text: "move -> "
+        pos: 10, 10
+# на лево x=-2
+    Move_button:
+        id: _btn_left
+        text: "<- move" 
+        pos: 200, 10
+# прыжек
+    Move_button:
+        id: _btn_up
+        text: "^"
+        pos: 500, 10
