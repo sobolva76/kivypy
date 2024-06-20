@@ -17,9 +17,10 @@ class Blok_end(Widget):
     blok_end_name = "blok_end"
     
 
+blok_list_levels = DictProperty({})# список блоков
+
+
 def spawn_blok(self):
-    """ функция спавны горизонтальных блоков - возвращает список блоков где ключь объект в памяти """
-    blok_list_levels = DictProperty({})# список блоков
 
     blok_base = Blok_base(size = (100, 10), pos = (550, 150))
     blok_list_levels = {blok_base: blok_base.blok_base_name}
@@ -29,13 +30,13 @@ def spawn_blok(self):
     blok_list_levels.update({blok_base: blok_base.blok_base_name})
     self.add_widget(blok_base)
 
-    #blok_base = Blok_base(size = (700, 10), pos = (200, 200))
-    #blok_list_levels.update({blok_base: blok_base.blok_base_name})
-    #self.add_widget(blok_base)
+    blok_base = Blok_base(size = (700, 10), pos = (200, 200))
+    blok_list_levels.update({blok_base: blok_base.blok_base_name})
+    self.add_widget(blok_base)
 
-    #blok_base = Blok_base(size = (300, 10), pos = (10, 250))
-    #blok_list_levels.update({blok_base: blok_base.blok_base_name})
-    #self.add_widget(blok_base)
+    blok_base = Blok_base(size = (300, 10), pos = (10, 250))
+    blok_list_levels.update({blok_base: blok_base.blok_base_name})
+    self.add_widget(blok_base)
     
     return blok_list_levels
 

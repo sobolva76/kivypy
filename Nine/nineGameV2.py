@@ -10,8 +10,11 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.lang import Builder
 
+
+
 import nineLevels.lev_1.levels_1 as levels
 #from nineLevels.lev_1.levels_1 import spawn_blok, blok_list_levels
+
 
 # Ниже - подключаем другой kv фаил. Так можно менять уровни - но при этом может быть только 1 id на блок
 #Builder.load_file('nineLevels/lev_1/levels_1.kv')
@@ -77,6 +80,7 @@ class Player(Widget):
 
 # основной класс приложения
 class NineGameBaseV2(Widget):
+    
 
     # переменная в которую записываем текущую коллизию (последний блок на котором был персонаж)
     # она нужна при проверки на удержание клавиши прыжка
@@ -169,18 +173,24 @@ class NineGameBaseV2(Widget):
     def spawn_apponent(self, *args):
         """ функция спавна противников - создает и записывает в спивок"""
         # определяем колличество аппонентов на уровне
-        if len(self.apponent_list) < 3:
+        if len(self.apponent_list) < levels.get_koll_spawn(self):
 
-            # создаем противника и добавляем его на экран, и придаем ускорение
-            # плюс - проверяем где его спавнить
-            if (self.spawn_l_r):
-                apponent = Apponent(pos = (20, 550))
-                self.spawn_l_r = False
-                apponent.name_apponent = "apponent_l"
-            else:
-                apponent = Apponent(pos = (600, 550))
+            if levels.get_koll_point_spawn(self) == 1:
+                apponent = Apponent(pos = levels.get_spawn_apponent_r(self))
                 self.spawn_l_r = True
                 apponent.name_apponent = "apponent_r"
+            else:
+
+                # создаем противника и добавляем его на экран, и придаем ускорение
+                # плюс - проверяем где его спавнить
+                if (self.spawn_l_r):
+                    apponent = Apponent(pos = levels.get_spawn_apponent_l(self))
+                    self.spawn_l_r = False
+                    apponent.name_apponent = "apponent_l"
+                else:
+                    apponent = Apponent(pos = levels.get_spawn_apponent_r(self))
+                    self.spawn_l_r = True
+                    apponent.name_apponent = "apponent_r"
             
             # создаем аппонента, даем скоростьБ и записываем в список аппанантов
             self.add_widget(apponent)
@@ -203,23 +213,28 @@ class NineGameBaseV2(Widget):
         #self.blok_list.update({self.blok_end: self.blok_end_name})
 
         # инициализация горизонтальных блоков
-        blok_base = Blok_base(size = (500, 10), pos = (10, 150))
-        self.blok_list.update({blok_base: blok_base.blok_base_name})
-        self.add_widget(blok_base)
+        #blok_base = Blok_base(size = (500, 10), pos = (10, 150))
+        #self.blok_list.update({blok_base: blok_base.blok_base_name})
+        #self.add_widget(blok_base)
 
-        blok_base = Blok_base(size = (700, 10), pos = (200, 220))
-        self.blok_list.update({blok_base: blok_base.blok_base_name})
-        self.add_widget(blok_base)
+        #blok_base = Blok_base(size = (700, 10), pos = (200, 220))
+        #self.blok_list.update({blok_base: blok_base.blok_base_name})
+        #self.add_widget(blok_base)
 
-        blok_base = Blok_base(size = (300, 10), pos = (10, 300))
-        self.blok_list.update({blok_base: blok_base.blok_base_name})
-        self.add_widget(blok_base)
+        #blok_base = Blok_base(size = (300, 10), pos = (10, 300))
+        #self.blok_list.update({blok_base: blok_base.blok_base_name})
+        #self.add_widget(blok_base)
+
+        blok_end = Blok_end(pos = levels.get_spawn_blok_end(self))
+        self.blok_list.update({blok_end: blok_end.blok_end_name})
+        self.add_widget(blok_end)
 
 
         # проба получать блоки из другого файла 
         #spawn_blok(self)
         levels.spawn_blok(self)
         self.blok_list.update(levels.spawn_blok(self))
+        print(self.blok_list.update, '/n')
 
     def mov_player(self, dt):
         """ функция движения персонажа, при падении проверяем столкновение в цикле"""
@@ -232,6 +247,10 @@ class NineGameBaseV2(Widget):
             for blok_l in self.blok_list.keys():
             
                 if self.player.collide_widget(blok_l):
+
+                    if self.blok_list.get(blok_l) == "blok_end":
+                       
+                        print("END")
                     
                     # попытка проверить коллизия была сверху или снизу
                     # если коллизия была снизу то сразу y=-2
@@ -274,6 +293,9 @@ class NineGameBaseV2(Widget):
         elif self.player.collide_widget(self.blok_right):
             self.player.pos[0] = self.player.pos[0] - 4
 
+        #if self.player.collide_widget(self.blok_end):
+            #print("END")
+
 
     def collide_player(self, dt):
         """ функция коллизий персонажа с противником и бонусами"""
@@ -306,9 +328,11 @@ class NineGameBaseV2(Widget):
                 print(corts[0])
                 print(" -- ", self.player.coll_life)
         # проверяем на столкновение с блоком перехода между уровнями
-        if self.player.collide_widget(self.blok_end):
+        #for end in levels.spawn_blok(self):
+        #if self.blok_end != None and self.player.collide_widget(self.blok_end):
             # далее код перехода на следующий уровень
-            print("END")
+            #print(self.blok_end)
+        #print(self.blok_end)
 
  
     def update(self, dt):
