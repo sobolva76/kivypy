@@ -56,7 +56,7 @@ def get_koll_point_spawn(self):
 
 def get_koll_spawn(self):
     """ геттер колличества противников на уровне"""
-    koll_spawn = 4
+    koll_spawn = 9
     return koll_spawn
 
 def get_spawn_apponent_l(self):
