@@ -9,12 +9,14 @@ from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.lang import Builder
+from kivy.config import Config
 
 
+Config.set('graphics', 'width', '1200')
+Config.set('graphics', 'height', '675')
+Config.set('graphics', 'resizable', '1')
 
 import nineLevels.lev_1.levels_1 as levels
-#from nineLevels.lev_1.levels_1 import spawn_blok, blok_list_levels
-
 
 # Ниже - подключаем другой kv фаил. Так можно менять уровни - но при этом может быть только 1 id на блок
 #Builder.load_file('nineLevels/lev_1/levels_1.kv')
@@ -412,6 +414,8 @@ class NineGameBaseV2(Widget):
 # класс запуска приложения
 class NineGameV2App(App):
     def build(self):
+        from kivy.core.window import Window
+        Window.clearcolor = (1, 1, .8, 1)
         game = NineGameBaseV2()
         # спавн аппонентов, сколько аппонентов в секунду (сейчас один раз в 3 секунды)
         Clock.schedule_interval(game.spawn_apponent, 3 / 1) # в н сикунд / н раз
