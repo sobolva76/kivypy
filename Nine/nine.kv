@@ -1,3 +1,8 @@
+#:include nineGameV2.kv
+
+<NineScreenManager>:
+    NineGameBaseV2:
+
 <Nine>:
     BoxLayout:
         orientation: 'vertical'
@@ -6,5 +11,9 @@
 
         Button:
             text: "Девятка - старт"
+
+        Button:
+            text: 'Играть'
+            on_release: root.manager.current = 'nine_game'
         
         

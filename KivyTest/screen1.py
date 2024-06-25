@@ -1,7 +1,5 @@
-# File name: nineGameV2.py продолжение написания игры - первый вариант для теста на телефоне
-
-import kivy
 from kivy.app import App
+from kivy.uix.screenmanager import Screen
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, DictProperty
 from kivy.vector import Vector
@@ -9,19 +7,8 @@ from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.config import Config
-from kivy.uix.screenmanager import Screen
 
-
-Config.set('graphics', 'width', '1200')
-Config.set('graphics', 'height', '675')
-Config.set('graphics', 'resizable', '1')
-
-import nineLevels.lev_1.levels_1 as levels
-
-# Ниже - подключаем другой kv фаил. Так можно менять уровни - но при этом может быть только 1 id на блок
-#Builder.load_file('nineLevels/lev_1/levels_1.kv')
-
+Builder.load_file('screen1.kv')
 
 
 class Move_button(Button):
@@ -41,7 +28,7 @@ class Blok_stop(Widget):
 
 class Blok_end(Widget):
     """ Класс перехода между этажами """
-    blok_end_name = "blok_end"
+    pass
 
 
 class Blok_base(Widget):
@@ -82,8 +69,14 @@ class Player(Widget):
 
 
 # основной класс приложения
-class NineGameBaseV2(Widget):
-    
+class MyScreen1(Screen):
+    def screen_method(self):
+        print('Hello from screen 1')
+        # self.manager.get_screen('screen_two').screen_method()  # sample how to call other screen method from here
+        # self.manager.screen_manager_method()  # sample how to call screen manager method from here
+        # App.get_running_app().app_method()  # sample hot to call app method from here
+
+class NineGameBase(Widget):
 
     # переменная в которую записываем текущую коллизию (последний блок на котором был персонаж)
     # она нужна при проверки на удержание клавиши прыжка
@@ -109,12 +102,11 @@ class NineGameBaseV2(Widget):
     blok_down_name = "blok_down"
     blok_stop = ObjectProperty(None)# блок уничтожения аппонентов, устанавливается слево на полу
     blok_stop_name = "blok_stop"
+    blok_end = ObjectProperty(None)# блок перехода между этажами
+    blok_end_name = "blok_end"
     
     # горизонтальные блоки
     blok_base = ObjectProperty(None)
-
-    blok_end = ObjectProperty(None)# блок перехода между этажами
-    
 
     apponent_list = DictProperty({})# список противников (пустой)
     blok_list = DictProperty({})# список блоков
@@ -123,7 +115,7 @@ class NineGameBaseV2(Widget):
     spawn_l_r = True# переменная определяющая где спавнить аппонента, с лева=True, с права=False
 
     def __init__(self, **kwargs):
-        super(NineGameBaseV2, self).__init__(**kwargs)
+        super(NineGameBase, self).__init__(**kwargs)
         Window.bind(on_key_up=self._keyup)
         Window.bind(on_key_down=self._keydown)
 
@@ -176,24 +168,18 @@ class NineGameBaseV2(Widget):
     def spawn_apponent(self, *args):
         """ функция спавна противников - создает и записывает в спивок"""
         # определяем колличество аппонентов на уровне
-        if len(self.apponent_list) < levels.get_koll_spawn(self):
+        if len(self.apponent_list) < 3:
 
-            if levels.get_koll_point_spawn(self) == 1:
-                apponent = Apponent(pos = levels.get_spawn_apponent_r(self))
+            # создаем противника и добавляем его на экран, и придаем ускорение
+            # плюс - проверяем где его спавнить
+            if (self.spawn_l_r):
+                apponent = Apponent(pos = (100, 500))
+                self.spawn_l_r = False
+                apponent.name_apponent = "apponent_l"
+            else:
+                apponent = Apponent(pos = (500, 500))
                 self.spawn_l_r = True
                 apponent.name_apponent = "apponent_r"
-            else:
-
-                # создаем противника и добавляем его на экран, и придаем ускорение
-                # плюс - проверяем где его спавнить
-                if (self.spawn_l_r):
-                    apponent = Apponent(pos = levels.get_spawn_apponent_l(self))
-                    self.spawn_l_r = False
-                    apponent.name_apponent = "apponent_l"
-                else:
-                    apponent = Apponent(pos = levels.get_spawn_apponent_r(self))
-                    self.spawn_l_r = True
-                    apponent.name_apponent = "apponent_r"
             
             # создаем аппонента, даем скоростьБ и записываем в список аппанантов
             self.add_widget(apponent)
@@ -213,31 +199,20 @@ class NineGameBaseV2(Widget):
         self.blok_list.update({self.blok_left: self.blok_left_name})
         self.blok_list.update({self.blok_down: self.blok_down_name})
         self.blok_list.update({self.blok_stop: self.blok_stop_name})
-        #self.blok_list.update({self.blok_end: self.blok_end_name})
+        self.blok_list.update({self.blok_end: self.blok_end_name})
 
         # инициализация горизонтальных блоков
-        #blok_base = Blok_base(size = (500, 10), pos = (10, 150))
-        #self.blok_list.update({blok_base: blok_base.blok_base_name})
-        #self.add_widget(blok_base)
+        blok_base = Blok_base(size = (500, 10), pos = (10, 150))
+        self.blok_list.update({blok_base: blok_base.blok_base_name})
+        self.add_widget(blok_base)
 
-        #blok_base = Blok_base(size = (700, 10), pos = (200, 220))
-        #self.blok_list.update({blok_base: blok_base.blok_base_name})
-        #self.add_widget(blok_base)
+        blok_base = Blok_base(size = (700, 10), pos = (200, 220))
+        self.blok_list.update({blok_base: blok_base.blok_base_name})
+        self.add_widget(blok_base)
 
-        #blok_base = Blok_base(size = (300, 10), pos = (10, 300))
-        #self.blok_list.update({blok_base: blok_base.blok_base_name})
-        #self.add_widget(blok_base)
-
-        blok_end = Blok_end(pos = levels.get_spawn_blok_end(self))
-        self.blok_list.update({blok_end: blok_end.blok_end_name})
-        self.add_widget(blok_end)
-
-
-        # проба получать блоки из другого файла 
-        #spawn_blok(self)
-        levels.spawn_blok(self)
-        self.blok_list.update(levels.spawn_blok(self))
-        print(self.blok_list.update, '/n')
+        blok_base = Blok_base(size = (300, 10), pos = (10, 300))
+        self.blok_list.update({blok_base: blok_base.blok_base_name})
+        self.add_widget(blok_base)
 
     def mov_player(self, dt):
         """ функция движения персонажа, при падении проверяем столкновение в цикле"""
@@ -250,10 +225,6 @@ class NineGameBaseV2(Widget):
             for blok_l in self.blok_list.keys():
             
                 if self.player.collide_widget(blok_l):
-
-                    if self.blok_list.get(blok_l) == "blok_end":
-                       
-                        print("END")
                     
                     # попытка проверить коллизия была сверху или снизу
                     # если коллизия была снизу то сразу y=-2
@@ -296,9 +267,6 @@ class NineGameBaseV2(Widget):
         elif self.player.collide_widget(self.blok_right):
             self.player.pos[0] = self.player.pos[0] - 4
 
-        #if self.player.collide_widget(self.blok_end):
-            #print("END")
-
 
     def collide_player(self, dt):
         """ функция коллизий персонажа с противником и бонусами"""
@@ -331,11 +299,9 @@ class NineGameBaseV2(Widget):
                 print(corts[0])
                 print(" -- ", self.player.coll_life)
         # проверяем на столкновение с блоком перехода между уровнями
-        #for end in levels.spawn_blok(self):
-        #if self.blok_end != None and self.player.collide_widget(self.blok_end):
+        if self.player.collide_widget(self.blok_end):
             # далее код перехода на следующий уровень
-            #print(self.blok_end)
-        #print(self.blok_end)
+            print("END")
 
  
     def update(self, dt):
@@ -411,13 +377,10 @@ class NineGameBaseV2(Widget):
                 print(corts[0])
         
 
-
 # класс запуска приложения
-class NineGameV2App(App):
+class NineGame(App):
     def build(self):
-        from kivy.core.window import Window
-        Window.clearcolor = (1, 1, .8, 1)
-        game = NineGameBaseV2()
+        game = NineGameBase()
         # спавн аппонентов, сколько аппонентов в секунду (сейчас один раз в 3 секунды)
         Clock.schedule_interval(game.spawn_apponent, 3 / 1) # в н сикунд / н раз
         # инициализация объектов
@@ -430,4 +393,4 @@ class NineGameV2App(App):
     
 
 if __name__ == '__main__':
-    NineGameV2App().run()
+    NineGame().run()
