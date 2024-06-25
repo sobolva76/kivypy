@@ -1,27 +1,22 @@
 from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager
+import screen1, screen2, screen3
 
+# hierarhy:
+#   ScreensSample (App)
+#   |- MyScreens (ScreenManager)
+#      |- MyScreen1 (Screen)
+#      |- MyScreen2 (Screen)
+#      |- MyScreen3 (Screen)
 
-class MainWindow(Screen):
-    pass
+class MyScreens(ScreenManager):
+    def screen_manager_method(self):
+        print('Hello from screen manager')
 
-
-class SecondWindow(Screen):
-    pass
-
-
-class WindowManager(ScreenManager):
-    pass
-
-
-kv = Builder.load_file("screen_test.kv")
-
-
-class MyMainApp(App):
-    def build(self):
-        return kv
+class Screen_testApp(App):
+    def app_method(self):
+        print('Hello from app')
 
 
 if __name__ == "__main__":
-    MyMainApp().run()
+    Screen_testApp().run()

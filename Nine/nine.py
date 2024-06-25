@@ -5,6 +5,8 @@ from kivy.uix.screenmanager import ScreenManager
 from kivy.config import Config
 from kivy.lang import Builder
 
+import nineGameV2
+
 
 Config.set('graphics', 'width', '1200')
 Config.set('graphics', 'height', '675')
@@ -13,8 +15,13 @@ Config.set('graphics', 'resizable', '1')
 Builder.load_file('nineGameV2.kv')
 
 
-class Nine(ScreenManager):
+class NineScreenManager(ScreenManager):
+    pass
+
+
+class Nine(Widget):
     """ класс основного экрана"""
+    pass
 
 
 class NineApp(App):
