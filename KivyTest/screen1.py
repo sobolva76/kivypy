@@ -69,13 +69,6 @@ class Player(Widget):
 
 
 # основной класс приложения
-class MyScreen1(Screen):
-    def screen_method(self):
-        print('Hello from screen 1')
-        # self.manager.get_screen('screen_two').screen_method()  # sample how to call other screen method from here
-        # self.manager.screen_manager_method()  # sample how to call screen manager method from here
-        # App.get_running_app().app_method()  # sample hot to call app method from here
-
 class NineGameBase(Widget):
 
     # переменная в которую записываем текущую коллизию (последний блок на котором был персонаж)
@@ -92,6 +85,8 @@ class NineGameBase(Widget):
     btn_right = ObjectProperty(None)
     btn_left = ObjectProperty(None)
     btn_up = ObjectProperty(None)
+    btn_screen = ObjectProperty(None)
+    
 
     # создание постоянных неизменяемых блоков
     blok_right = ObjectProperty(None)# стена
@@ -151,6 +146,9 @@ class NineGameBase(Widget):
             if self.player.vel_player_y == 0 and self.bjump:
                 self.bjump = False 
                 self.player.vel_player_y = 10
+
+        if self.btn_screen.collide_point(*touch.pos):
+            print("screen")
             
 
     def on_touch_up(self, touch):
@@ -375,22 +373,46 @@ class NineGameBase(Widget):
                 self.apponent_list.pop(corts[0])
                 self.remove_widget(corts[0])
                 print(corts[0])
+
+
+class MyScreen1(Screen):
+
+    #NineGameBase()
+
+    #game_screen = MyScreen1()
+    #game = NineGameBase()
+    # спавн аппонентов, сколько аппонентов в секунду (сейчас один раз в 3 секунды)
+    #Clock.schedule_interval(game.spawn_apponent, 3 / 1) # в н сикунд / н раз
+    # инициализация объектов
+    #game.serve_objects()
+    # запуск основного цикла - обновляется каждую секунду
+    #Clock.schedule_interval(game.update, 1 / 60.0)
+    #Clock.schedule_interval(game.mov_player, 1 / 60.0)
+    #Clock.schedule_interval(game.collide_player, 1 / 60.0)
+    #return game_screen, game
+    print("TEST")
+    def screen_method(self):
+        print('Hello from screen 1')
+        # self.manager.get_screen('screen_two').screen_method()  # sample how to call other screen method from here
+        # self.manager.screen_manager_method()  # sample how to call screen manager method from here
+        # App.get_running_app().app_method()  # sample hot to call app method from here
         
 
 # класс запуска приложения
-class NineGame(App):
-    def build(self):
-        game = NineGameBase()
+#class NineGame(App):
+    #def build(self):
+        #game_screen = MyScreen1()
+        #game = NineGameBase()
         # спавн аппонентов, сколько аппонентов в секунду (сейчас один раз в 3 секунды)
-        Clock.schedule_interval(game.spawn_apponent, 3 / 1) # в н сикунд / н раз
+        #Clock.schedule_interval(game.spawn_apponent, 3 / 1) # в н сикунд / н раз
         # инициализация объектов
-        game.serve_objects()
+        #game.serve_objects()
         # запуск основного цикла - обновляется каждую секунду
-        Clock.schedule_interval(game.update, 1 / 60.0)
-        Clock.schedule_interval(game.mov_player, 1 / 60.0)
-        Clock.schedule_interval(game.collide_player, 1 / 60.0)
-        return game
+        #Clock.schedule_interval(game.update, 1 / 60.0)
+        #Clock.schedule_interval(game.mov_player, 1 / 60.0)
+        #Clock.schedule_interval(game.collide_player, 1 / 60.0)
+        #return game_screen, game
     
 
-if __name__ == '__main__':
-    NineGame().run()
+#if __name__ == '__main__':
+ #   NineGame().run()
