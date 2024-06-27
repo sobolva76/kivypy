@@ -1,0 +1,39 @@
+Ниже структура скринов
+# hierarhy:
+#   NineGameSApp (App)
+#   |- BaseScreens (ScreenManager)
+#      |- GameBase (Screen)
+#      |- GameStart (Screen)
+#      |- GameEnd (Screen)
+
+Ниже переведены примеры доступа к разным скринам и их методам из kv файла,
+в py меняем root на self
+<GameBaseScreen>:
+    name: 'screen_gamebase'
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: f'I am {root.name}'
+        Button:
+            text: 'Перейти к игре'
+            on_release: root.manager.current = 'screen_gamestart'
+        Button:
+            text: 'Следующий скрин'
+            on_release: root.manager.current = root.manager.next()
+        Button:
+            text: 'Предыдущий скрин'
+            on_release: root.manager.current = root.manager.previous()
+        Button:
+            text: 'Метод текущего скрина'
+            on_release: root.screen_method()
+        Button:
+            text: 'Метод другого скрина(в часности - gamestart)'
+            on_release: root.manager.get_screen('screen_gamestart').screen_method()
+        Button:
+            text: 'Метод из ninegames.py'
+            on_release: root.manager.screen_manager_method()
+        Button:
+            text: 'App method'
+            on_release: app.app_method()

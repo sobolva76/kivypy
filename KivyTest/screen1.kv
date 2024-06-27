@@ -125,17 +125,22 @@
     Move_button:
         id: _btn_up
         text: "^"
-        pos: 500, 10  
-        
+        pos: 500, 10 
+
     Button:
         id: _btn_screen
         pos: 350, 20
         size: 70, 10
         text: 'Go to screen 2'
-        on_release: root.manager.current = 'screen_two'
+        on_release: root.manager.current = 'screen_two' 
 
-    
-
+    BoxLayout:
+        
+        Button:
+            pos: 400, 30
+            size: 50, 10
+            text: 'Go to'
+        
 <MyScreen1>:
     name: 'screen_one'
         

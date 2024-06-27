@@ -148,6 +148,7 @@ class NineGameBase(Widget):
                 self.player.vel_player_y = 10
 
         if self.btn_screen.collide_point(*touch.pos):
+            #MyScreen1.manager.current = 'screen_two'
             print("screen")
             
 
