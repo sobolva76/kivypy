@@ -1,29 +1,50 @@
+# визуальное представление постоянных блоков(стен, пола, потолка)
+<Blok>:   
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
 <GameStartScreen>:
     name: 'screen_gamestart'
 
-    BoxLayout:
-        orientation: 'vertical'
+    FloatLayout:
+        # id постоянных блоков (левого, правого, пола)
+        blok_right: _blok_right
+        blok_left: _blok_left
+        blok_down: _blok_down
 
-        Label:
-            text: f'I am {root.name}'
-        Button:
-            text: 'Переход к gameend'
-            on_release: root.manager.current = 'screen_gameend'
-        Button:
-            text: 'Go to next screen'
-            on_release: root.manager.current = root.manager.next()
-        Button:
-            text: 'Go to previous screen'
-            on_release: root.manager.current = root.manager.previous()
-        Button:
-            text: 'This screen method'
-            on_release: root.screen_method()
-        Button:
-            text: 'Other screen method (from screen 1)'
-            on_release: root.manager.get_screen('screen_gameend').screen_method()
-        Button:
-            text: 'Screen manager method'
-            on_release: root.manager.screen_manager_method()
-        Button:
-            text: 'App method'
-            on_release: app.app_method()
+        # правая стена  
+        Blok:
+            id: _blok_right
+            size_hint: None, None
+            pos: root.width - 10, 100
+            size: 10, root.height
+        # левыя стена
+        Blok:
+            id: _blok_left
+            size_hint: None, None
+            pos: 0, 100
+            size: 10, root.height
+        # нижняя кайма
+        Blok:
+            id: _blok_down
+            size_hint: None, None
+            pos: 0, 100
+            size: root.width, 10
+        # верх
+        Blok:
+            size_hint: None, None
+            pos: 10, root.height - 10
+            size: root.width, 10
+
+        BoxLayout:
+            size_hint_y: .15
+            orientation: 'vertical'
+
+            Button:
+                text: 'Переход к gameend'
+                on_release: root.manager.current = 'screen_gameend'
