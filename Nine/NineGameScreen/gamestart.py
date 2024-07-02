@@ -14,6 +14,14 @@ class GameStartScreen(Screen):
     """ Главный класс игры """
     print("screen-start")
 
+    # функция запускается призагрузке скрина
+    def on_enter(self, *args):
+        print("on_enter")
+
+    # функция запускается после выхода из скрина
+    def on_leave(self, *args):
+        print("on_leavel")
+
 
 class GamestartApp(App):
     print("App-start")
