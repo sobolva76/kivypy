@@ -8,12 +8,12 @@ from kivy.clock import Clock
 
 class Blok(Widget):
     """ Класс постоянных блоков блоков - стены, пол, потолок, и нижняя кайма """ 
-    print("blok")
+    print("blok-start")
 
 class GameStartScreen(Screen):
     """ Главный класс игры """
-    print("screen")
+    print("screen-start")
 
 
 class GamestartApp(App):
-    print("App")
+    print("App-start")

@@ -15,11 +15,11 @@ Config.set('graphics', 'resizable', '1')
 
 class BaseScreens(ScreenManager):
     """ Класс определяющий скрины, м kv указываем подключаемые скрины"""
-    pass
+    print("SM")
 
 class NineGameSApp(App):
     """ Главный класс загрузки """
-    pass
+    print("SM-App")
 
 
 if __name__ == "__main__":
