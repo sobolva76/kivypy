@@ -1,3 +1,14 @@
+# визуализация игрока 
+<Player>:
+    size_hint: None, None
+    size: 12, 12
+    canvas: 
+        Color:
+            rgba: 1, 0, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+
 # визуальное представление постоянных блоков(стен, пола, потолка)
 <Blok>:   
     size: 10, 10
@@ -8,43 +19,130 @@
             pos: self.pos
             size: self.size
 
+# создаем видимый образ аппонента
+<Apponent>:
+    size_hint: None, None
+    size: 12, 12
+    canvas:
+        Color:
+            rgba: 0, 1, 1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.size 
+
+# визуализация блока удаления аппонентов (необходимо сделать прозрачным)
+<Blok_stop>:
+    size_hint: None, None
+    size: 1, 1
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+# блок перехода между этажами
+<Blok_end>
+    size_hint: None, None
+    size: 10, 15
+    canvas:
+        Color:
+            rgba: 0, 0.3, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+# основные горизонтальные блоки
+<Blok_base>:
+    size_hint: None, None
+    size: 10, 10
+    canvas:
+        Color:
+            rgba: 1, 1, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+# кнопка управление персонажем
+<Move_button>:
+    size_hint: None, None
+    #size: 100, 30
+
 <GameStartScreen>:
     name: 'screen_gamestart'
+ 
+    # id постоянных блоков (левого, правого, пола)
+    blok_right: _blok_right
+    blok_left: _blok_left
+    blok_down: _blok_down 
 
-    FloatLayout:
-        # id постоянных блоков (левого, правого, пола)
-        blok_right: _blok_right
-        blok_left: _blok_left
-        blok_down: _blok_down
+    blok_stop: _blok_stop
 
-        # правая стена  
-        Blok:
-            id: _blok_right
-            size_hint: None, None
-            pos: root.width - 10, 100
-            size: 10, root.height
-        # левыя стена
-        Blok:
-            id: _blok_left
-            size_hint: None, None
-            pos: 0, 100
-            size: 10, root.height
-        # нижняя кайма
-        Blok:
-            id: _blok_down
-            size_hint: None, None
-            pos: 0, 100
-            size: root.width, 10
-        # верх
-        Blok:
-            size_hint: None, None
-            pos: 10, root.height - 10
-            size: root.width, 10
+    # id персонажа
+    player: _player
 
-        BoxLayout:
-            size_hint_y: .15
-            orientation: 'vertical'
+    btn_right: _btn_right
+    btn_left: _btn_left
+    btn_up: _btn_up
 
-            Button:
-                text: 'Переход к gameend'
-                on_release: root.manager.current = 'screen_gameend'
+    btn_screen_end: _btn_screen_end
+
+    # правая стена  
+    Blok:
+        id: _blok_right
+        size_hint: None, None
+        pos: root.width - 10, 100
+        size: 10, root.height
+    # левыя стена
+    Blok:
+        id: _blok_left
+        size_hint: None, None
+        pos: 0, 100
+        size: 10, root.height
+    # нижняя кайма
+    Blok:
+        id: _blok_down
+        size_hint: None, None
+        pos: 0, 100
+        size: root.width, 10
+    # верх
+    Blok:
+        size_hint: None, None
+        pos: 10, root.height - 10
+        size: root.width, 10
+    # блок - стоп для аппонента
+    Blok_stop:
+        id: _blok_stop
+        pos: 50, 115
+
+    # персонаж
+    Player:
+        id: _player
+        pos: 25, 115
+
+    RelativeLayout:
+        size_hint_y: .15
+        #orientation: 'vertical'
+
+        Move_button:
+            id: _btn_screen_end
+            text: 'Переход к gameend'
+            pos: 400, 0
+            #on_release: root.manager.current = 'screen_gameend'
+
+        # далее идут кнопки движения персонажа
+        # на право x=2
+        Move_button:
+            id: _btn_right
+            text: "move -> "
+            pos: 10, 0
+        # на лево x=-2
+        Move_button:
+            id: _btn_left
+            text: "<- move" 
+            pos: 200, 0
+        # прыжек
+        Move_button:
+            id: _btn_up
+            text: "^"
+            pos: 600, 0
