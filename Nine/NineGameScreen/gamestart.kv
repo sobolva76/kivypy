@@ -1,13 +1,20 @@
 # визуализация игрока 
 <Player>:
     size_hint: None, None
-    size: 12, 12
-    canvas: 
-        Color:
-            rgba: 1, 0, 1, 1
-        Ellipse:
-            pos: self.pos
-            size: self.size 
+    #size: 32, 32
+    #canvas: 
+        #Color:
+            #rgba: 1, 0, 1, 1
+        #Ellipse:
+            #pos: self.pos
+            #size: self.size 
+
+    AnimatingImage:
+        #id: invader_1
+        size: 32, 32
+        pos: self.pos
+        size: self.size
+        #center: root.width / 2, root.height / 2
 
 # визуальное представление постоянных блоков(стен, пола, потолка)
 <Blok>:   
@@ -146,3 +153,10 @@
             id: _btn_up
             text: "^"
             pos: 600, 0
+
+    AnimatingImage:
+        #id: invader_1
+        size_hint: None, None
+        size: 32, 32
+        pos: 300, 300
+        #center: root.width / 2, root.height / 2

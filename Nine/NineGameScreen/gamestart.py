@@ -6,6 +6,7 @@ from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 
 # подключение этажей
 # делать - или сюда подключать сотню файлов(можно через for)
@@ -13,6 +14,10 @@ from kivy.uix.button import Button
 # лучше - делать шаблон а в него считывать из файла данные
 import_test = "levels_1"
 import nineLevels.lev_1.levels_1 as levels
+
+class AnimatingImage(Image):
+    source = "atlas://invader/frame1"
+    print(source)
 
 
 class Player(Widget):
