@@ -1,7 +1,7 @@
 # визуализация игрока 
 <Player>:
     size_hint: None, None
-    #size: 32, 32
+    size: 32, 32
     #canvas: 
         #Color:
             #rgba: 1, 0, 1, 1
@@ -11,7 +11,7 @@
 
     AnimatingImage:
         #id: invader_1
-        size: 32, 32
+        #size: 32, 32
         pos: self.pos
         size: self.size
         #center: root.width / 2, root.height / 2
@@ -154,8 +154,9 @@
             text: "^"
             pos: 600, 0
 
-    AnimatingImage:
+    Image:
         #id: invader_1
+        source: "atlas://invader/frame1"
         size_hint: None, None
         size: 32, 32
         pos: 300, 300
