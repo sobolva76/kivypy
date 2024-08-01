@@ -16,8 +16,15 @@ import_test = "levels_1"
 import nineLevels.lev_1.levels_1 as levels
 
 class AnimatingImage(Image):
-    source = "atlas://invader/frame1"
-    print(source)
+
+    def __init__(self, **kwargs):
+        super(AnimatingImage, self).__init__(**kwargs)
+
+        self.source = "atlas://invader/frame1"
+    #test_textures = "atlas://invader/frame1"
+    #print(textures.test_textures)
+    #pass
+   
 
 
 class Player(Widget):
@@ -78,6 +85,8 @@ class Blok_base(Widget):
 
 class GameStartScreen(Screen):
     """ Главный класс игры """
+
+    #invader = ObjectProperty(None)
 
     # переменная в которую записываем текущую коллизию (последний блок на котором был персонаж)
     # она нужна при проверки на удержание клавиши прыжка
