@@ -27,11 +27,13 @@ class AnimatingImage(Image):
    
 
 
-class Player(Widget):
+class Player(Image):
     """ класс персонажа имеет скорость движения по осям, имя и функцию движения """
 
     def __init__(self, **kwargs):
         super(Player, self).__init__(**kwargs)
+        
+        self.source = "atlas://invader/frame1"
 
     vel_player_x = NumericProperty(0)
     vel_player_y = NumericProperty(0)
