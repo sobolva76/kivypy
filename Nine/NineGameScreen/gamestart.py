@@ -26,13 +26,21 @@ class AnimatingImage(Image):
     #pass
    
 
-
+# Для работы с атлосом и картинками, также анимацией пробуем - 
+# меняем на Image
+# далее создаем функциюобработки картинки и анимации
+# далее создаем функцию в центральном виджите - где для player- вызываем функцию
+# обработки изображения (в kv файле присвиваем id-player и по нему обращаемся)
 class Player(Image):
     """ класс персонажа имеет скорость движения по осям, имя и функцию движения """
 
     def __init__(self, **kwargs):
         super(Player, self).__init__(**kwargs)
         
+        #self.source = "atlas://invader/frame1"
+
+    def anim_init(self):
+        """функция работы с картинкой и анимацией"""
         self.source = "atlas://invader/frame1"
 
     vel_player_x = NumericProperty(0)
@@ -99,6 +107,10 @@ class GameStartScreen(Screen):
 
     # инициализация игрока 
     player = ObjectProperty(None)
+
+    def anim_player(self):
+        """функция привязки картинки и анимации к создаваемому объекту"""
+        self.player.anim_init()
 
     # создание постоянных неизменяемых блоков
     blok_right = ObjectProperty(None)# стена
@@ -392,6 +404,9 @@ class GameStartScreen(Screen):
         # определение скорости персонажа
         self.player.vel_player_y = -2
         #print("player", self.player)
+        
+        # вызываем функцию обработки анимации для персонажа
+        self.anim_player()
 
         # инициализация блоков
         # инициализируем постоянные блоки - пол и стены
