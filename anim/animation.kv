@@ -2,8 +2,15 @@
 
 <AnimationScreen>:
     invader: invader_1
+    player: _player
 
     AnimatingImage:
         id: invader_1
-        size: 32, 32
+        size: 24, 24
         center: root.width / 2, root.height / 2
+
+    Png_Image:
+        id: _player
+        size_hint: None, None
+        size: 128, 128
+        pos: 100, 100
